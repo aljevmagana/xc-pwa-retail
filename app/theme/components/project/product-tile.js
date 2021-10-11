@@ -9,7 +9,12 @@ import { textDecoration } from "@chakra-ui/styled-system";
 export default {
     baseStyle: (props) => ({
         container: {
-            position: 'relative'
+            position: 'relative',
+            _hover: {
+                '.plp-overlay-container': {
+                    display:"block"
+                }
+            }
         },
         iconButton: {
             position: 'absolute',
@@ -21,6 +26,9 @@ export default {
             borderBottom: "2px solid #495057",
             _hover: {
                 borderBottom: "2px solid #6e2ed5",
+                img: {
+                    transition: "opacity 0.3s",
+                }
             }
         },
         image: {
@@ -55,8 +63,60 @@ export default {
             
 
         },
+        productOverlay: {
+            display:"none",
+            top: "45%",
+            position: "absolute",
+            textAlign: "center",
+            width: "100%",
+        },
+        productOverlayButton: {
+            backgroundColor: "#fff",
+            borderRadius: "0",
+            color: "#fff",
+            cursor: "pointer",
+            backgroundColor: "#343a40",
+            borderColor: "#343a40",
+            fontSize: "0.6875rem",
+            width: "auto",
+            paddingLeft: "2rem",
+            paddingRight: "2rem",
+            textTransform: "uppercase",
+            fontWeight: "bold",
+            letterSpacing: ".3em",
+            marginLeft: ".5rem",
+            marginRight: ".5rem",
+            transform: "none !important", opacity: "1 !important",
+            transition: "color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out",
+            _hover: {
+                color: "#fff",
+                backgroundColor: "#23272b",
+                borderColor: "#1d2124"
+            },
+            p: {
+                marginLeft:"0.5rem !important"
+            }
+        },
+        productOverlayButtonOutline: {
+            backgroundColor: "#fff",
+            color: "#343a40",
+            border: "1px solid transparent",
+            borderColor: "#343a40",
+            textTransform: "uppercase",
+            fontWeight: "bold",
+            letterSpacing: ".3em",
+            lineHeight: [1, 1.5],
+            padding: "0.6rem 0.75rem",
+            fontSize: "0.6875rem",
+            borderRadius: "0",
+            transition: "color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out",
+            _hover: {
+                backgroundColor: "#343a40",
+                color:"#fff"
+            }
+        },
         rating: {},
         variations: {}
     }),
-    parts: ['container', 'imageWrapper', 'image', 'price', 'title', 'rating', 'variations']
+    parts: ['container', 'imageWrapper', 'image', 'price', 'title', 'productOverlay', 'rating', 'variations']
 }
