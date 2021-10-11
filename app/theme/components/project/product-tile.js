@@ -1,3 +1,5 @@
+import { textDecoration } from "@chakra-ui/styled-system";
+
 /*
  * Copyright (c) 2021, salesforce.com, inc.
  * All rights reserved.
@@ -16,14 +18,42 @@ export default {
             opacity: `${props.isLoading ? 0.5 : 1}`
         },
         imageWrapper: {
-            marginBottom: 2
+            borderBottom: "2px solid #495057",
+            _hover: {
+                borderBottom: "2px solid #6e2ed5",
+            }
         },
         image: {
-            paddingBottom: 2
         },
-        price: {},
+        price: {
+            color: "#868e96 !important",
+            margin: "0",
+            fontFamily: "HK Grotesk, sans-serif",
+            fontSize: "0.9rem",
+            fontWeight: "400",
+            lineHeight: "1.5",
+            textAlign: "left",
+            backgroundColor: "#fff"
+        },
+        categoryname: {
+            fontSize: "0.7875rem",
+            color: "#868e96 !important",
+            marginBottom: "0.25rem !important"
+        },
+        producttext: {
+            padding: "0.5rem 0 0.5rem"
+        },
         title: {
-            fontWeight: 600
+            
+
+                fontSize:'0.9rem',
+                fontWeight: '700',
+                color:'#343a40 !important',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                textDecoration: 'none'
+            
+
         },
         rating: {},
         variations: {}

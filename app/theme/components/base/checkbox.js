@@ -13,11 +13,11 @@ export default {
         control: {
             marginTop: '2px',
             _checked: {
-                backgroundColor: 'blue.600',
-                borderColor: 'blue.600',
+                backgroundColor: 'gray.900',
+                borderColor: 'gray.900',
                 _hover: {
-                    bg: 'blue.700',
-                    borderColor: 'blue.700'
+                    bg: 'gray.900',
+                    borderColor: 'gray.900'
                 }
             }
         }

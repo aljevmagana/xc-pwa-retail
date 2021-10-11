@@ -6,15 +6,19 @@
  */
 
 import React from 'react'
-import {Stack, Text} from '@chakra-ui/react'
+import {Stack, Text, useMultiStyleConfig} from '@chakra-ui/react'
 import PropTypes from 'prop-types'
 import Link from '../../../components/link'
 
 const LinkRefinements = ({filter}) => {
+    const styles = useMultiStyleConfig('LinksList', {
+        variant: 'vertical',
+    })
     return (
         <Stack spacing={1}>
             {filter.values.map((value) => {
                 return (
+                    <>
                     <Link
                         display="flex"
                         alignItems="center"
@@ -22,9 +26,11 @@ const LinkRefinements = ({filter}) => {
                         key={value.value}
                         href={`/category/${value.value}`}
                         useNavLink
+                        {...styles}
                     >
                         <Text fontSize="sm">{value.label}</Text>
                     </Link>
+                    </>
                 )
             })}
         </Stack>

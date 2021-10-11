@@ -5,35 +5,71 @@
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import React, {Fragment} from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import {isServer} from '../../../utils/utils'
+import { isServer } from '../../../utils/utils'
 // Components
-import {Box, Heading, Flex, Text, Fade} from '@chakra-ui/react'
+import { AspectRatio, Box, Heading, Image, Flex, Text, Fade, Spacer, Stack, useMultiStyleConfig } from '@chakra-ui/react'
 
+// Utilities
+import { getAssetUrl } from 'pwa-kit-react-sdk/ssr/universal/utils'
+
+//Image
+const imageBanner = getAssetUrl('static/img/photo/erii-gutierrez-487083-unsplash.jpg');
 // Project Components
 import Breadcrumb from '../../../components/breadcrumb'
 
-const PageHeader = ({category, productSearchResult, isLoading, searchQuery, ...otherProps}) => {
+const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...otherProps }) => {
+    const styles = useMultiStyleConfig('PlpHeading', {
+        variant: 'plpHeadingImage',
+    })
+
     return (
-        <Box {...otherProps} data-testid="sf-product-list-breadcrumb">
+        <Box width="100%" {...otherProps} data-testid="sf-product-list-breadcrumb">
+            <Spacer />
+
+            <>
+                <Box>
+                    <AspectRatio ratio={32/9}>
+                        <Box>
+                            <Box style={{position:"absolute", zIndex:"1"}}>
+                                <Stack>
+                                <Flex align="center" justify="center">
+                                    {' Home / ', category && <Breadcrumb categories={category.parentCategoryTree} />}
+                                    {searchQuery && <Text>Search Results for</Text>}
+                                </Flex>
+                                {/* Category Title */}
+                                <Flex color="white" align="center" justify="center">
+                                    <Heading variant="plpHeading">
+                                        {`${category?.name || searchQuery || ''}`}
+                                    </Heading>
+                                    {/* <Heading as="h2" size="lg" marginRight={2}>
+                                            {isServer ? (
+                                                <Fragment>({productSearchResult?.total})</Fragment>
+                                            ) : (
+                                                // Fade in the total when available. When it's changed or not available yet, do not render it
+                                                !isLoading && <Fade in={true}>({productSearchResult?.total})</Fade>
+                                            )}
+                                        </Heading> 
+                                    */}
+                                </Flex>
+                                <Flex color="white !important" align="center" justify="center">
+                                    <>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</>
+                                </Flex>
+                                </Stack>                            
+                            </Box>
+                            <Box {...styles}>
+                            <Image src={imageBanner} alt="categoryBanner" objectFit="cover" />
+                            </Box>
+                        </Box>
+                    </AspectRatio>
+
+                </Box>
+            </>
+
             {/* Breadcrumb */}
-            {category && <Breadcrumb categories={category.parentCategoryTree} />}
-            {searchQuery && <Text>Search Results for</Text>}
-            {/* Category Title */}
-            <Flex>
-                <Heading as="h2" size="lg" marginRight={2}>
-                    {`${category?.name || searchQuery || ''}`}
-                </Heading>
-                <Heading as="h2" size="lg" marginRight={2}>
-                    {isServer ? (
-                        <Fragment>({productSearchResult?.total})</Fragment>
-                    ) : (
-                        // Fade in the total when available. When it's changed or not available yet, do not render it
-                        !isLoading && <Fade in={true}>({productSearchResult?.total})</Fade>
-                    )}
-                </Heading>
-            </Flex>
+
+
         </Box>
     )
 }

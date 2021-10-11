@@ -36,16 +36,17 @@ const Breadcrumb = ({categories, ...rest}) => {
     return (
         <ChakraBreadcrumb
             className="sf-breadcrumb"
-            {...styles.container}
-            separator={<ChevronRightIcon {...styles.icon} />}
+            {...styles.plpContainer}
+            /* separator={<ChevronRightIcon {...styles.icon} />} */
+            separator={'/'}
             {...rest}
         >
             {categories.map((category) => (
-                <ChakraBreadcrumbItem key={category.id} data-testid="sf-crumb-item">
+                <ChakraBreadcrumbItem {...styles.plpListItem} key={category.id} data-testid="sf-crumb-item">
                     <ChakraBreadcrumbLink
                         as={RouteLink}
                         to={categoryUrlBuilder(category, intl.locale)}
-                        {...styles.link}
+                        {...styles.plpLink}
                     >
                         {category.name}
                     </ChakraBreadcrumbLink>

@@ -17,7 +17,7 @@ const ColorRefinements = ({filter, toggleFilter, selectedFilters}) => {
     })
 
     return (
-        <SimpleGrid columns={2} spacing={2} mt={1}>
+        <SimpleGrid columns={6} spacing={2} mt={1}>
             {filter.values
                 .filter((refinementValue) => refinementValue.hitCount > 0)
                 .map((value, idx) => {
@@ -41,7 +41,7 @@ const ColorRefinements = ({filter, toggleFilter, selectedFilters}) => {
                                             ? 'black'
                                             : 'gray.200'
                                     }
-                                    border={selectedFilters?.includes(value.value) ? '1px' : '0'}
+                                    border={selectedFilters?.includes(value.value) ? '1px' : '1px'}
                                     aria-checked={selectedFilters?.includes(value.value)}
                                     variant="outline"
                                     marginRight={0}
@@ -59,7 +59,7 @@ const ColorRefinements = ({filter, toggleFilter, selectedFilters}) => {
                                             marginRight={0}
                                             height="100%"
                                             width="100%"
-                                            minWidth="32px"
+                                            minWidth="28px"
                                             backgroundRepeat="no-repeat"
                                             backgroundSize="cover"
                                             backgroundColor={
@@ -73,12 +73,12 @@ const ColorRefinements = ({filter, toggleFilter, selectedFilters}) => {
                                         />
                                     </Center>
                                 </Button>
-                                <Text
+                                {/* <Text
                                     display="flex"
                                     alignItems="center"
                                     fontSize="sm"
                                     marginBottom="1px"
-                                >{`${value.label} (${value.hitCount})`}</Text>
+                                >{`${value.label} (${value.hitCount})`}</Text> */}
                             </HStack>
                         </Box>
                     )
