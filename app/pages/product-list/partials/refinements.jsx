@@ -37,8 +37,6 @@ const componentMap = {
 const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
     // Getting the indices of filters to open accordions by default
     let filtersIndexes = filters?.map((filter, idx) => idx)
-    console.log("filtersIndexes");
-    console.log(filters);
 
     // Use saved state for accordions
     if (!isServer) {
