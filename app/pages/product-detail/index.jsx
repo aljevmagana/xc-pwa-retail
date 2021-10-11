@@ -10,17 +10,34 @@ import PropTypes from 'prop-types'
 import {Helmet} from 'react-helmet'
 import {FormattedMessage, useIntl} from 'react-intl'
 import useNavigation from '../../hooks/use-navigation'
+import {StarIcon} from '@chakra-ui/icons'
 
 // Components
 import {
-    Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    AccordionIcon,
+    Avatar,
     Box,
     Button,
-    Stack
+    ButtonGroup,
+    Center,
+    Container,
+    Flex,
+    FormControl,
+    FormLabel,
+    Heading,
+    Input,
+    Tabs,
+    TabList,
+    TabPanels,
+    Tab,
+    TabPanel,
+    Textarea,
+    Text,
+    Select,
+    SimpleGrid,
+    Stack,
+    StackDivider,
+    VStack,
+    HStack
 } from '@chakra-ui/react'
 
 // Hooks
@@ -186,11 +203,29 @@ const ProductDetail = ({category, product, isLoading}) => {
         history.replace(updatedUrl)
     }, [variant])
 
+    const temporaryReviews= [{
+        name:"Han Solo",
+        rating:"4",
+        reviewText:"a falcon every thousand years",
+        image:"",
+        date:"OCT 2021"
+    },{
+        name:"Luke Skywalker",
+        rating:"5",
+        reviewText:"Not your son",
+        image:"",
+        date:"OCT 2021"
+    }]
+
     return (
         <Box
             className="sf-product-detail-page"
             layerStyle="page"
             data-testid="product-details-page"
+            justifyContent="center"
+            pt="7.5%"
+            pl="5%"
+            pr="5%"
         >
             <Helmet>
                 <title>{product?.pageTitle}</title>
@@ -207,83 +242,130 @@ const ProductDetail = ({category, product, isLoading}) => {
                     isCustomerProductListLoading={customerProductLists.showLoader}
                 />
 
-                {/* Information Accordion */}
-                <Stack direction="row" spacing={[0, 0, 0, 16]}>
-                    <Accordion allowMultiple allowToggle maxWidth={'896px'} flex={[1, 1, 1, 5]}>
-                        {/* Details */}
-                        <AccordionItem>
-                            <h2>
-                                <AccordionButton height="64px">
-                                    <Box flex="1" textAlign="left" fontWeight="bold" fontSize="lg">
-                                        {formatMessage({
-                                            defaultMessage: 'Product Detail'
-                                        })}
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel mb={6} mt={4}>
+                {/* Information Tabs */}
+                <Center>
+                <Stack direction="row" w="100%" align="center">
+                    <Tabs w="80%">
+                        <TabList>
+                            {/* Details */}
+                            <Tab>Description</Tab>
+                            {/* Size & Fit */}
+                            <Tab>Additional Information</Tab>
+                            {/* Reviews */}
+                            <Tab>Reviews</Tab>
+                        </TabList>
+                        <TabPanels>
+                            <TabPanel mb={6} mt={4}>
                                 <div
                                     dangerouslySetInnerHTML={{
                                         __html: product?.longDescription
                                     }}
                                 />
-                            </AccordionPanel>
-                        </AccordionItem>
-
-                        {/* Size & Fit */}
-                        <AccordionItem>
-                            <h2>
-                                <AccordionButton height="64px">
-                                    <Box flex="1" textAlign="left" fontWeight="bold" fontSize="lg">
-                                        {formatMessage({
-                                            defaultMessage: 'Size & Fit'
-                                        })}
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel mb={6} mt={4}>
+                            </TabPanel>
+                            <TabPanel mb={6} mt={4}>
                                 {formatMessage({defaultMessage: 'Coming Soon'})}
-                            </AccordionPanel>
-                        </AccordionItem>
+                            </TabPanel>
+                            <TabPanel mb={6} mt={4}>
+                                <VStack
+                                  divider={<StackDivider borderColor="gray.200" />}
+                                  spacing={4}
+                                  align="stretch"
+                                  > 
+                                {temporaryReviews.map((r, i)  => {
+                                    return(<>
 
-                        {/* Reviews */}
-                        <AccordionItem>
-                            <h2>
-                                <AccordionButton height="64px">
-                                    <Box flex="1" textAlign="left" fontWeight="bold" fontSize="lg">
-                                        {formatMessage({
-                                            defaultMessage: 'Reviews'
-                                        })}
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel mb={6} mt={4}>
-                                Coming Soon
-                            </AccordionPanel>
-                        </AccordionItem>
-
-                        {/* Questions */}
-                        <AccordionItem>
-                            <h2>
-                                <AccordionButton height="64px">
-                                    <Box flex="1" textAlign="left" fontWeight="bold" fontSize="lg">
-                                        {formatMessage({
-                                            defaultMessage: 'Questions'
-                                        })}
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel mb={6} mt={4}>
-                                Coming Soon
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </Accordion>
+                                        <Box maxW="lg" overflow="hidden" id={r.name + i}>
+                                            <HStack>
+                                                <Box alignItems="center" textAlign="center">
+                                                    <Avatar name={r.name} size="lg"  src="https://bit.ly/broken-link" />
+                                                    <Text fontSize="14" mt="1">{r.date}</Text>
+                                                </Box>
+                                                <Box m="5" >
+                                                    <Heading m="5" mb="0" as="h4" size="md">{r.name}</Heading>
+                                                    <Box display="flex" ml="5" mt="1">
+                                                                {Array(5)
+                                                                    .fill("")
+                                                                    .map((_, i) => (
+                                                                    <StarIcon
+                                                                        boxSize="3"
+                                                                        key={i}
+                                                                        color={i < r.rating ? "yellow.500" : "gray.300"}
+                                                                        m="0.9"
+                                                                        
+                                                                    />
+                                                                    ))}
+                                                            </Box>
+                                                    <Text m="5" mt="2">{r.reviewText}</Text>
+                                                </Box>
+                                            </HStack>
+                                        </Box>
+                                    </>
+                                )})}
+                                    <Stack spacing={4}>
+                                            <h1>
+                                                <b>Leave a Review</b>
+                                            </h1>
+                                            <Box
+                                                color="gray.500"
+                                                fontWeight="normal"
+                                                letterSpacing="wide"
+                                                fontSize="xs"
+                                                textTransform="uppercase"
+                                                ml="2"
+                                            >
+                                                <form>
+                                                <Stack spacing={4}>
+                                                    <SimpleGrid columns={2} spacing={10}>
+                                                        <Box>
+                                                            <FormControl isRequired>
+                                                                <FormLabel>Your Name</FormLabel>
+                                                                <Input placeholder="Enter your name" />
+                                                            </FormControl>
+                                                        </Box>
+                                                        <Box>
+                                                        <div>Your Rating * </div>
+                                                            <Select width="20%">
+                                                                <option value="star5">5 Stars</option>
+                                                                <option value="star4">4 Stars</option>
+                                                                <option value="star3">3 Stars</option>
+                                                                <option value="star2">2 Stars</option>
+                                                                <option value="star1">1 Stars</option>
+                                                            </Select>
+                                                        </Box>
+                                                    </SimpleGrid>
+                                                    <FormControl isRequired>
+                                                        <FormLabel>Your Email</FormLabel>
+                                                        <Input placeholder="Enter your email" />
+                                                    </FormControl>
+                                                    <FormControl isRequired>
+                                                        <FormLabel>Review Text</FormLabel>
+                                                        <Textarea placeholder="Enter your review" />
+                                                    </FormControl>
+                                                    <ButtonGroup variant="outline">
+                                                        <Button 
+                                                        color="gray" 
+                                                        width="125px"  
+                                                        type="submit"
+                                                        _hover={{
+                                                            background: "gray",
+                                                            color: "white",
+                                                          }}
+                                                        >
+                                                            Post Review
+                                                        </Button>
+                                                    </ButtonGroup>
+                                                </Stack>
+                                                </form>
+                                            </Box>
+                                    </Stack>
+                                </VStack>
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
                     <Box display={['none', 'none', 'none', 'block']} flex={4}></Box>
                 </Stack>
+                </Center>
+                
 
                 {/* Product Recommendations */}
                 <Stack spacing={16}>
