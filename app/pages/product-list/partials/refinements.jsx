@@ -20,6 +20,7 @@ import PropTypes from 'prop-types'
 import ColorRefinements from './color-refinements'
 import SizeRefinements from './size-refinements'
 import RadioRefinements from './radio-refinements'
+import PriceRangeRefinements from './pricerange-refinements'
 import CheckboxRefinements from './checkbox-refinements'
 import LinkRefinements from './link-refinements'
 import {isServer} from '../../../utils/utils'
@@ -29,12 +30,15 @@ const componentMap = {
     cgid: LinkRefinements,
     c_refinementColor: ColorRefinements,
     c_size: SizeRefinements,
-    price: RadioRefinements
+    price: RadioRefinements,
+    /* price: PriceRangeRefinements */
 }
 
 const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
     // Getting the indices of filters to open accordions by default
     let filtersIndexes = filters?.map((filter, idx) => idx)
+    console.log("filtersIndexes");
+    console.log(filters);
 
     // Use saved state for accordions
     if (!isServer) {

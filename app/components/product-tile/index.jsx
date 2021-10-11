@@ -12,13 +12,16 @@ import {WishlistIcon, WishlistSolidIcon} from '../icons'
 // Components
 import {
     AspectRatio,
+    Badge,
     Box,
+    Flex,
+    Grid,
     Img,
+    IconButton,
     Skeleton as ChakraSkeleton,
-    Text,
     Stack,
+    Text,
     useMultiStyleConfig,
-    IconButton
 } from '@chakra-ui/react'
 
 // Hooks
@@ -38,7 +41,7 @@ export const Skeleton = () => {
         <Box data-testid="sf-product-tile-skeleton">
             <Stack spacing={2}>
                 <Box {...styles.imageWrapper}>
-                    <AspectRatio ratio={1} {...styles.image}>
+                    <AspectRatio ratio={4/3} {...styles.image}>
                         <ChakraSkeleton />
                     </AspectRatio>
                 </Box>
@@ -58,6 +61,7 @@ const ProductTile = (props) => {
 
     // eslint-disable-next-line react/prop-types
     const {
+        category,
         productSearchItem,
         // eslint-disable-next-line react/prop-types
         staticContext,
@@ -71,60 +75,84 @@ const ProductTile = (props) => {
     const styles = useMultiStyleConfig('ProductTile', {isLoading: isWishlistLoading})
 
     return (
-        <Link
-            data-testid="product-tile"
-            {...styles.container}
-            to={productUrlBuilder({id: productSearchItem?.productId}, intl.local)}
-            {...rest}
-        >
-            <Box {...styles.imageWrapper}>
-                <AspectRatio {...styles.image} ratio={1}>
-                    <Img alt={image.alt} src={image.disBaseLink} />
-                </AspectRatio>
-                {onAddToWishlistClick && onRemoveWishlistClick && (
-                    <>
-                        {isInWishlist ? (
-                            <IconButton
-                                aria-label={intl.formatMessage({
-                                    defaultMessage: 'wishlist-solid'
-                                })}
-                                icon={<WishlistSolidIcon />}
-                                variant="unstyled"
-                                {...styles.iconButton}
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    if (isWishlistLoading) return
-                                    onRemoveWishlistClick()
-                                }}
-                            />
-                        ) : (
-                            <IconButtonWithRegistration
-                                aria-label={intl.formatMessage({
-                                    defaultMessage: 'wishlist'
-                                })}
-                                icon={<WishlistIcon />}
-                                variant="unstyled"
-                                {...styles.iconButton}
-                                onClick={() => {
-                                    if (isWishlistLoading) return
-                                    onAddToWishlistClick()
-                                }}
-                            />
+
+        <Grid>
+            
+                <Link
+                    data-testid="product-tile"
+                    {...styles.container}
+                    to={productUrlBuilder({id: productSearchItem?.productId}, intl.local)}
+                    {...rest}
+                    >
+
+
+                    <Box {...styles.imageWrapper}>
+                        <Badge variant="plpBadge">Fresh</Badge>
+                        <AspectRatio {...styles.image} ratio={9/14}>
+                            <>
+                            <Img alt={image.alt} src={image.disBaseLink} />
+                            </>
+                        </AspectRatio>
+                        
+                        {onAddToWishlistClick && onRemoveWishlistClick && (
+                            <>
+                                {isInWishlist ? (
+                                    <IconButton
+                                        aria-label={intl.formatMessage({
+                                            defaultMessage: 'wishlist-solid'
+                                        })}
+                                        icon={<WishlistSolidIcon />}
+                                        variant="unstyled"
+                                        {...styles.iconButton}
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            if (isWishlistLoading) return
+                                            onRemoveWishlistClick()
+                                        }}
+                                    />
+                                ) : (
+                                    <IconButtonWithRegistration
+                                        aria-label={intl.formatMessage({
+                                            defaultMessage: 'wishlist'
+                                        })}
+                                        icon={<WishlistIcon />}
+                                        variant="unstyled"
+                                        {...styles.iconButton}
+                                        onClick={() => {
+                                            if (isWishlistLoading) return
+                                            onAddToWishlistClick()
+                                        }}
+                                    />
+                                )}
+                            </>
                         )}
-                    </>
-                )}
-            </Box>
+                    </Box>
 
-            {/* Title */}
-            <Text {...styles.title} aria-label="product name">
-                {productName}
-            </Text>
+                
+                </Link>
+                
+                <Box {...styles.producttext}>
+                {/* Price */}
+                <Text {...styles.categoryname} aria-label="cateogry name">
+                    {category}
+                </Text>
 
-            {/* Price */}
-            <Text {...styles.price} aria-label="price">
-                {intl.formatNumber(price, {style: 'currency', currency})}
-            </Text>
-        </Link>
+                <Link>
+                    {/* Title */}
+                    <Text {...styles.title} aria-label="product name">
+                        {productName}
+                    </Text>
+                </Link>
+
+                {/* Price */}
+                <Text {...styles.price} aria-label="price">
+                    {intl.formatNumber(price, {style: 'currency', currency})}
+                </Text>
+                </Box>
+
+        </Grid>
+        
+        
     )
 }
 

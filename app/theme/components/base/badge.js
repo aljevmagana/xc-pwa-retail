@@ -20,6 +20,22 @@ export default {
             border: '1px solid',
             borderColor: 'white',
             borderRadius: 'full'
+        },
+        plpBadge: {
+            backgroundColor: '#17a2b8 !important',
+            position: 'absolute',
+            top: '10px',
+            left: '-11px',
+            zIndex: '999',
+            display: 'inline-block',
+            letterSpacing: '.3rem',
+            padding: '3px 15px 5px',
+            color: '#fff',
+            textAlign: 'center',
+            fontFamily: "HK Grotesk, sans-serif",
+            _before: {
+                content: "''", borderLeft: "12px solid transparent", borderRight: "0 solid transparent", borderTop: "14px solid #6227c3", position: "absolute", bottom: "-14px", left: "0"
+            }
         }
     }
 }

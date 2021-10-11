@@ -13,11 +13,11 @@ export default {
         control: {
             backgroundColor: 'white',
             _checked: {
-                backgroundColor: 'blue.600',
-                borderColor: 'blue.600',
+                backgroundColor: 'gray.900',
+                borderColor: 'gray.900',
                 _hover: {
-                    backgroundColor: 'blue.700',
-                    borderColor: 'blue.700'
+                    backgroundColor: 'gray.700',
+                    borderColor: 'gray.700'
                 }
             },
             _indeterminate: {}

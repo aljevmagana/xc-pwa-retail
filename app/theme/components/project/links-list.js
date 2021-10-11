@@ -27,7 +27,21 @@ export default {
         }
     },
     variants: {
-        vertical: {},
+        vertical: {
+            display: "block",
+            padding: "0.5rem 1rem",
+            marginBottom: "0.5rem !important",
+            _hover: {
+                color: "#212529",
+                backgroundColor: "#e9ecef"
+            },
+            _active: {
+                backgroundColor: "#e9ecef"
+            },
+            _focus: {
+                backgroundColor: "#e9ecef"
+            }
+        },
         horizontal: {
             listItem: {
                 borderLeft: '1px solid',

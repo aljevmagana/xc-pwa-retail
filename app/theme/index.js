@@ -37,7 +37,9 @@ import Popover from './components/base/popover'
 // Project Component style overrides
 import App from './components/project/_app'
 import Breadcrumb from './components/project/breadcrumb'
+import CustomBadge from './components/project/custom-badge'
 import Header from './components/project/header'
+import Heading from './components/project/heading'
 import ListMenu from './components/project/list-menu'
 import Footer from './components/project/footer'
 import CheckoutFooter from './components/project/checkout-footer'
@@ -47,7 +49,9 @@ import NestedAccordion from './components/project/nested-accordion'
 import LocaleSelector from './components/project/locale-selector'
 import OfflineBanner from './components/project/offline-banner'
 import Pagination from './components/project/pagination'
+import PlpHeading from './components/project/plp-heading'
 import ProductTile from './components/project/product-tile'
+import ProductList from './foundations/product-list'
 import SocialIcons from './components/project/social-icons'
 import SwatchGroup from './components/project/swatch-group'
 import ImageGallery from './components/project/image-gallery'
@@ -86,7 +90,9 @@ const overrides = {
         // project components
         App,
         Breadcrumb,
+        CustomBadge,
         Header,
+        Heading,
         Footer,
         CheckoutFooter,
         LinksList,
@@ -97,6 +103,8 @@ const overrides = {
         OfflineBanner,
         SocialIcons,
         Pagination,
+        PlpHeading,
+        ProductList,
         ProductTile,
         SwatchGroup,
         ImageGallery

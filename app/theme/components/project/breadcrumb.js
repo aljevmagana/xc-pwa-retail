@@ -10,6 +10,9 @@ export default {
             minHeight: 4,
             fontSize: 'sm'
         },
+        plpContainer:{
+            fontSize: "0.7875rem", display: "flex", MsFlexWrap: "wrap", flexWrap: "wrap", padding: "2rem 0", marginBottom: "0", listStyle: "none", backgroundColor: "transparent", borderRadius: "0"
+        },
         icon: {
             display: 'flex',
             boxSize: 4,
@@ -18,6 +21,16 @@ export default {
         link: {
             paddingTop: 3,
             paddingBottom: 3
+
+        },
+        plpLink: {
+            paddingLeft: "0.5rem",
+            color: "white !important"
+            
+        },
+        plpListItem: {
+            color: "white !important"
+            
         }
     },
     parts: ['container', 'icon', 'link']

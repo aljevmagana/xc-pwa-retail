@@ -33,14 +33,15 @@ export default {
     variants: {
         circle: (props) => ({
             swatch: {
-                height: 11,
-                width: 11,
+                height: '2rem',
+                width: '2rem',
                 borderRadius: 'full',
                 padding: 1,
                 cursor: 'pointer',
                 marginRight: 2,
                 marginLeft: 0,
                 marginBottom: 2,
+                minWidth:'0px !important',
                 color: `${props.selected ? 'black' : 'gray.200'}`,
                 border: `${props.selected ? '1px' : '0'}`,
                 _hover: {
@@ -63,11 +64,11 @@ export default {
                 }
             },
             swatchButton: {
-                height: 8,
+                height: '20px',
                 borderColor: 'gray.200',
-                width: 8,
+                width: '20px',
                 overflow: 'hidden',
-                borderRadius: 'full',
+                borderRadius: '50%',
                 minWidth: 'auto',
                 opacity: 1,
                 _focus: {
