@@ -18,11 +18,19 @@ import {
     Box,
     Text,
     VStack,
+    HStack,
     Select,
     Fade,
     useDisclosure,
-    useTheme
+    useTheme,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
 } from '@chakra-ui/react'
+
+import {StarIcon} from '@chakra-ui/icons'
 
 import {useProduct} from '../../hooks'
 
@@ -38,30 +46,56 @@ import {Skeleton as ImageGallerySkeleton} from '../../components/image-gallery'
 import AddToCartModal from '../../components/add-to-cart-modal'
 import RecommendedProducts from '../../components/recommended-products'
 import {HideOnDesktop, HideOnMobile} from '../../components/responsive'
+import {BasketIcon, WishlistIcon, WishlistSolidIcon} from '../../components/icons'
 
-const ProductViewHeader = ({name, price, currency, category}) => {
+const ProductViewHeader = ({name, price, currency, category, description}) => {
     const intl = useIntl()
+    const tempReviews ={
+        reviewCount: 25,
+        rating: 4,
+    }
     return (
-        <VStack mr={4} spacing={2} align="flex-start" marginBottom={[4, 4, 4, 0, 0]}>
+        <VStack spacing={2} align="flex-start" marginBottom={[4, 4, 4, 0, 0]}>
             {category && (
-                <Skeleton isLoaded={category} width={64}>
+                <Skeleton isLoaded={category}>
                     <Breadcrumb categories={category} />
                 </Skeleton>
             )}
 
             {/* Title */}
             <Skeleton isLoaded={name}>
-                <Heading fontSize="2xl">{`${name}`}</Heading>
+                <Heading fontSize="4xl">{`${name}`}</Heading>
             </Skeleton>
 
             {/* Price */}
-            <Skeleton isLoaded={price} width={32}>
-                <Text fontWeight="bold" fontSize="md" aria-label="price">
-                    {intl.formatNumber(price, {
-                        style: 'currency',
-                        currency: currency || DEFAULT_CURRENCY
-                    })}
-                </Text>
+            <Skeleton isLoaded={price}>
+                <HStack>
+                    <Text fontWeight="normal" fontSize="lg" aria-label="price">
+                        {intl.formatNumber(price, {
+                            style: 'currency',
+                            currency: currency || DEFAULT_CURRENCY
+                        })}
+                    </Text>
+                    <Box display="flex" mt="2" alignItems="center" pl="30%" pr="20%">
+                        {Array(5)
+                            .fill("")
+                            .map((_, i) => (
+                            <StarIcon
+                                key={i}
+                                color={i < tempReviews.rating ? "purple.500" : "gray.300"}
+                                m="0.9"
+                            />
+                            ))}
+                        <Box color="gray.600" fontSize="sm" w="100px" pl="5px">
+                            {tempReviews.reviewCount} REVIEWS
+                        </Box>
+                    </Box>
+                </HStack>
+                <Skeleton isLoaded={description}>
+                    <Box mt="10px" textAlign="left" fontSize="14px">
+                        <div>{description}</div>
+                    </Box>
+                </Skeleton>
             </Skeleton>
         </VStack>
     )
@@ -145,13 +179,17 @@ const ProductView = ({
                     key="cart-button"
                     onClick={handleCartItem}
                     disabled={!canOrder}
-                    width="100%"
+                    width="175px"
                     variant="solid"
                     marginBottom={4}
+                    colorScheme="blackAlpha"
+                    py="30px"
+                    fontSize="14px"
                 >
+                    <BasketIcon pr="5px"/>
                     {updateCart
-                        ? intl.formatMessage({defaultMessage: 'Update'})
-                        : intl.formatMessage({defaultMessage: 'Add to cart'})}
+                        ? intl.formatMessage({defaultMessage: 'UPDATE'})
+                        : intl.formatMessage({defaultMessage: 'ADD TO CART'})}
                 </Button>
             )
         }
@@ -163,13 +201,25 @@ const ProductView = ({
                     onClick={handleWishlistItem}
                     disabled={isCustomerProductListLoading || !canAddToWishlist}
                     isLoading={isCustomerProductListLoading}
-                    width="100%"
+                    width="175px"
                     variant="outline"
                     marginBottom={4}
+                    ml="10px"
+                    fontSize="12px"
+                    color="gray" 
+                    type="submit"
+                    _hover={{
+                        background: "gray",
+                        color: "white",
+                      }}
                 >
                     {updateWishlist
-                        ? intl.formatMessage({defaultMessage: 'Update'})
-                        : intl.formatMessage({defaultMessage: 'Add to wishlist'})}
+                    ? <WishlistSolidIcon pr="5px" /> :
+                    <WishlistIcon pr="5px" />
+                }
+                    {updateWishlist
+                        ? intl.formatMessage({defaultMessage: 'UPDATE'})
+                        : intl.formatMessage({defaultMessage: 'ADD TO WISHLIST'})}
                 </ButtonWithRegistration>
             )
         }
@@ -195,7 +245,7 @@ const ProductView = ({
                 />
             </Box>
             <Flex direction={['column', 'column', 'column', 'row']}>
-                <Box flex={1} mr={[0, 0, 0, 6, 6]}>
+                <Box flex={1} mr={[0, 0, 0, 8, 8]}>
                     {product ? (
                         <>
                             <ImageGallery
@@ -221,13 +271,14 @@ const ProductView = ({
                 </Box>
 
                 {/* Variations & Quantity Selector */}
-                <VStack align="stretch" spacing={8} flex={1} marginBottom={[16, 16, 16, 0, 0]}>
+                <VStack align="stretch" spacing={8} flex={1} marginBottom={[16, 16, 16, 0, 0]} w="25%">
                     <Box display={['none', 'none', 'none', 'block']}>
                         <ProductViewHeader
                             name={product?.name}
                             price={product?.price}
                             currency={product?.currency}
                             category={category}
+                            description={product?.shortDescription || product?.pageDescription}
                         />
                     </Box>
                     <VStack align="stretch" spacing={4}>
@@ -305,25 +356,25 @@ const ProductView = ({
                         {/* Quantity Selector */}
                         <VStack align="stretch" maxWidth={'125px'}>
                             <Box fontWeight="600">
-                                {intl.formatMessage({
-                                    defaultMessage: 'Quantity'
-                                })}
-                                :
+                                <div>Items<div>(required)</div></div>
                             </Box>
-                            <Select
+                            <NumberInput
                                 value={quantity}
-                                onChange={({target}) => {
-                                    setQuantity(parseInt(target.value))
+                                onChange={(value) => {
+                                    setQuantity(parseInt(value))
                                 }}
+                                min={1}
+                                step={stepQuantity}
+                                max={stockLevel}
+                                size="sm"
+                                maxW={20}
                             >
-                                {new Array(Math.floor(stockLevel / stepQuantity))
-                                    .fill(0)
-                                    .map((_, index) => (
-                                        <option key={index} value={(index + 1) * stepQuantity}>
-                                            {(index + 1) * stepQuantity}
-                                        </option>
-                                    ))}
-                            </Select>
+                                <NumberInputField />
+                                <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                </NumberInputStepper>
+                            </NumberInput>
                         </VStack>
                         <HideOnDesktop>
                             {showFullLink && product && (
