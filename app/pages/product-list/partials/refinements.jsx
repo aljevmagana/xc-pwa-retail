@@ -20,7 +20,6 @@ import PropTypes from 'prop-types'
 import ColorRefinements from './color-refinements'
 import SizeRefinements from './size-refinements'
 import RadioRefinements from './radio-refinements'
-import PriceRangeRefinements from './pricerange-refinements'
 import CheckboxRefinements from './checkbox-refinements'
 import LinkRefinements from './link-refinements'
 import {isServer} from '../../../utils/utils'
@@ -30,8 +29,7 @@ const componentMap = {
     cgid: LinkRefinements,
     c_refinementColor: ColorRefinements,
     c_size: SizeRefinements,
-    price: RadioRefinements,
-    /* price: PriceRangeRefinements */
+    price: RadioRefinements
 }
 
 const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
