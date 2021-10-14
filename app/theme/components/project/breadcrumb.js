@@ -22,16 +22,7 @@ export default {
             paddingTop: 3,
             paddingBottom: 3
 
-        },
-        plpLink: {
-            paddingLeft: "0.5rem",
-            color: "white !important"
-            
-        },
-        plpListItem: {
-            color: "white !important"
-            
         }
     },
-    parts: ['container', 'icon', 'link']
+    parts: ['container', 'icon', 'link', 'plpContainer']
 }

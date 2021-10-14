@@ -49,6 +49,7 @@ import NestedAccordion from './components/project/nested-accordion'
 import LocaleSelector from './components/project/locale-selector'
 import OfflineBanner from './components/project/offline-banner'
 import Pagination from './components/project/pagination'
+import PlpPagination from './components/project/plp-pagination'
 import PlpHeading from './components/project/plp-heading'
 import ProductTile from './components/project/product-tile'
 import ProductList from './foundations/product-list'
@@ -103,6 +104,7 @@ const overrides = {
         OfflineBanner,
         SocialIcons,
         Pagination,
+        PlpPagination,
         PlpHeading,
         ProductList,
         ProductTile,

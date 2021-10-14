@@ -12,8 +12,19 @@ export default {
             position: 'relative',
             _hover: {
                 '.plp-overlay-container': {
-                    display:"block"
-                }
+                    display: "block"
+                },
+                '.plp-sub-product-tile-image': {
+                    opacity: "0.3"
+                },
+                '.button-right': {
+                    WebkitTransform: "none !important",
+                    transform: "none !important",
+                    opacity: "1 !important",
+                    transitionDuration: "5s !important",
+                    transitionDelay: "2s !important",
+                    transform: "translateX(73px) !important",
+                },
             }
         },
         iconButton: {
@@ -25,10 +36,7 @@ export default {
         imageWrapper: {
             borderBottom: "2px solid #495057",
             _hover: {
-                borderBottom: "2px solid #6e2ed5",
-                img: {
-                    transition: "opacity 0.3s",
-                }
+                borderBottom: "2px solid #6e2ed5"
             }
         },
         image: {
@@ -52,19 +60,19 @@ export default {
             padding: "0.5rem 0 0.5rem"
         },
         title: {
-            
 
-                fontSize:'0.9rem',
-                fontWeight: '700',
-                color:'#343a40 !important',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                textDecoration: 'none'
-            
+
+            fontSize: '0.9rem',
+            fontWeight: '700',
+            color: '#343a40 !important',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+            textDecoration: 'none'
+
 
         },
         productOverlay: {
-            display:"none",
+            display: "none",
             top: "45%",
             position: "absolute",
             textAlign: "center",
@@ -86,15 +94,14 @@ export default {
             letterSpacing: ".3em",
             marginLeft: ".5rem",
             marginRight: ".5rem",
-            transform: "none !important", opacity: "1 !important",
-            transition: "color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out",
+
             _hover: {
                 color: "#fff",
                 backgroundColor: "#23272b",
                 borderColor: "#1d2124"
             },
             p: {
-                marginLeft:"0.5rem !important"
+                marginLeft: "0.5rem !important"
             }
         },
         productOverlayButtonOutline: {
@@ -109,11 +116,11 @@ export default {
             padding: "0.6rem 0.75rem",
             fontSize: "0.6875rem",
             borderRadius: "0",
-            transition: "color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out",
             _hover: {
                 backgroundColor: "#343a40",
-                color:"#fff"
-            }
+                color: "#fff",
+
+            },
         },
         rating: {},
         variations: {}

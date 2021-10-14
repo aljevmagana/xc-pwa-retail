@@ -32,6 +32,7 @@ import {
     Skeleton as ChakraSkeleton,
     Stack,
     Text,
+    useDisclosure,
     useMultiStyleConfig,
     Wrap,
     WrapItem
@@ -50,9 +51,9 @@ const IconButtonWithRegistration = withRegistration(IconButton)
 // Component Skeleton
 export const Skeleton = () => {
     const styles = useMultiStyleConfig('ProductTile')
-    
+
     //Transition effect
-    const { isOpen, onToggle } = useDisclosure()
+    const { isOpen, onToggle } = useDisclosure();
     return (
         <Box data-testid="sf-product-tile-skeleton">
             <Stack spacing={2}>
@@ -85,7 +86,9 @@ const ProductTile = (props) => {
         onRemoveWishlistClick,
         isInWishlist,
         isWishlistLoading,
+        onQuickViewClick,
         ...rest
+
     } = props
     const { currency, image, price, productName } = productSearchItem
     const styles = useMultiStyleConfig('ProductTile', { isLoading: isWishlistLoading })
@@ -104,11 +107,11 @@ const ProductTile = (props) => {
             >
 
                 <Box>
-                    <Box {...styles.imageWrapper}>
+                    <Box className={'plp-sub-product-tile-container'} {...styles.imageWrapper}>
                         <Badge variant="plpBadge">Fresh</Badge>
                         <AspectRatio {...styles.image} ratio={9 / 14}>
                             <>
-                                <Img alt={image.alt} src={image.disBaseLink} />
+                                <Img className={'plp-sub-product-tile-image'} alt={image.alt} src={image.disBaseLink} />
                             </>
                         </AspectRatio>
 
@@ -148,7 +151,7 @@ const ProductTile = (props) => {
                         <Wrap className="plp-overlay-container" {...styles.productOverlay} spacing="5px" justify="center">
                             <WrapItem>
                                 <Center w="40px" h="40px">
-                                    <Button {...styles.productOverlayButtonOutline} colorScheme="gray" variant="outline">
+                                    <Button {...styles.productOverlayButtonOutline} className="button-left" colorScheme="gray" variant="outline">
                                         <Icon as={FaShoppingCart} />
                                     </Button>
                                 </Center>
@@ -162,7 +165,15 @@ const ProductTile = (props) => {
                             </WrapItem>
                             <WrapItem>
                                 <Center w="40px" h="40px">
-                                <Button {...styles.productOverlayButtonOutline} class="button-right" colorScheme="gray" variant="outline" >
+                                    <Button 
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            onQuickViewClick()
+                                        }}
+                                        {...styles.productOverlayButtonOutline} 
+                                        colorScheme="gray" 
+                                        variant="outline" 
+                                    >
                                         <Icon as={FaExpandArrowsAlt} />
                                     </Button>
                                 </Center>

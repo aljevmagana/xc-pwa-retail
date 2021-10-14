@@ -24,6 +24,8 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
         variant: 'plpHeadingImage',
     })
 
+
+
     return (
         <Box width="100%" {...otherProps} data-testid="sf-product-list-breadcrumb">
             <Spacer />
@@ -35,12 +37,12 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                             <Box style={{position:"absolute", zIndex:"1"}}>
                                 <Stack>
                                 <Flex align="center" justify="center">
-                                    {' Home / ', category && <Breadcrumb categories={category.parentCategoryTree} />}
+                                    {' Home / ', category && <Breadcrumb variant='plpContainer' colour='white' categories={category.parentCategoryTree} />}
                                     {searchQuery && <Text>Search Results for</Text>}
                                 </Flex>
                                 {/* Category Title */}
                                 <Flex color="white" align="center" justify="center">
-                                    <Heading variant="plpHeading">
+                                    <Heading fontSize="6.4vh" marginBottom="3vh" variant="plpHeading">
                                         {`${category?.name || searchQuery || ''}`}
                                     </Heading>
                                     {/* <Heading as="h2" size="lg" marginRight={2}>
@@ -54,7 +56,7 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                     */}
                                 </Flex>
                                 <Flex color="white !important" align="center" justify="center">
-                                    <>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</>
+                                    <Text fontSize="2.1vh">Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
                                 </Flex>
                                 </Stack>                            
                             </Box>

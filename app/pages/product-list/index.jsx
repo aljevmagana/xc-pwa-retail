@@ -6,6 +6,7 @@
  */
 
 import React, { useContext, useEffect, useState } from 'react'
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 import { useHistory, useParams } from 'react-router-dom'
 import { FormattedMessage, useIntl } from 'react-intl'
@@ -42,17 +43,22 @@ import {
     DrawerContent,
     DrawerCloseButton,
     Spacer,
-    useMultiStyleConfig
+    useMultiStyleConfig,
+    Tabs,
+    TabList,
+    Tab,
+    extendTheme
 } from '@chakra-ui/react'
 
 // Project Components
-import Pagination from '../../components/pagination'
+import Pagination from './partials/pagination'
 import ProductTile, { Skeleton as ProductTileSkeleton } from '../../components/product-tile'
 import { HideOnDesktop } from '../../components/responsive'
 import Refinements from './partials/refinements'
 import SelectedRefinements from './partials/selected-refinements'
 import EmptySearchResults from './partials/empty-results'
 import PageHeader from './partials/page-header'
+import ProductViewModal from './partials/product-view-modal'
 
 // Icons
 import { FilterIcon, ChevronDownIcon } from '../../components/icons'
@@ -84,6 +90,10 @@ const REFINEMENT_DISALLOW_LIST = ['c_isNew']
  */
 const ProductList = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+
+
+
     const [sortOpen, setSortOpen] = useState(false)
     const { formatMessage } = useIntl()
     const navigate = useNavigation()
@@ -99,7 +109,6 @@ const ProductList = (props) => {
         }
     }
     const [reverse, setReverse] = useState(true);
-
 
 
     const showError = () => {
@@ -130,6 +139,8 @@ const ProductList = (props) => {
     const [wishlist, setWishlist] = useState({})
     // keep track of the items has been add/remove to/from wishlist
     const [wishlistLoading, setWishlistLoading] = useState([])
+    const [productSelect, setProductSelect] = useState();
+    const [openQuickView, setOpenQuickView] = useState(false);
 
     const { total, sortingOptions } = productSearchResult || {}
 
@@ -150,6 +161,7 @@ const ProductList = (props) => {
     const pageUrls = usePageUrls({ total })
     const sortUrls = useSortUrls({ options: sortingOptions })
     const limitUrls = useLimitUrls()
+
 
     // If we are loaded and still have no products, show the no results component.
     const showNoResults = !isLoading && productSearchResult && !productSearchResult?.hits
@@ -283,12 +295,48 @@ const ProductList = (props) => {
     }
 
     // Show 25, 50, 100, All
-    const showByTemplate = (showByValue,index) => {
+    const showByTemplate = (showByValue, index) => {
+        return (
+            <Flex>
+                <Link fontSize="0.9rem" href={limitUrls[index]}>{showByValue}</Link>
+            </Flex>
+        )
+    }
+
+    const showingXofX = () => {
+        let x_limit = productSearchResult?.limit;
+        let x_offset = productSearchResult?.offset;
+        let x_string = "";
+
+        let x1 = 0
+        let x2 = 0
+
+        if (x_offset == 0) {
+            x1 = 1
+            x2 = x_limit
+        } else {
+            x1 = x_offset
+            x2 = x_offset + x_limit
+        }
+
         return (
             <Center>
-                    <Link fontSize="0.9rem" href={limitUrls[index]}>{showByValue}</Link>
+                <Text>
+                    Showing {x1} - {x2} of {total} products
+                </Text>
             </Center>
         )
+    }
+
+    const getProductDetails = (product) => {
+        setProductSelect(product);
+        if (product) {
+            displayQuickView()
+        }
+    }
+
+    const displayQuickView = () => {
+        setOpenQuickView(true);
     }
 
     let selectedSortingOptionLabel = productSearchResult?.sortingOptions.find(
@@ -300,17 +348,15 @@ const ProductList = (props) => {
         selectedSortingOptionLabel = productSearchResult?.sortingOptions[0]
     }
 
-    
 
     return (
         <>
 
-            
+
             {/* PLP Page Center Title  */}
             <Flex
-                style={{position: "relative", marginTop: "5%"}}
+                style={{ position: "relative", marginTop: "5%" }}
             >
-                
                 <PageHeader
                     searchQuery={searchQuery}
                     category={category}
@@ -318,49 +364,49 @@ const ProductList = (props) => {
                     isLoading={isLoading}
                 />
             </Flex>
+            
             <Spacer />
+            <Container maxWidth="1140px" variant="plpContainer" maxW="container.lg">
 
-        <Container maxWidth="1140px" variant="plpContainer" maxW="container.lg">
+                <Box
+                    className="sf-product-list-page"
+                    data-testid="sf-product-list-page"
+                    layerStyle="page"
+                    /* paddingTop={{ base: 1, lg: 8 }} */
+                    paddingTop={'0px !important'}
+                    {...rest}
+                >
+                    <Helmet>
+                        <title>{category?.pageTitle}</title>
+                        <meta name="description" content={category?.pageDescription} />
+                        <meta name="keywords" content={category?.pageKeywords} />
+                    </Helmet>
+                    {showNoResults ? (
+                        <EmptySearchResults searchQuery={searchQuery} category={category} />
+                    ) : (
+                        <>
+                            {/* Header */}
 
-            <Box
-                className="sf-product-list-page"
-                data-testid="sf-product-list-page"
-                layerStyle="page"
-                /* paddingTop={{ base: 1, lg: 8 }} */
-                paddingTop={'0px !important'}
-                {...rest}
-            >
-                <Helmet>
-                    <title>{category?.pageTitle}</title>
-                    <meta name="description" content={category?.pageDescription} />
-                    <meta name="keywords" content={category?.pageKeywords} />
-                </Helmet>
-                {showNoResults ? (
-                    <EmptySearchResults searchQuery={searchQuery} category={category} />
-                ) : (
-                    <>
-                        {/* Header */}
-
-                        <Stack
-                            display={{ base: 'none', lg: 'flex' }}
-                            direction="row"
-                            justify="flex-start"
-                            align="flex-start"
-                            spacing={4}
-                            marginBottom={6}
-                        >
+                            <Stack
+                                display={{ base: 'none', lg: 'flex' }}
+                                direction="row"
+                                justify="flex-start"
+                                align="flex-start"
+                                spacing={4}
+                                marginBottom={6}
+                            >
 
 
-                            <Box flex={1} paddingTop={'45px'}>
-                                <SelectedRefinements
-                                    filters={productSearchResult?.refinements}
-                                    toggleFilter={toggleFilter}
-                                    selectedFilterValues={productSearchResult?.selectedRefinements}
-                                />
-                            </Box>
-                        </Stack>
+                                <Box flex={1} paddingTop={'45px'}>
+                                    <SelectedRefinements
+                                        filters={productSearchResult?.refinements}
+                                        toggleFilter={toggleFilter}
+                                        selectedFilterValues={productSearchResult?.selectedRefinements}
+                                    />
+                                </Box>
+                            </Stack>
 
-                        {/* <HideOnDesktop>
+                            {/* <HideOnDesktop>
                             <Stack spacing={6}>
                                 <PageHeader
                                     searchQuery={searchQuery}
@@ -422,225 +468,245 @@ const ProductList = (props) => {
                             </Box>
                         </HideOnDesktop> */}
 
-                        {/* Body  */}
-                        <Grid templateColumns={{ base: '1fr', md: '280px 1fr' }} columnGap={6}>
-                            <Stack display={{ base: 'none', md: 'flex' }}>
-                                <Refinements
-                                    isLoading={filtersLoading}
-                                    toggleFilter={toggleFilter}
-                                    filters={productSearchResult?.refinements}
-                                    selectedFilters={searchParams.refine}
-                                />
-                            </Stack>
-                            <Box>
-                                {/* Sort By Filter */}
-                                <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-                                    <Box>
-                                        {/* Showing X of {total} */}
-                                        
-                                    </Box>
-                                    <Box>
-                                            <Flex align="center" justify="center" marginTop="1.4rem">
+                            {/* Body  */}
+                            <Grid templateColumns={{ base: '1fr', md: '280px 1fr' }} columnGap={6}>
+                                <Stack display={{ base: 'none', md: 'flex' }}>
+                                    <Refinements
+                                        isLoading={filtersLoading}
+                                        toggleFilter={toggleFilter}
+                                        filters={productSearchResult?.refinements}
+                                        selectedFilters={searchParams.refine}
+                                    />
+                                </Stack>
+                                <Box>
+                                    {/* Sort By Filter */}
+                                    <SimpleGrid columns={{sm: 2, md: 2, lg:3}} className="plp-main-sortby-container" margintop="1rem" marginBottom="1rem" gap={6}>
+                                        <Box>
+
+                                            <Flex align="center" justify="center" marginBottom="1rem">
                                                 <Center>
-                                                <Box>
-                                                    <Text fontSize="0.9rem" marginRight=".5rem">{'Show '}</Text>
-                                                </Box>
-                                                <Box>
-                                                <Center>
-                                                    <HStack>
-                                                        {
-                                                            DEFAULT_LIMIT_VALUES.map((limitvalue,index) => {
-                                                            return showByTemplate(limitvalue,index);
-                                                            })
-                                                            
-                                                        }
-                                                    </HStack>
-                                                </Center>
-                                                </Box>
+                                                    <Box>
+                                                        <Text fontSize="0.9rem" marginRight=".5rem">
+                                                            {
+                                                                showingXofX()
+                                                            }
+                                                        </Text>
+
+                                                    </Box>
                                                 </Center>
                                             </Flex>
-                                    </Box>
-                                    <Box>
-                                        <Flex align="center" justify="center">
-                                            <Center>
-                                            <Box
-                                            >
-                                                <Text fontSize="0.9rem">Sort by</Text>
-                                            </Box>
-                                            <Box>
-                                                <Sort
-                                                    sortUrls={sortUrls}
-                                                    productSearchResult={productSearchResult}
-                                                    basePath={basePath}
-                                                />
-                                            </Box>
-                                            </Center>
-                                        </Flex>
-                                    </Box>
-                                </Grid>
 
-                                <Spacer />
-                                {/* PLP Grids */}
-                                <SimpleGrid
-                                    columns={[2, 2, 3, 3]}
-                                    spacingX={6}
-                                    spacingY={{ base: 12, lg: 16 }}
-                                >
-                                    {isLoading || !productSearchResult
-                                        ? new Array(searchParams.limit)
-                                            .fill(0)
-                                            .map((value, index) => (
-                                                <ProductTileSkeleton key={index} />
-                                            ))
-                                        : productSearchResult.hits.map((productSearchItem) => {
-                                            const isInWishlist = wishlist?.customerProductListItems
-                                                ?.map(({ productId }) => productId)
-                                                .includes(productSearchItem.productId)
-                                            return (
-                                                <ProductTile
-                                                    category={category?.name}
-                                                    isWishlistLoading={wishlistLoading.includes(
-                                                        productSearchItem.productId
-                                                    )}
-                                                    data-testid={`sf-product-tile-${productSearchItem.productId}`}
-                                                    key={productSearchItem.productId}
-                                                    productSearchItem={productSearchItem}
-                                                    onAddToWishlistClick={() =>
-                                                        addItemToWishlist(productSearchItem)
-                                                    }
-                                                    onRemoveWishlistClick={() => {
-                                                        removeItemFromWishlist(productSearchItem)
-                                                    }}
-                                                    isInWishlist={isInWishlist}
-                                                />
-                                            )
-                                        })}
-                                </SimpleGrid>
-                                {/* Footer */}
-                                <Flex
-                                    justifyContent={['center', 'center', 'flex-start']}
-                                    paddingTop={8}
-                                >
-                                    <Pagination currentURL={basePath} urls={pageUrls} />
+                                        </Box>
+                                        <Box>
+                                            <Flex align="center" justify="center" marginBottom="1rem">
+                                                <Center>
+                                                    <Box>
+                                                        <Text fontSize="0.9rem" marginRight=".5rem">{'Show '}</Text>
+                                                    </Box>
+                                                    <Box>
+                                                        <Center>
+                                                            <HStack>
+                                                                {
+                                                                    DEFAULT_LIMIT_VALUES.map((limitvalue, index) => {
+                                                                        return showByTemplate(limitvalue, index);
+                                                                    })
+                                                                }
+                                                            </HStack>
+                                                        </Center>
+                                                    </Box>
+                                                </Center>
+                                            </Flex>
+                                        </Box>
+                                        <Box>
+                                            <Flex align="center" justify="center" margintop="1rem" marginBottom="1rem">
+                                                <Center>
+                                                    <Box
+                                                    >
+                                                        <Text fontSize="0.9rem">Sort by</Text>
+                                                    </Box>
+                                                    <Box>
+                                                        <Sort
+                                                            sortUrls={sortUrls}
+                                                            productSearchResult={productSearchResult}
+                                                            basePath={basePath}
+                                                        />
+                                                    </Box>
+                                                </Center>
+                                            </Flex>
+                                        </Box>
+                                    </SimpleGrid>
 
-                                    {/*
-                            Our design doesn't call for a page size select. Show this element if you want
-                            to add one to your design.
-                        */}
-                                    <Select
-                                        display="none"
-                                        value={basePath}
-                                        onChange={({ target }) => {
-                                            history.push(target.value)
+                                    <Spacer />
+                                    {/* PLP Grids */}
+                                    <SimpleGrid
+                                        columns={{sm: 1, md: 2, lg:3}}
+                                        spacingX={6}
+                                        spacingY={{ base: 12, lg: 16 }}
+                                    >
+                                        {isLoading || !productSearchResult
+                                            ? new Array(searchParams.limit)
+                                                .fill(0)
+                                                .map((value, index) => (
+                                                    <ProductTileSkeleton key={index} />
+                                                ))
+                                            : productSearchResult.hits.map((productSearchItem) => {
+                                                const isInWishlist = wishlist?.customerProductListItems
+                                                    ?.map(({ productId }) => productId)
+                                                    .includes(productSearchItem.productId)
+                                                return (
+                                                    <ProductTile
+                                                        category={category?.name}
+                                                        isWishlistLoading={wishlistLoading.includes(
+                                                            productSearchItem.productId
+                                                        )}
+                                                        data-testid={`sf-product-tile-${productSearchItem.productId}`}
+                                                        key={productSearchItem.productId}
+                                                        productSearchItem={productSearchItem}
+                                                        onAddToWishlistClick={() =>
+                                                            addItemToWishlist(productSearchItem)
+                                                        }
+                                                        onRemoveWishlistClick={() => {
+                                                            removeItemFromWishlist(productSearchItem)
+                                                        }}
+                                                        onQuickViewClick={() => {
+                                                            getProductDetails(productSearchItem)
+                                                        }}
+
+                                                        isInWishlist={isInWishlist}
+                                                    />
+                                                )
+                                            })}
+                                    </SimpleGrid>
+                                    {/* Footer */}
+                                    <Flex
+                                        justifyContent={['center', 'center']}
+                                        paddingTop={8}
+                                    >
+                                        <Center>
+                                            <Pagination currentURL={basePath} urls={pageUrls} />
+                                        </Center>
+                                        {/*
+                                            Our design doesn't call for a page size select. Show this element if you want
+                                            to add one to your design.
+                                        */}
+                                        <Select
+                                            display="none"
+                                            value={basePath}
+                                            onChange={({ target }) => {
+                                                history.push(target.value)
+                                            }}
+                                        >
+                                            {limitUrls.map((href, index) => (
+                                                <option key={href} value={href}>
+                                                    {DEFAULT_LIMIT_VALUES[index]}
+                                                </option>
+                                            ))}
+                                        </Select>
+                                    </Flex>
+                                </Box>
+                            </Grid>
+                        </>
+                    )}
+                    <Modal
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        size="full"
+                        motionPreset="slideInBottom"
+                        scrollBehavior="inside"
+                    >
+                        <ModalOverlay />
+                        <ModalContent top={0} marginTop={0}>
+                            <ModalHeader>
+                                <Text fontWeight="bold" fontSize="2xl">
+                                    <FormattedMessage defaultMessage="Filter" />
+                                </Text>
+                            </ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody py={4}>
+                                {filtersLoading && <LoadingSpinner />}
+                                <Refinements
+                                    toggleFilter={toggleFilter}
+                                    filters={productSearchResult?.refinements}
+                                    selectedFilters={productSearchResult?.selectedRefinements}
+                                />
+                            </ModalBody>
+
+                            <ModalFooter
+                                // justify="space-between"
+                                display="block"
+                                width="full"
+                                borderTop="1px solid"
+                                borderColor="gray.100"
+                                paddingBottom={10}
+                            >
+                                <Stack>
+                                    <Button width="full" onClick={onClose}>
+                                        {formatMessage(
+                                            {
+                                                defaultMessage: 'View {prroductCount} items'
+                                            },
+                                            {
+                                                prroductCount: productSearchResult?.total
+                                            }
+                                        )}
+                                    </Button>
+                                    <Button width="full" variant="outline" onClick={() => resetFilters()}>
+                                        <FormattedMessage defaultMessage="Clear Filters" />
+                                    </Button>
+                                </Stack>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
+                    <Drawer
+                        placement="bottom"
+                        isOpen={sortOpen}
+                        onClose={() => setSortOpen(false)}
+                        size="sm"
+                        motionPreset="slideInBottom"
+                        scrollBehavior="inside"
+                        isFullHeight={false}
+                        height="50%"
+                    >
+                        <DrawerOverlay />
+                        <DrawerContent marginTop={0}>
+                            <DrawerHeader boxShadow="none">
+                                <Text fontWeight="bold" fontSize="2xl">
+                                    <FormattedMessage defaultMessage="Sort By" />
+                                </Text>
+                            </DrawerHeader>
+                            <DrawerCloseButton />
+                            <DrawerBody>
+                                {sortUrls.map((href, idx) => (
+                                    <Button
+                                        width="full"
+                                        onClick={() => {
+                                            setSortOpen(false)
+                                            history.push(href)
                                         }}
+                                        fontSize={'md'}
+                                        key={idx}
+                                        marginTop={0}
+                                        variant="menu-link"
                                     >
-                                        {limitUrls.map((href, index) => (
-                                            <option key={href} value={href}>
-                                                {DEFAULT_LIMIT_VALUES[index]}
-                                            </option>
-                                        ))}
-                                    </Select>
-                                </Flex>
-                            </Box>
-                        </Grid>
-                    </>
-                )}
-                <Modal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    size="full"
-                    motionPreset="slideInBottom"
-                    scrollBehavior="inside"
-                >
-                    <ModalOverlay />
-                    <ModalContent top={0} marginTop={0}>
-                        <ModalHeader>
-                            <Text fontWeight="bold" fontSize="2xl">
-                                <FormattedMessage defaultMessage="Filter" />
-                            </Text>
-                        </ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody py={4}>
-                            {filtersLoading && <LoadingSpinner />}
-                            <Refinements
-                                toggleFilter={toggleFilter}
-                                filters={productSearchResult?.refinements}
-                                selectedFilters={productSearchResult?.selectedRefinements}
-                            />
-                        </ModalBody>
+                                        <Text
+                                            as={
+                                                selectedSortingOptionLabel?.label ===
+                                                productSearchResult?.sortingOptions[idx]?.label && 'u'
+                                            }
+                                        >
+                                            {productSearchResult?.sortingOptions[idx]?.label}
+                                        </Text>
+                                    </Button>
+                                ))}
+                            </DrawerBody>
+                        </DrawerContent>
+                    </Drawer>
+                    {
+                        (openQuickView) ? <ProductViewModal product={productSelect} isOpen={openQuickView} onClose={() => { setOpenQuickView(false) }} props={props} /> : <></>
+                    }
 
-                        <ModalFooter
-                            // justify="space-between"
-                            display="block"
-                            width="full"
-                            borderTop="1px solid"
-                            borderColor="gray.100"
-                            paddingBottom={10}
-                        >
-                            <Stack>
-                                <Button width="full" onClick={onClose}>
-                                    {formatMessage(
-                                        {
-                                            defaultMessage: 'View {prroductCount} items'
-                                        },
-                                        {
-                                            prroductCount: productSearchResult?.total
-                                        }
-                                    )}
-                                </Button>
-                                <Button width="full" variant="outline" onClick={() => resetFilters()}>
-                                    <FormattedMessage defaultMessage="Clear Filters" />
-                                </Button>
-                            </Stack>
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal>
-                <Drawer
-                    placement="bottom"
-                    isOpen={sortOpen}
-                    onClose={() => setSortOpen(false)}
-                    size="sm"
-                    motionPreset="slideInBottom"
-                    scrollBehavior="inside"
-                    isFullHeight={false}
-                    height="50%"
-                >
-                    <DrawerOverlay />
-                    <DrawerContent marginTop={0}>
-                        <DrawerHeader boxShadow="none">
-                            <Text fontWeight="bold" fontSize="2xl">
-                                <FormattedMessage defaultMessage="Sort By" />
-                            </Text>
-                        </DrawerHeader>
-                        <DrawerCloseButton />
-                        <DrawerBody>
-                            {sortUrls.map((href, idx) => (
-                                <Button
-                                    width="full"
-                                    onClick={() => {
-                                        setSortOpen(false)
-                                        history.push(href)
-                                    }}
-                                    fontSize={'md'}
-                                    key={idx}
-                                    marginTop={0}
-                                    variant="menu-link"
-                                >
-                                    <Text
-                                        as={
-                                            selectedSortingOptionLabel?.label ===
-                                            productSearchResult?.sortingOptions[idx]?.label && 'u'
-                                        }
-                                    >
-                                        {productSearchResult?.sortingOptions[idx]?.label}
-                                    </Text>
-                                </Button>
-                            ))}
-                        </DrawerBody>
-                    </DrawerContent>
-                </Drawer>
-            </Box>
-        </Container>
+                </Box>
+            </Container>
         </>
 
     )
@@ -725,7 +791,8 @@ const Sort = ({ sortUrls, productSearchResult, basePath, ...otherProps }) => {
                         }}
                         /* width="240px" */
                         {...styles}
-                    >   
+                        icon={<ChevronDownIcon boxSize={5} />}
+                    >
                         {sortUrls.map((href, index) => (
                             <option key={href} value={href}>
                                 {intl.formatMessage(
@@ -742,7 +809,7 @@ const Sort = ({ sortUrls, productSearchResult, basePath, ...otherProps }) => {
                 </FormControl>
             </Box>
 
-        
+
         </>
     )
 }
