@@ -28,6 +28,7 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
+    Image
 } from '@chakra-ui/react'
 
 import {StarIcon} from '@chakra-ui/icons'
@@ -56,27 +57,29 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
     }
     return (
         <VStack spacing={2} align="flex-start" marginBottom={[4, 4, 4, 0, 0]}>
-            {category && (
-                <Skeleton isLoaded={category}>
-                    <Breadcrumb categories={category} />
-                </Skeleton>
-            )}
-
             {/* Title */}
             <Skeleton isLoaded={name}>
-                <Heading fontSize="4xl">{`${name}`}</Heading>
+                <Heading fontSize="2.7rem">{`${name}`}</Heading>
             </Skeleton>
 
             {/* Price */}
-            <Skeleton isLoaded={price}>
-                <HStack>
-                    <Text fontWeight="normal" fontSize="lg" aria-label="price">
-                        {intl.formatNumber(price, {
-                            style: 'currency',
-                            currency: currency || DEFAULT_CURRENCY
-                        })}
-                    </Text>
-                    <Box display="flex" mt="2" alignItems="center" pl="30%" pr="20%">
+            <Skeleton isLoaded={price} >
+                <HStack spacing="25%">
+                    <HStack>
+                        <Text fontWeight="300" fontSize="1.35rem" aria-label="price" align="left">
+                            {intl.formatNumber(price, {
+                                style: 'currency',
+                                currency: currency || DEFAULT_CURRENCY
+                            })} 
+                        </Text>
+                        <Text as="s" fontSize="0.9rem" align="left" color="gray">
+                            {intl.formatNumber((price + 1), {
+                                style: 'currency',
+                                currency: currency || DEFAULT_CURRENCY
+                            })}
+                        </Text>
+                    </HStack>
+                    <Box display="flex" mt="2" alignItems="center">
                         {Array(5)
                             .fill("")
                             .map((_, i) => (
@@ -92,7 +95,7 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
                     </Box>
                 </HStack>
                 <Skeleton isLoaded={description}>
-                    <Box mt="10px" textAlign="left" fontSize="14px">
+                    <Box mt="10px" textAlign="left" fontSize="0.9rem" maxWidth="450">
                         <div>{description}</div>
                     </Box>
                 </Skeleton>
@@ -180,11 +183,16 @@ const ProductView = ({
                     onClick={handleCartItem}
                     disabled={!canOrder}
                     width="175px"
-                    variant="solid"
+                    variant="outline"
                     marginBottom={4}
-                    colorScheme="blackAlpha"
+                    background="#343a40"
+                    color="white"
                     py="30px"
-                    fontSize="14px"
+                    fontSize="0.7875rem"
+                    _hover={{
+                        background: "black",
+                        color: "white",
+                      }}
                 >
                     <BasketIcon pr="5px"/>
                     {updateCart
@@ -235,13 +243,14 @@ const ProductView = ({
 
     return (
         <Flex direction={'column'} data-testid="product-view">
-            {/* Basic information etc. title, price, breadcrumb*/}
+            {/* Basic information etc. title, price, breadcrumb*/}      
             <Box display={['block', 'block', 'block', 'none']}>
                 <ProductViewHeader
                     name={product?.name}
                     price={product?.price}
                     currency={product?.currency}
                     category={category}
+                    description={product?.shortDescription || product?.pageDescription}
                 />
             </Box>
             <Flex direction={['column', 'column', 'column', 'row']}>
@@ -272,110 +281,121 @@ const ProductView = ({
 
                 {/* Variations & Quantity Selector */}
                 <VStack align="stretch" spacing={8} flex={1} marginBottom={[16, 16, 16, 0, 0]} w="25%">
-                    <Box display={['none', 'none', 'none', 'block']}>
-                        <ProductViewHeader
-                            name={product?.name}
-                            price={product?.price}
-                            currency={product?.currency}
-                            category={category}
-                            description={product?.shortDescription || product?.pageDescription}
-                        />
-                    </Box>
-                    <VStack align="stretch" spacing={4}>
-                        {/*
-                            Customize the skeletons shown for attributes to suit your needs. At the point
-                            that we show the skeleton we do not know how many variations are selectable. So choose
-                            a a skeleton that will meet most of your needs.
-                        */}
-                        {showLoading ? (
-                            <>
-                                {/* First Attribute Skeleton */}
-                                <Skeleton height={6} width={32} />
-                                <Skeleton height={20} width={64} />
+                    {category && (
+                        <Skeleton isLoaded={category}>
+                            <Breadcrumb categories={category} />
+                        </Skeleton>
+                    )}
+                    <Box position="sticky" top="20px" zIndex={2}>
+                        <Box display={['none', 'none', 'none', 'block']}>
+                            <ProductViewHeader
+                                name={product?.name}
+                                price={product?.price}
+                                currency={product?.currency}
+                                category={category}
+                                description={product?.shortDescription || product?.pageDescription}
+                            />
+                        </Box>
+                        <VStack align="stretch" spacing={4}>
+                            {/*
+                                Customize the skeletons shown for attributes to suit your needs. At the point
+                                that we show the skeleton we do not know how many variations are selectable. So choose
+                                a a skeleton that will meet most of your needs.
+                            */}
+                            {showLoading ? (
+                                <>
+                                    {/* First Attribute Skeleton */}
+                                    <Skeleton height={6} width={32} />
+                                    <Skeleton height={20} width={64} />
 
-                                {/* Second Attribute Skeleton */}
-                                <Skeleton height={6} width={32} />
-                                <Skeleton height={20} width={64} />
-                            </>
-                        ) : (
-                            <>
-                                {/* Attribute Swatches */}
-                                {variationAttributes.map((variationAttribute) => {
-                                    const {
-                                        id,
-                                        name,
-                                        selectedValue,
-                                        values = []
-                                    } = variationAttribute
+                                    {/* Second Attribute Skeleton */}
+                                    <Skeleton height={6} width={32} />
+                                    <Skeleton height={20} width={64} />
+                                </>
+                            ) : (
+                                <>
+                                    {/* Attribute Swatches */}
+                                    {variationAttributes.map((variationAttribute) => {
+                                        const {
+                                            id,
+                                            name,
+                                            selectedValue,
+                                            values = []
+                                        } = variationAttribute
 
-                                    return (
-                                        <SwatchGroup
-                                            key={id}
-                                            onChange={(_, href) => {
-                                                if (!href) return
-                                                history.replace(href)
-                                            }}
-                                            variant={id === 'color' ? 'circle' : 'square'}
-                                            value={selectedValue?.value}
-                                            displayName={selectedValue?.name || ''}
-                                            label={name}
-                                        >
-                                            {values.map(({href, name, image, value, orderable}) => (
-                                                <Swatch
-                                                    key={value}
-                                                    href={href}
-                                                    disabled={!orderable}
-                                                    value={value}
-                                                    name={name}
-                                                >
-                                                    {image ? (
-                                                        <Box
-                                                            height="100%"
-                                                            width="100%"
-                                                            minWidth="32px"
-                                                            backgroundRepeat="no-repeat"
-                                                            backgroundSize="cover"
-                                                            backgroundColor={name.toLowerCase()}
-                                                            backgroundImage={
-                                                                image
-                                                                    ? `url(${image.disBaseLink})`
-                                                                    : ''
-                                                            }
-                                                        />
-                                                    ) : (
-                                                        name
-                                                    )}
-                                                </Swatch>
-                                            ))}
-                                        </SwatchGroup>
-                                    )
-                                })}
-                            </>
-                        )}
+                                        return (
+                                            <SwatchGroup
+                                                key={id}
+                                                onChange={(_, href) => {
+                                                    if (!href) return
+                                                    history.replace(href)
+                                                }}
+                                                variant={id === 'color' ? 'circle' : 'square'}
+                                                value={selectedValue?.value}
+                                                displayName={selectedValue?.name || ''}
+                                                label={name}
+                                            >
+                                                {values.map(({href, name, image, value, orderable}) => (
+                                                    <Swatch
+                                                        key={value}
+                                                        href={href}
+                                                        disabled={!orderable}
+                                                        value={value}
+                                                        name={name}
+                                                    >
+                                                        {image ? (
+                                                            <Box
+                                                                height="100%"
+                                                                width="100%"
+                                                                minWidth="32px"
+                                                                backgroundRepeat="no-repeat"
+                                                                backgroundSize="cover"
+                                                                backgroundColor={name.toLowerCase()}
+                                                                backgroundImage={
+                                                                    image
+                                                                        ? `url(${image.disBaseLink})`
+                                                                        : ''
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            name
+                                                        )}
+                                                    </Swatch>
+                                                ))}
+                                            </SwatchGroup>
+                                        )
+                                    })}
+                                </>
+                            )}
 
-                        {/* Quantity Selector */}
-                        <VStack align="stretch" maxWidth={'125px'}>
-                            <Box fontWeight="600">
-                                <div>Items<div>(required)</div></div>
-                            </Box>
-                            <NumberInput
-                                value={quantity}
-                                onChange={(value) => {
-                                    setQuantity(parseInt(value))
-                                }}
-                                min={1}
-                                step={stepQuantity}
-                                max={stockLevel}
-                                size="sm"
-                                maxW={20}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </VStack>
+                            {/* Quantity Selector */}
+                            <Box marginBottom="48px">
+                                <VStack align="stretch" maxWidth={'125px'}>
+                                    <Box fontWeight="600">
+                                        <HStack spacing="4px">
+                                            <Text>Items</Text>
+                                            <Text fontSize=".8rem" color="gray.600">(required)</Text>
+                                        </HStack>
+                                    </Box>
+                                    <NumberInput
+                                        value={quantity}
+                                        onChange={(value) => {
+                                            setQuantity(parseInt(value))
+                                        }}
+                                        min={1}
+                                        step={stepQuantity}
+                                        max={stockLevel}
+                                        size="sm"
+                                        maxW={20}
+                                    >
+                                        <NumberInputField />
+                                        <NumberInputStepper>
+                                            <NumberIncrementStepper />
+                                            <NumberDecrementStepper />
+                                        </NumberInputStepper>
+                                    </NumberInput>
+                                </VStack>
+                        </Box>
                         <HideOnDesktop>
                             {showFullLink && product && (
                                 <Link to={`/product/${product.master.masterId}`}>
@@ -398,6 +418,7 @@ const ProductView = ({
                             </Fade>
                         )}
                         {renderActionButtons()}
+                    </Box>
                     </Box>
                 </VStack>
             </Flex>

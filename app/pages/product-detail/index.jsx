@@ -19,17 +19,19 @@ import {
     Button,
     ButtonGroup,
     Center,
-    Container,
-    Flex,
     FormControl,
     FormLabel,
     Heading,
+    Image,
     Input,
     Tabs,
     TabList,
     TabPanels,
     Tab,
     TabPanel,
+    Table,
+    Td,
+    Tr,
     Textarea,
     Text,
     Select,
@@ -217,6 +219,17 @@ const ProductDetail = ({category, product, isLoading}) => {
         date:"OCT 2021"
     }]
 
+    const temporaryAddInfo={
+        productNum:"1234567890",
+        packaging:"N/A",
+        weight:"2 Pounds",
+        dimensions:"1x1x1",
+        origin:"Taiwan",
+        manufacturer:"Enigma Industries",
+        releaseDate:"2021",
+        materials:"Cotton"
+    }
+
     return (
         <Box
             className="sf-product-detail-page"
@@ -224,8 +237,7 @@ const ProductDetail = ({category, product, isLoading}) => {
             data-testid="product-details-page"
             justifyContent="center"
             pt="7.5%"
-            pl="5%"
-            pr="5%"
+            maxWidth="1140px"
         >
             <Helmet>
                 <title>{product?.pageTitle}</title>
@@ -245,7 +257,7 @@ const ProductDetail = ({category, product, isLoading}) => {
                 {/* Information Tabs */}
                 <Center>
                 <Stack direction="row" w="100%" align="center">
-                    <Tabs w="80%">
+                    <Tabs w="100%" colorScheme="gray">
                         <TabList>
                             {/* Details */}
                             <Tab>Description</Tab>
@@ -263,7 +275,44 @@ const ProductDetail = ({category, product, isLoading}) => {
                                 />
                             </TabPanel>
                             <TabPanel mb={6} mt={4}>
-                                {formatMessage({defaultMessage: 'Coming Soon'})}
+                                <HStack fontSize="0.7875rem">
+                                    <Table>
+                                        <Tr>
+                                            <Td>PRODUCT #</Td>
+                                            <Td color="gray.600">{temporaryAddInfo.productNum}</Td>
+                                        </Tr>
+                                        <Tr>
+                                            <Td >AVAILABLE PACKAGING</Td>
+                                            <Td color="gray.600">{temporaryAddInfo.packaging}</Td>
+                                        </Tr>
+                                        <Tr>
+                                            <Td>WEIGHT</Td>
+                                            <Td color="gray.600" >{temporaryAddInfo.weight}</Td>
+                                        </Tr>
+                                        <Tr>
+                                            <Td >DIMENSIONS</Td>
+                                            <Td color="gray.600" >{temporaryAddInfo.dimensions}</Td>
+                                        </Tr>
+                                    </Table>
+                                    <Table>
+                                        <Tr>
+                                            <Td>ORIGIN</Td>
+                                            <Td color="gray.600" >{temporaryAddInfo.origin}</Td>
+                                        </Tr>
+                                        <Tr>
+                                            <Td >MANUFACTURER</Td>
+                                            <Td color="gray.600">{temporaryAddInfo.manufacturer}</Td>
+                                        </Tr>
+                                        <Tr>
+                                            <Td >RELEASE DATE</Td>
+                                            <Td color="gray.600" >{temporaryAddInfo.releaseDate}</Td>
+                                        </Tr>
+                                        <Tr>
+                                            <Td >MATERIALS</Td>
+                                            <Td color="gray.600" >{temporaryAddInfo.materials}</Td>
+                                        </Tr>
+                                    </Table>
+                                </HStack>
                             </TabPanel>
                             <TabPanel mb={6} mt={4}>
                                 <VStack
@@ -277,7 +326,14 @@ const ProductDetail = ({category, product, isLoading}) => {
                                         <Box maxW="lg" overflow="hidden" id={r.name + i}>
                                             <HStack>
                                                 <Box alignItems="center" textAlign="center">
-                                                    <Avatar name={r.name} size="lg"  src="https://bit.ly/broken-link" />
+                                                <Image
+                                                    borderRadius="full"
+                                                    boxSize="115px"
+                                                    src="https://bit.ly/sage-adebayo"
+                                                    alt="Segun Adebayo"
+                                                    p="7px"
+                                                    border="solid 1px rgba(0, 0, 0, 0.125)"
+                                                />
                                                     <Text fontSize="14" mt="1">{r.date}</Text>
                                                 </Box>
                                                 <Box m="5" >
@@ -309,7 +365,7 @@ const ProductDetail = ({category, product, isLoading}) => {
                                                 color="gray.500"
                                                 fontWeight="normal"
                                                 letterSpacing="wide"
-                                                fontSize="xs"
+                                                fontSize="0.7875rem"
                                                 textTransform="uppercase"
                                                 ml="2"
                                             >
@@ -323,14 +379,16 @@ const ProductDetail = ({category, product, isLoading}) => {
                                                             </FormControl>
                                                         </Box>
                                                         <Box>
-                                                        <div>Your Rating * </div>
-                                                            <Select width="20%">
-                                                                <option value="star5">5 Stars</option>
-                                                                <option value="star4">4 Stars</option>
-                                                                <option value="star3">3 Stars</option>
-                                                                <option value="star2">2 Stars</option>
-                                                                <option value="star1">1 Stars</option>
-                                                            </Select>
+                                                            <HStack>
+                                                                <div>Your Rating * </div>
+                                                                <Select maxWidth="120px" size="xs" color="black" fontSize="0.7875rem">
+                                                                    <option value="star5">★★★★★(5/5)</option>
+                                                                    <option value="star4">★★★★☆(4/5)</option>
+                                                                    <option value="star3">★★★☆☆(3/5)</option>
+                                                                    <option value="star2">★★☆☆☆(2/5)</option>
+                                                                    <option value="star1">★☆☆☆☆(1/5)</option>
+                                                                </Select>
+                                                            </HStack>
                                                         </Box>
                                                     </SimpleGrid>
                                                     <FormControl isRequired>
@@ -343,13 +401,13 @@ const ProductDetail = ({category, product, isLoading}) => {
                                                     </FormControl>
                                                     <ButtonGroup variant="outline">
                                                         <Button 
-                                                        color="gray" 
-                                                        width="125px"  
-                                                        type="submit"
-                                                        _hover={{
-                                                            background: "gray",
-                                                            color: "white",
-                                                          }}
+                                                            color="black" 
+                                                            width="125px"  
+                                                            type="submit"
+                                                            _hover={{
+                                                                background: "black",
+                                                                color: "white",
+                                                            }}
                                                         >
                                                             Post Review
                                                         </Button>
