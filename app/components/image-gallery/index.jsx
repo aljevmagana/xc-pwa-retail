@@ -94,43 +94,20 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size}
         [selectedVariationAttributes]
     )
 
-    const heroImage = heroImageGroup?.images?.[selectedIndex]
+    const heroImage = heroImageGroup?.images
     const thumbnailImages = thumbnailImageGroup?.images || []
     return (
         <Flex direction="column">
-            {heroImage && (
-                <Box {...styles.heroImageGroup}>
-                    <AspectRatio {...styles.heroImage} ratio={1}>
-                        <Img alt={heroImage.alt} src={heroImage.disBaseLink} />
-                    </AspectRatio>
-                </Box>
-            )}
+            {heroImage && heroImage.map((image, i) => { 
+                return (
+                    <Box {...styles.heroImageGroup}>
+                        <AspectRatio {...styles.heroImage} ratio={1}>
 
-            <List display={'flex'} flexWrap={'wrap'}>
-                {thumbnailImages.map((image, index) => {
-                    const selected = index === selectedIndex
-                    return (
-                        <ListItem
-                            {...styles.thumbnailImageItem}
-                            tabIndex={0}
-                            key={index}
-                            data-testid="image-gallery-thumbnails"
-                            onKeyDown={(e) => {
-                                if (e.keyCode === EnterKeyNumber) {
-                                    return setSelectedIndex(index)
-                                }
-                            }}
-                            onClick={() => setSelectedIndex(index)}
-                            borderColor={`${selected ? 'black' : ''}`}
-                            borderWidth={`${selected ? '1px' : 0}`}
-                        >
-                            <AspectRatio ratio={1}>
-                                <Img alt={image.alt} src={image.disBaseLink} />
-                            </AspectRatio>
-                        </ListItem>
-                    )
-                })}
-            </List>
+                            <Img alt={image.alt} src={image.disBaseLink} />
+
+                        </AspectRatio>
+                    </Box>
+                )})}
         </Flex>
     )
 }

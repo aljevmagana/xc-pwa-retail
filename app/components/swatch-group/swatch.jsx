@@ -7,7 +7,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, Box, Center, useMultiStyleConfig} from '@chakra-ui/react'
+import {Button, Box, Center, useMultiStyleConfig, Text} from '@chakra-ui/react'
 import {Link as RouteLink} from 'react-router-dom'
 
 /**
@@ -26,6 +26,16 @@ const Swatch = (props) => {
         name
     } = props
     const styles = useMultiStyleConfig('SwatchGroup', {variant, disabled, selected})
+
+    let hoverStyle = {}
+    let buttonHeight = ""
+    if(variant !== 'circle'){
+        buttonHeight="30px"
+        hoverStyle = {
+            background: "gray",
+            color: "white",
+        }
+    }
     return (
         <Button
             {...styles.swatch}
@@ -38,11 +48,17 @@ const Swatch = (props) => {
             }}
             aria-checked={selected}
             variant="outline"
+            border="1px"
+            fontSize="0.6875rem"
+            maxHeight={buttonHeight}
+            _hover={hoverStyle}
         >
-            <Center {...styles.swatchButton}>
-                {children}
-                {label && <Box>{label}</Box>}
-            </Center>
+            <Text casing="uppercase">
+                <Center {...styles.swatchButton}>
+                    {children}
+                    {label && <Box>{label}</Box>}
+                </Center>
+            </Text>
         </Button>
     )
 }

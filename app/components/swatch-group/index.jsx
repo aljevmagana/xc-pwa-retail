@@ -7,7 +7,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Flex, Box, HStack, useStyleConfig} from '@chakra-ui/react'
+import {Flex, Box, HStack, useStyleConfig, Text} from '@chakra-ui/react'
 import {noop} from '../../utils/utils'
 
 /**
@@ -20,7 +20,10 @@ const SwatchGroup = (props) => {
     return (
         <Flex {...styles.swatchGroup} role="radiogroup">
             <HStack {...styles.swatchLabel}>
-                <Box fontWeight="semibold">{`${label}:`}</Box>
+                <HStack spacing="4px">
+                    <Box fontWeight="semibold" casing="uppercase" fontSize="0.9rem">{`${label}`}</Box> 
+                    <Text fontSize=".8rem" color="gray.600">(required)</Text>
+                </HStack>
                 <Box>{displayName}</Box>
             </HStack>
             <Flex {...styles.swatchesWrapper}>
