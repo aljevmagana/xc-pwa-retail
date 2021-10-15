@@ -7,28 +7,42 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import {WishlistIcon, WishlistSolidIcon} from '../icons'
+import { WishlistIcon, WishlistSolidIcon } from '../icons'
+
+//Font Awesome Icons
+import {
+    FaExpandArrowsAlt,
+    FaSearch,
+    FaShoppingCart
+} from 'react-icons/fa';
 
 // Components
 import {
     AspectRatio,
+    Button,
     Badge,
     Box,
+    Center,
     Flex,
     Grid,
+    Icon,
     Img,
     IconButton,
+    ScaleFade,
     Skeleton as ChakraSkeleton,
     Stack,
     Text,
+    useDisclosure,
     useMultiStyleConfig,
+    Wrap,
+    WrapItem
 } from '@chakra-ui/react'
 
 // Hooks
-import {useIntl} from 'react-intl'
+import { useIntl } from 'react-intl'
 
 // Other
-import {productUrlBuilder} from '../../utils/url'
+import { productUrlBuilder } from '../../utils/url'
 import Link from '../link'
 import withRegistration from '../../hoc/with-registration'
 
@@ -37,16 +51,19 @@ const IconButtonWithRegistration = withRegistration(IconButton)
 // Component Skeleton
 export const Skeleton = () => {
     const styles = useMultiStyleConfig('ProductTile')
+
+    //Transition effect
+    const { isOpen, onToggle } = useDisclosure();
     return (
         <Box data-testid="sf-product-tile-skeleton">
             <Stack spacing={2}>
                 <Box {...styles.imageWrapper}>
-                    <AspectRatio ratio={4/3} {...styles.image}>
+                    <AspectRatio ratio={4 / 3} {...styles.image}>
                         <ChakraSkeleton />
                     </AspectRatio>
                 </Box>
                 <ChakraSkeleton width="80px" height="20px" />
-                <ChakraSkeleton width={{base: '120px', md: '220px'}} height="12px" />
+                <ChakraSkeleton width={{ base: '120px', md: '220px' }} height="12px" />
             </Stack>
         </Box>
     )
@@ -69,31 +86,35 @@ const ProductTile = (props) => {
         onRemoveWishlistClick,
         isInWishlist,
         isWishlistLoading,
+        onQuickViewClick,
         ...rest
+
     } = props
-    const {currency, image, price, productName} = productSearchItem
-    const styles = useMultiStyleConfig('ProductTile', {isLoading: isWishlistLoading})
+    const { currency, image, price, productName } = productSearchItem
+    const styles = useMultiStyleConfig('ProductTile', { isLoading: isWishlistLoading })
 
     return (
 
         <Grid>
-            
-                <Link
-                    data-testid="product-tile"
-                    {...styles.container}
-                    to={productUrlBuilder({id: productSearchItem?.productId}, intl.local)}
-                    {...rest}
-                    >
 
 
-                    <Box {...styles.imageWrapper}>
+
+            <Link
+                data-testid="product-tile"
+                {...styles.container}
+                to={productUrlBuilder({ id: productSearchItem?.productId }, intl.local)}
+                {...rest}
+            >
+
+                <Box>
+                    <Box className={'plp-sub-product-tile-container'} {...styles.imageWrapper}>
                         <Badge variant="plpBadge">Fresh</Badge>
-                        <AspectRatio {...styles.image} ratio={9/14}>
+                        <AspectRatio {...styles.image} ratio={9 / 14}>
                             <>
-                            <Img alt={image.alt} src={image.disBaseLink} />
+                                <Img className={'plp-sub-product-tile-image'} alt={image.alt} src={image.disBaseLink} />
                             </>
                         </AspectRatio>
-                        
+
                         {onAddToWishlistClick && onRemoveWishlistClick && (
                             <>
                                 {isInWishlist ? (
@@ -126,12 +147,44 @@ const ProductTile = (props) => {
                                 )}
                             </>
                         )}
-                    </Box>
 
-                
-                </Link>
-                
-                <Box {...styles.producttext}>
+                        <Wrap className="plp-overlay-container" {...styles.productOverlay} spacing="5px" justify="center">
+                            <WrapItem>
+                                <Center w="40px" h="40px">
+                                    <Button {...styles.productOverlayButtonOutline} className="button-left" colorScheme="gray" variant="outline">
+                                        <Icon as={FaShoppingCart} />
+                                    </Button>
+                                </Center>
+                            </WrapItem>
+                            <WrapItem>
+                                <Center w="auto" h="40px">
+                                    <Button {...styles.productOverlayButton} colorScheme="gray">
+                                        <Icon as={FaSearch} /> <Text>View</Text>
+                                    </Button>
+                                </Center>
+                            </WrapItem>
+                            <WrapItem>
+                                <Center w="40px" h="40px">
+                                    <Button 
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            onQuickViewClick()
+                                        }}
+                                        {...styles.productOverlayButtonOutline} 
+                                        colorScheme="gray" 
+                                        variant="outline" 
+                                    >
+                                        <Icon as={FaExpandArrowsAlt} />
+                                    </Button>
+                                </Center>
+                            </WrapItem>
+                        </Wrap>
+                    </Box>
+                </Box>
+
+            </Link>
+
+            <Box {...styles.producttext}>
                 {/* Price */}
                 <Text {...styles.categoryname} aria-label="cateogry name">
                     {category}
@@ -146,13 +199,13 @@ const ProductTile = (props) => {
 
                 {/* Price */}
                 <Text {...styles.price} aria-label="price">
-                    {intl.formatNumber(price, {style: 'currency', currency})}
+                    {intl.formatNumber(price, { style: 'currency', currency })}
                 </Text>
-                </Box>
+            </Box>
 
         </Grid>
-        
-        
+
+
     )
 }
 

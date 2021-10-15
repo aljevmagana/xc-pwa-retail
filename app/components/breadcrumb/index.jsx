@@ -29,24 +29,28 @@ import {categoryUrlBuilder} from '../../utils/url'
  * A simplification of the Chakra `Breadcrumb` component for our project needs. Given
  * a list of categories, display a breadcrumb and it's items.
  */
-const Breadcrumb = ({categories, ...rest}) => {
+const Breadcrumb = ({variant, colour, categories, ...rest}) => {
     const intl = useIntl()
     const styles = useStyleConfig('Breadcrumb')
+
+    //Dynamic styling props
+    const renderStyle = (variant) ? {...styles.container} : {...styles[variant]}
 
     return (
         <ChakraBreadcrumb
             className="sf-breadcrumb"
-            {...styles.plpContainer}
+            {...renderStyle}
             /* separator={<ChevronRightIcon {...styles.icon} />} */
             separator={'/'}
             {...rest}
+            style={{color:colour}}
         >
             {categories.map((category) => (
-                <ChakraBreadcrumbItem {...styles.plpListItem} key={category.id} data-testid="sf-crumb-item">
-                    <ChakraBreadcrumbLink
+                <ChakraBreadcrumbItem key={category.id} data-testid="sf-crumb-item">
+                    <ChakraBreadcrumbLink 
                         as={RouteLink}
                         to={categoryUrlBuilder(category, intl.locale)}
-                        {...styles.plpLink}
+                        {...styles.link}
                     >
                         {category.name}
                     </ChakraBreadcrumbLink>
@@ -62,7 +66,8 @@ Breadcrumb.propTypes = {
     /**
      * The categories to be displayed in this breadcrumb.
      */
-    categories: PropTypes.array
+    categories: PropTypes.array,
+    colour: PropTypes.string
 }
 
 export default Breadcrumb

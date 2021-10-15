@@ -7,14 +7,16 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import {useIntl} from 'react-intl'
-import {Link as RouteLink, useHistory} from 'react-router-dom'
+import { useIntl } from 'react-intl'
+import { Link as RouteLink, useHistory } from 'react-router-dom'
 
 // Components
 import {
     Button,
+    ButtonGroup,
     Flex,
     Link,
+    Stack,
     Select,
     Text,
 
@@ -23,7 +25,7 @@ import {
 } from '@chakra-ui/react'
 
 // Icons
-import {ChevronLeftIcon, ChevronRightIcon} from '../icons'
+import { ChevronLeftIcon, ChevronRightIcon } from '../../../components/icons'
 
 // Constants
 const SELECT_ID = 'pagination'
@@ -38,9 +40,9 @@ const isServer = typeof window === 'undefined'
  */
 const Pagination = (props) => {
     const intl = useIntl()
-    const styles = useStyleConfig('Pagination')
+    const styles = useStyleConfig('PlpPagination')
     const history = useHistory()
-    const {urls, currentURL, ...rest} = props
+    const { urls, currentURL, ...rest } = props
 
     const currentIndex = urls.indexOf(currentURL) > 0 ? urls.indexOf(currentURL) : 0
     const prev = urls[currentIndex - 1]
@@ -51,18 +53,17 @@ const Pagination = (props) => {
         <Flex data-testid="sf-pagination" className="sf-pagination" {...styles.container} {...rest}>
             {/* Previous Button */}
             <Button
+
                 as={isServer ? Link : RouteLink}
                 // Because we are using a button component as a link, the isDisabled flag isn't working
                 // as intended, the workaround is to use the current url when its disabled.
                 href={prev || currentURL}
                 to={prev || currentURL}
                 aria-label="Previous Page"
-                isDisabled={!prev}
-                variant="link"
-                {...styles.button}
+                /* isDisabled={!prev} */
+                {...styles.prevbutton}
             >
-                <ChevronLeftIcon />
-                <Text>
+                <Text {...styles.text} >
                     {intl.formatMessage({
                         id: 'pagination.actions.prev',
                         defaultMessage: 'Prev'
@@ -71,7 +72,7 @@ const Pagination = (props) => {
             </Button>
 
             {/* Direct Page Selection */}
-            <Flex paddingLeft={4} paddingRight={4}>
+            {/* <Flex paddingLeft={4} paddingRight={4}>
                 <Select
                     id={SELECT_ID}
                     onChange={(e) => {
@@ -94,27 +95,59 @@ const Pagination = (props) => {
                     })}{' '}
                     {urls.length}
                 </Text>
+            </Flex> */}
+
+            <Flex>
+                <Stack direction="row" spacing={0} >
+                    {urls.map((href, index) => (
+
+                        <Button
+                            key={index}
+                            value={href}
+                            onClick={(e) => {
+                                history.push(e.target.value)
+                            }}
+                            style={ (index == currentIndex) ? {
+                                zIndex: 3,
+                                color: "#fff",
+                                backgroundColor: "#9a6ee2",
+                                borderColor: "#9a6ee2"
+                            } : {} }
+                            _active={{
+                                bg: "#dddfe2",
+                                transform: "scale(0.98)",
+                                borderColor: "#bec3c9",
+                            }}
+                            {...styles.buttonnumber}
+                        >
+
+                            {index + 1}
+
+                        </Button>
+
+
+
+                    ))}
+                </Stack>
             </Flex>
 
             {/* Next Button */}
-            <Button 
+            <Button
                 as={isServer ? Link : RouteLink}
                 // Because we are using a button component as a link, the isDisabled flag isn't working
                 // as intended, the workaround is to use the current url when its disabled.
                 href={next || currentURL}
                 to={next || currentURL}
                 aria-label="Next Page"
-                isDisabled={!next}
-                variant="link"
-                {...styles.button}
+                /* isDisabled={!next} */
+                {...styles.nextbutton}
             >
-                <Text>
+                <Text {...styles.text}>
                     {intl.formatMessage({
                         id: 'pagination.actions.next',
                         defaultMessage: 'Next'
                     })}
                 </Text>
-                <ChevronRightIcon />
             </Button>
         </Flex>
     )
