@@ -29,11 +29,7 @@ export default {
             maxWidth: 'container.xxl',
             marginLeft: 'auto',
             marginRight: 'auto',
-            color: 'black',
-            paddingTop: {base: 8, lg: 10},
-            paddingBottom: 8,
-            paddingLeft: [4, 4, 6, 8],
-            paddingRight: [4, 4, 6, 8]
+            color: 'black'
         },
         subscribe: {
             maxWidth: {base: '21.5rem', lg: 'none'}
@@ -66,18 +62,19 @@ export default {
         },
         bottomHalf: {
             maxWidth: {base: '34.5rem', lg: '100%'},
-            color: 'black'
+            color: '#dee2e6',
+            background: '#343a40'
         },
         horizontalRule: {
             marginBottom: 4
         },
         copyright: {
             fontSize: 'sm',
-            marginBottom: 6,
-            color: 'black'
+            marginTop: 3
+            
         },
         socialIcons: {
-            marginTop: 4
+        
         }
     }
 }

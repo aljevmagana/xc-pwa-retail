@@ -599,7 +599,7 @@
     "defaultMessage": "Terms & Conditions"
   },
   "footer.message.copyright": {
-    "defaultMessage": "2021 Salesforce or its affiliates. All rights reserved. This is a demo store only. Orders made WILL NOT be processed."
+    "defaultMessage": "2021 Salesforce. All rights reserved."
   },
   "footer.subscribe.button.sign_up": {
     "defaultMessage": "Sign Up"

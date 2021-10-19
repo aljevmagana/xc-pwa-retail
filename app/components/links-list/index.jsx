@@ -39,7 +39,7 @@ const LinksList = ({
                 ))}
 
             {links && (
-                <List spacing={5} {...styles.list}>
+                <List spacing={1} {...styles.list}>
                     {variant === 'horizontal' ? (
                         <HStack>
                             {links.map((link, i) => (

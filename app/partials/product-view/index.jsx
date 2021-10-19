@@ -188,6 +188,7 @@ const ProductView = ({
                     background="#343a40"
                     color="white"
                     py="30px"
+                    marginTop={4}
                     fontSize="0.7875rem"
                     _hover={{
                         background: "black",
