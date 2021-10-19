@@ -35,6 +35,7 @@ import {buildUrlLocale} from '../../utils/url'
 import {DeliveryTime} from '../../components/icons'
 import {SpriteMoney} from '../../components/icons'
 import {CustomerSupport} from '../../components/icons'
+import {BrandLogo} from '../icons'
 
 const Feature = ({ title, text, icon, borderRight }) => {
     return (
@@ -64,7 +65,7 @@ const Footer = ({...otherProps}) => {
     return (
         <Box as="footer" {...styles.container} {...otherProps}>
             <Box py={24} bg="#f8f9fa">
-                <SimpleGrid columns={{ base: 1, md: 3 }} w={'1140px'} mx="auto">
+                <SimpleGrid columns={{ base: 1, md: 3 }} maxWidth={'1140px'} mx="auto">
                     <Feature borderRight="1px"
                         icon={<DeliveryTime color="black" boxSize={12}/>}
                         title={'FREE SHIPPING & RETURN'}
@@ -92,47 +93,58 @@ const Footer = ({...otherProps}) => {
 
                 <StylesProvider value={styles}>
                     <HideOnMobile>
-                        <SimpleGrid columns={4} spacing={3} py={24} w={'1140px'} mx="auto">
-                            <LinksList
-                                heading={intl.formatMessage({
-                                    id: 'footer.column.customer_support',
-                                    defaultMessage: 'Customer Support'
-                                })}
-                                links={[
-                                    {
-                                        href: '/',
-                                        text: intl.formatMessage({
-                                            id: 'footer.link.contact_us',
-                                            defaultMessage: 'Contact Us'
-                                        })
-                                    },
-                                    {
-                                        href: '/',
-                                        text: intl.formatMessage({
-                                            id: 'footer.link.shipping',
-                                            defaultMessage: 'Shipping'
-                                        })
-                                    }
-                                ]}
-                            />
+                        <SimpleGrid columns={4} spacing={3} py={24} maxWidth={'1140px'} mx="auto">
+                            <Stack spacing={6}>
+                                <Box>
+                                    <BrandLogo {...styles.logo} width={16}/>
+                                </Box>
+                                <Text fontSize={'sm'}>
+                                    © 2020 Chakra Templates. All rights reserved
+                                </Text>
+                                <Stack direction={'row'} spacing={6}>
+                                    <SocialIcons variant="flex-start" color='#868e96' {...styles.socialIcons} />
+                                </Stack>
+                            </Stack>
+
                             <LinksList
                                 heading={intl.formatMessage({
                                     id: 'footer.column.account',
-                                    defaultMessage: 'Account'
+                                    defaultMessage: 'Shop'
                                 })}
                                 links={[
                                     {
                                         href: '/',
                                         text: intl.formatMessage({
                                             id: 'footer.link.order_status',
-                                            defaultMessage: 'Order Status'
+                                            defaultMessage: 'For Women'
                                         })
                                     },
                                     {
                                         href: '/',
                                         text: intl.formatMessage({
                                             id: 'footer.link.signin_create_account',
-                                            defaultMessage: 'Sign in or Create Account'
+                                            defaultMessage: 'For Men'
+                                        })
+                                    },
+                                    {
+                                        href: '/',
+                                        text: intl.formatMessage({
+                                            id: 'footer.link.order_status1',
+                                            defaultMessage: 'Stores'
+                                        })
+                                    },
+                                    {
+                                        href: '/',
+                                        text: intl.formatMessage({
+                                            id: 'footer.link.order_status2',
+                                            defaultMessage: 'Our Blog'
+                                        })
+                                    },
+                                    {
+                                        href: '/',
+                                        text: intl.formatMessage({
+                                            id: 'footer.link.order_status3',
+                                            defaultMessage: 'Shop'
                                         })
                                     }
                                 ]}
@@ -140,21 +152,42 @@ const Footer = ({...otherProps}) => {
                             <LinksList
                                 heading={intl.formatMessage({
                                     id: 'footer.column.our_company',
-                                    defaultMessage: 'Our Company'
+                                    defaultMessage: 'Company'
                                 })}
                                 links={[
                                     {
                                         href: '/',
                                         text: intl.formatMessage({
                                             id: 'footer.link.store_locator',
-                                            defaultMessage: 'Store Locator'
+                                            defaultMessage: 'Login'
                                         })
                                     },
                                     {
                                         href: '/',
                                         text: intl.formatMessage({
                                             id: 'footer.link.about_us',
-                                            defaultMessage: 'About Us'
+                                            defaultMessage: 'Register'
+                                        })
+                                    },
+                                    {
+                                        href: '/',
+                                        text: intl.formatMessage({
+                                            id: 'footer.link.store_locator1',
+                                            defaultMessage: 'Wishlist'
+                                        })
+                                    },
+                                    {
+                                        href: '/',
+                                        text: intl.formatMessage({
+                                            id: 'footer.link.store_locator2',
+                                            defaultMessage: 'Our Products'
+                                        })
+                                    },
+                                    {
+                                        href: '/',
+                                        text: intl.formatMessage({
+                                            id: 'footer.link.store_locator3',
+                                            defaultMessage: 'Checkouts'
                                         })
                                     }
                                 ]}
@@ -195,24 +228,26 @@ const Footer = ({...otherProps}) => {
                         </FormControl>
                     </Box> */}
 
-                    <Divider {...styles.horizontalRule} />
+                    <Box {...styles.bottomHalf}>
+                        <Box maxWidth={'1140px'} mx="auto" display="flex" py={4}>
+                            <Text {...styles.copyright}>
+                                &copy;{' '}
+                                {intl.formatMessage({
+                                    id: 'footer.message.copyright',
+                                    defaultMessage:
+                                        '2021 Salesforce. All rights reserved.'
+                                })}
+                            </Text>
 
-                    <Box {...styles.bottomHalf} w={'1140px'} mx="auto">
-                        <Text {...styles.copyright}>
-                            &copy;{' '}
-                            {intl.formatMessage({
-                                id: 'footer.message.copyright',
-                                defaultMessage:
-                                    '2021 Salesforce or its affiliates. All rights reserved. This is a demo store only. Orders made WILL NOT be processed.'
-                            })}
-                        </Text>
+                            <SocialIcons variant="flex-end" pinterestInnerColor="black" {...styles.socialIcons} />
 
-                        <HideOnDesktop>
-                            <LegalLinks variant="vertical" />
-                        </HideOnDesktop>
-                        <HideOnMobile>
-                            <LegalLinks variant="horizontal" />
-                        </HideOnMobile>
+                            {/* <HideOnDesktop>
+                                <LegalLinks variant="vertical" />
+                            </HideOnDesktop>
+                            <HideOnMobile>
+                                <LegalLinks variant="horizontal" />
+                            </HideOnMobile> */}
+                        </Box>
                     </Box>
                 </StylesProvider>
             </Box>
@@ -255,7 +290,7 @@ const Subscribe = ({...otherProps}) => {
                 </InputGroup>
             </Box>
 
-            <SocialIcons variant="flex-start" pinterestInnerColor="black" {...styles.socialIcons} />
+            {/* <SocialIcons variant="flex-start" pinterestInnerColor="black" {...styles.socialIcons} /> */}
         </Box>
     )
 }

@@ -11,13 +11,13 @@ export default {
             color: 'black'
         },
         list: {
-            fontSize: 'sm'
+            fontSize: 'sm',
+            color: '#868e96'
         },
         headingLink: {
             display: 'inline-flex'
         },
         heading: {
-            paddingTop: 3,
             paddingBottom: 3,
             fontFamily: '"HK Grotesk", sans-serif',
             letterSpacing: '0.1em',

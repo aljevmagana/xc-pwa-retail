@@ -121,17 +121,6 @@ const Header = ({
                 <Flex wrap="wrap" alignItems={['baseline', 'baseline', 'baseline', 'center']}>
                     <IconButton
                         aria-label={intl.formatMessage({
-                            id: 'header.button.assistive_msg.menu',
-                            defaultMessage: 'Menu'
-                        })}
-                        icon={<HamburgerIcon />}
-                        variant="unstyled"
-                        display={{lg: 'none'}}
-                        {...styles.icons}
-                        onClick={onMenuClick}
-                    />
-                    <IconButton
-                        aria-label={intl.formatMessage({
                             id: 'header.button.assistive_msg.logo',
                             defaultMessage: 'Logo'
                         })}
@@ -141,7 +130,18 @@ const Header = ({
                         onClick={onLogoClick}
                     />
                     <Box {...styles.bodyContainer}>{children}</Box>
-                    {/* <Box {...styles.searchContainer}>
+                    <IconButton
+                        aria-label={intl.formatMessage({
+                            id: 'header.button.assistive_msg.menu',
+                            defaultMessage: 'Menu'
+                        })}
+                        icon={<HamburgerIcon />}
+                        variant="unstyled"
+                        display={{lg: 'none'}}
+                        {...styles.icons}
+                        onClick={onMenuClick}
+                    />
+                    <Box {...styles.searchContainer}>
                         <Search
                             placeholder={intl.formatMessage({
                                 id: 'header.search.field.value.placeholder',
@@ -149,7 +149,7 @@ const Header = ({
                             })}
                             {...styles.search}
                         />
-                    </Box> */}
+                    </Box>
                     <MaleUser
                         {...styles.accountIcon}
                         tabIndex={0}
@@ -157,6 +157,7 @@ const Header = ({
                         onKeyDown={(e) => {
                             e.key === ENTER_KEY ? onMyAccountClick() : noop
                         }}
+                        display={['none', 'flex']}
                         onClick={onMyAccountClick}
                         aria-label={intl.formatMessage({
                             id: 'header.button.assistive_msg.my_account',
@@ -243,6 +244,7 @@ const Header = ({
                             defaultMessage: 'Wishlist'
                         })}
                         icon={<WishlistIcon />}
+                        display={['none', 'flex']}
                         variant="unstyled"
                         {...styles.icons}
                         onClick={onWishlistClick}
@@ -262,6 +264,7 @@ const Header = ({
                                 )}
                             </>
                         }
+                        display={['none', 'flex']}
                         variant="unstyled"
                         {...styles.icons}
                         onClick={onMyCartClick}
