@@ -64,32 +64,13 @@ const CartSecondaryButtonGroup = ({
                 divider={<Divider display={{base: 'block', lg: 'none'}} />}
             >
                 <ButtonGroup spacing="6">
-                    <Button variant="link" size="sm" onClick={showRemoveItemConfirmation}>
-                        <FormattedMessage defaultMessage="Remove" />
+                    <Button variant="link" size="sm" onClick={showRemoveItemConfirmation} color="black">
+                        <FormattedMessage defaultMessage="x" />
                     </Button>
-                    {customer.isRegistered && (
-                        <Button
-                            variant="link"
-                            size="sm"
-                            onClick={() => onAddToWishlistClick(variant)}
-                        >
-                            <FormattedMessage defaultMessage="Add to wishlist" />
-                        </Button>
-                    )}
                     <Button variant="link" size="sm" onClick={() => onEditClick(variant)}>
                         <FormattedMessage defaultMessage="Edit" />
                     </Button>
                 </ButtonGroup>
-                <Flex alignItems="center">
-                    <Checkbox spacing={2} isReadOnly={true}>
-                        <FormattedMessage defaultMessage="This is a gift." />
-                    </Checkbox>
-                    <Box marginLeft={1}>
-                        <Button marginLeft={1} variant="link" size="sm">
-                            <FormattedMessage defaultMessage="Learn more" />
-                        </Button>
-                    </Box>
-                </Flex>
             </Stack>
             <ConfirmationModal
                 {...REMOVE_CART_ITEM_CONFIRMATION_DIALOG_CONFIG}

@@ -6,7 +6,7 @@
  */
 
 import React, {useEffect, useState} from 'react'
-import {Box, Stack, Grid, GridItem, Container, useDisclosure, Button} from '@chakra-ui/react'
+import {Box, Stack, HStack, Grid, GridItem, Container, Text, useDisclosure, Button} from '@chakra-ui/react'
 import {FormattedMessage, useIntl} from 'react-intl'
 
 import EmptyCart from './partials/empty-cart'
@@ -223,7 +223,7 @@ const Cart = () => {
     }
 
     return (
-        <Box background="gray.50" flex="1" data-testid="sf-cart-container">
+        <Box flex="1" data-testid="sf-cart-container" pt="5%">
             <Container
                 maxWidth="container.xl"
                 px={[4, 6, 6, 4]}
@@ -239,56 +239,65 @@ const Cart = () => {
                             gap={{base: 10, xl: 20}}
                         >
                             <GridItem>
-                                <Stack spacing={4}>
-                                    {basket.productItems.map((product, idx) => (
-                                        <ProductItem
-                                            key={product.productId}
-                                            index={idx}
-                                            secondaryActions={
-                                                <CartSecondaryButtonGroup
-                                                    onAddToWishlistClick={handleAddToWishlist}
-                                                    onEditClick={(product) => {
-                                                        setSelectedItem(product)
-                                                        onOpen()
-                                                    }}
-                                                    onRemoveItemClick={handleRemoveItem}
-                                                />
-                                            }
-                                            product={{
-                                                ...product,
-                                                ...(basket._productItemsDetail &&
-                                                    basket._productItemsDetail[product.productId]),
-                                                price: product.price,
-                                                quantity: localQuantity[product.itemId]
-                                                    ? localQuantity[product.itemId]
-                                                    : product.quantity
-                                            }}
-                                            onItemQuantityChange={(value) =>
-                                                changeItemQuantity(value, product)
-                                            }
-                                            showLoading={
-                                                isCartItemLoading &&
-                                                selectedItem?.itemId === product.itemId
-                                            }
-                                        />
-                                    ))}
-                                </Stack>
-                                <Box>
-                                    {isOpen && (
-                                        <ProductViewModal
-                                            isOpen={isOpen}
-                                            onOpen={onOpen}
-                                            onClose={onClose}
-                                            product={selectedItem}
-                                            updateCart={(variant, quantity) =>
-                                                handleUpdateCart(variant, quantity)
-                                            }
-                                        />
-                                    )}
-                                </Box>
+                                <Grid>
+                                    <GridItem>                        
+                                        <Text w="260px">ITEM</Text>
+                                    </GridItem>  
+                                    <Text>PRICE</Text>
+                                    <Text>QUANTITY</Text>
+                                    <Text>TOTAL</Text>
+                               
+                                    <Stack spacing={4}>
+                                        {basket.productItems.map((product, idx) => (
+                                            <ProductItem
+                                                key={product.productId}
+                                                index={idx}
+                                                secondaryActions={
+                                                    <CartSecondaryButtonGroup
+                                                        onAddToWishlistClick={handleAddToWishlist}
+                                                        onEditClick={(product) => {
+                                                            setSelectedItem(product)
+                                                            onOpen()
+                                                        }}
+                                                        onRemoveItemClick={handleRemoveItem}
+                                                    />
+                                                }
+                                                product={{
+                                                    ...product,
+                                                    ...(basket._productItemsDetail &&
+                                                        basket._productItemsDetail[product.productId]),
+                                                    price: product.price,
+                                                    quantity: localQuantity[product.itemId]
+                                                        ? localQuantity[product.itemId]
+                                                        : product.quantity
+                                                }}
+                                                onItemQuantityChange={(value) =>
+                                                    changeItemQuantity(value, product)
+                                                }
+                                                showLoading={
+                                                    isCartItemLoading &&
+                                                    selectedItem?.itemId === product.itemId
+                                                }
+                                            />
+                                        ))}
+                                    </Stack>
+                                    <Box>
+                                        {isOpen && (
+                                            <ProductViewModal
+                                                isOpen={isOpen}
+                                                onOpen={onOpen}
+                                                onClose={onClose}
+                                                product={selectedItem}
+                                                updateCart={(variant, quantity) =>
+                                                    handleUpdateCart(variant, quantity)
+                                                }
+                                            />
+                                        )}
+                                    </Box>
+                                </Grid>
                             </GridItem>
                             <GridItem>
-                                <Stack spacing={4}>
+                                <Stack spacing={4} background="#f8f9fa" padding="1rem">
                                     <OrderSummary showPromoCodeForm={true} isEstimate={true} />
                                     <Box display={{base: 'none', lg: 'block'}}>
                                         <CartCta />

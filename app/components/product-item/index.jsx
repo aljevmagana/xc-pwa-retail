@@ -38,7 +38,7 @@ const ProductItem = ({
         <Box position="relative" data-testid={`sf-cart-item-${product.productId}`}>
             <CartItemVariant variant={product}>
                 {showLoading && <LoadingSpinner />}
-                <Stack layerStyle="cardBordered" align="flex-start">
+                <Stack align="flex-start">
                     <Flex width="full" alignItems="flex-start" backgroundColor="white">
                         <CartItemVariantImage width={['88px', '136px']} mr={4} />
 
