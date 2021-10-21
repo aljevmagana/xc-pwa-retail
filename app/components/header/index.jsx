@@ -124,7 +124,7 @@ const Header = ({
                             id: 'header.button.assistive_msg.logo',
                             defaultMessage: 'Logo'
                         })}
-                        icon={<BrandLogo {...styles.logo} />}
+                        icon={<BrandLogo {...styles.logo} height= "100%" />}
                         {...styles.icons}
                         variant="unstyled"
                         onClick={onLogoClick}

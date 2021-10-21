@@ -30,7 +30,7 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                 strength={400}
                 bgImageStyle={{ height: "auto" }}
             >
-                <div style={{ height: '90vh' }}>
+                <div style={{ height: '100vh' }}>
                     <Background>
                         <div style={insideStyles}>
                             <Container>
@@ -69,7 +69,7 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                 bgImageStyle={{ height: "auto" }}
                 strength={400}
             >
-                <div style={{ height: '90vh' }}>
+                <div style={{ height: '100vh' }}>
                     <Background>
                         <Container maxWidth="1140px">
                             <div style={{ ...styles.parallaxsection.container2 }} >
@@ -107,7 +107,7 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                 bgImageStyle={{ height: "auto" }}
                 strength={400}
             >
-                <div style={{ height: '90vh' }}>
+                <div style={{ height: '100vh' }}>
                     <Background>
                         <Container maxWidth="1140px">
                             <div style={{ ...styles.parallaxsection.container3 }}>
@@ -149,7 +149,7 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                 bgImageStyle={{ height: "auto" }}
                 strength={400}
             >
-                <div style={{ height: '90vh' }}>
+                <div style={{ height: '100vh' }}>
                     <Background>
                         <Container>
                             <div style={insideStyles}>

@@ -136,7 +136,7 @@ export default function ShippingOptions() {
                         </Box>
                         <Box>
                             <Container variant="form">
-                                <Button w="full" type="submit">
+                                <Button w="full" type="submit" _hover={{bgColor: 'gray.900'}}>
                                     <FormattedMessage defaultMessage="Continue to Payment" />
                                 </Button>
                             </Container>

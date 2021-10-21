@@ -45,7 +45,7 @@ const Checkout = () => {
             <Container
                 data-testid="sf-checkout-container"
                 maxWidth="container.xl"
-                py={{base: 7, lg: 16}}
+                py={{base: 7, lg: 24}}
                 px={{base: 0, lg: 8}}
             >
                 <Grid templateColumns={{base: '1fr', lg: '66% 1fr'}} gap={{base: 10, xl: 20}}>
@@ -70,6 +70,7 @@ const Checkout = () => {
                                             w="full"
                                             onClick={submitOrder}
                                             isLoading={isLoading}
+                                            _hover={{bgColor: 'gray.900'}}
                                             data-testid="sf-checkout-place-order-btn"
                                         >
                                             <FormattedMessage defaultMessage="Place Order" />
@@ -80,12 +81,12 @@ const Checkout = () => {
                         </Stack>
                     </GridItem>
 
-                    <GridItem py={6} px={[4, 4, 4, 0]}>
-                        <OrderSummary showTaxEstimationForm={false} showCartItems={true} />
+                    <GridItem py={0} px={[4, 4, 4, 0]}>
+                        <OrderSummary showTaxEstimationForm={false} showCartItems={true}/>
 
                         {step === 4 && (
                             <Box display={{base: 'none', lg: 'block'}} pt={2}>
-                                <Button w="full" onClick={submitOrder} isLoading={isLoading}>
+                                <Button w="full" onClick={submitOrder} isLoading={isLoading} _hover={{bgColor: 'gray.900'}}>
                                     <FormattedMessage defaultMessage="Place Order" />
                                 </Button>
                             </Box>
@@ -107,7 +108,7 @@ const Checkout = () => {
                     borderColor="gray.100"
                 >
                     <Container variant="form">
-                        <Button w="full" onClick={submitOrder} isLoading={isLoading}>
+                        <Button w="full" onClick={submitOrder} isLoading={isLoading} _hover={{bgColor: 'gray.900'}}>
                             <FormattedMessage defaultMessage="Place Order" />
                         </Button>
                     </Container>

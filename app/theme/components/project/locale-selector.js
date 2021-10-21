@@ -20,7 +20,7 @@ export default {
             paddingLeft: 2
         },
         selectedIcon: {
-            color: 'blue.600'
+            color: 'gray.600'
         },
         optionButton: {
             paddingLeft: 2

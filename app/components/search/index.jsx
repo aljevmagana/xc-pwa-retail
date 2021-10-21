@@ -234,7 +234,7 @@ const Search = (props) => {
                             top="50%"
                             left="50%"
                             opacity={0.85}
-                            color="blue.600"
+                            color="gray.600"
                             zIndex="9999"
                             margin="-25px 0 0 -25px"
                         />

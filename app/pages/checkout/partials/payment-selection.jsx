@@ -131,7 +131,7 @@ const PaymentSelection = ({form, hideSubmitButton, onSubmit = () => null}) => {
                                                 py: 6,
                                                 rounded: 'base',
                                                 border: '1px solid',
-                                                borderColor: 'blue.600'
+                                                borderColor: 'gray.600'
                                             })}
                                         >
                                             <Stack spacing={6}>

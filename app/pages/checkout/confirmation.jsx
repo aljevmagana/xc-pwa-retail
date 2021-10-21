@@ -76,7 +76,7 @@ const CheckoutConfirmation = () => {
                 <Fragment>
                     <FormattedMessage defaultMessage="This email already has an account." />
                     &nbsp;
-                    <Link to="/login" color="blue.600">
+                    <Link to="/login" color="gray.600">
                         <FormattedMessage defaultMessage="Log in here" />
                     </Link>
                 </Fragment>
@@ -170,6 +170,7 @@ const CheckoutConfirmation = () => {
                                             width="full"
                                             onClick={() => form.clearErrors('global')}
                                             isLoading={form.formState.isSubmitting}
+                                            _hover={{bgColor: 'gray.900'}}
                                         >
                                             <FormattedMessage defaultMessage="Create Account" />
                                         </Button>

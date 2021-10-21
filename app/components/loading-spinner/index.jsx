@@ -31,7 +31,7 @@ const LoadingSpinner = ({wrapperStyles = {}, spinnerStyles = {}}) => {
                 thickness="4px"
                 speed="0.65s"
                 emptyColor="gray.200"
-                color="blue.600"
+                color="gray.600"
                 size="xl"
             />
         </Box>

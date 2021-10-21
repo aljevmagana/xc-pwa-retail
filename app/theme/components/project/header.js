@@ -35,8 +35,7 @@ export default {
             justifyContent: 'center'
         },
         logo: {
-            width: '85px',
-            height: [5, 6, 7, 8]
+            width: '85px'
         },
         icons: {
             marginBottom: [1, 1, 2, 0]

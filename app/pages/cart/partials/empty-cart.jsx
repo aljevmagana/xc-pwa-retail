@@ -44,7 +44,7 @@ const EmptyCart = ({isRegistered}) => {
                                 href={'/'}
                                 width={['343px', '220px']}
                                 variant={isRegistered ? 'solid' : 'outline'}
-                                color={isRegistered ? 'white' : 'blue.600'}
+                                color={isRegistered ? 'white' : 'gray.600'}
                             >
                                 <FormattedMessage defaultMessage="Continue Shopping" />
                             </Button>
