@@ -32,9 +32,6 @@ const PriceRangeRefinements = ({ filter, toggleFilter, selectedFilters }) => {
     let max = 0; 
     let selectedPriceList = [];
 
-    console.log("selectedFilters")
-    console.log(selectedFilters);
-
     if(filter.priceRefine.price){
         let tempPriceString = filter.priceRefine.price.replace("(","").replace(")","").replace("..",",")
         tempPriceString = tempPriceString.split(',').map(Number)
@@ -78,13 +75,16 @@ const PriceRangeRefinements = ({ filter, toggleFilter, selectedFilters }) => {
 
         let priceStringValue = `(`+`${val[0]}`+ `..` + `${val[1]}`+`)`;
         let priceStringLabel = `$`+`${val[0]}`+ `-` + `$${val[1]}`;
-        
-        console.log(priceStringValue);
+
         let priceRefinementDetail = {
             hitCount:1,
             label:priceStringLabel,
             value:[priceStringValue]
         }
+
+        console.log("selectedFilters");
+        console.log(selectedFilters);
+        console.log(selectedFilters?.includes(priceStringValue));
         toggleFilter(
             priceRefinementDetail,
             'price',
@@ -95,9 +95,10 @@ const PriceRangeRefinements = ({ filter, toggleFilter, selectedFilters }) => {
 
 
     return (
-        <>
+        <Box>
             <Box>
                 <RangeSlider
+                    key={selectedPrice}
                     aria-label={["min", "max"]}
                     defaultValue={selectedPrice}
                     /* value={selectedPrice} */
@@ -122,14 +123,14 @@ const PriceRangeRefinements = ({ filter, toggleFilter, selectedFilters }) => {
                     <Text {...style.rangesliderpricetext}>To ${selectMaxText}.00 </Text>
                 </Box>
             </Flex>
-        </>
+        </Box>
     )
 }
 
 PriceRangeRefinements.propTypes = {
     filter: PropTypes.object,
     toggleFilter: PropTypes.func,
-    selectedFilters: PropTypes.array
+    selectedFilters: PropTypes.any
 }
 
 export default PriceRangeRefinements
