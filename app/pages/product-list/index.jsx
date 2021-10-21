@@ -343,7 +343,7 @@ const ProductList = (props) => {
     // Show 25, 50, 100, All
     const showByTemplate = (showByValue, index) => {
         return (
-            <Flex>
+            <Flex key={index}>
                 <Link fontSize="0.9rem" href={limitUrls[index]}>{showByValue}</Link>
             </Flex>
         )
@@ -367,11 +367,9 @@ const ProductList = (props) => {
         }
 
         return (
-            <Center>
                 <Text>
                     Showing {x1} - {x2} of {total} products
                 </Text>
-            </Center>
         )
     }
 
@@ -554,6 +552,7 @@ const ProductList = (props) => {
                                             <Flex align="center" justify="center" marginBottom="1rem">
                                                 <Center>
                                                     <Box>
+             
                                                         <Text fontSize="0.9rem" marginRight=".5rem">
                                                             {
                                                                 showingXofX()

@@ -18,7 +18,7 @@ const LinkRefinements = ({filter}) => {
         <Stack spacing={1}>
             {filter.values.map((value) => {
                 return (
-                    <>
+
                     <Link
                         display="flex"
                         alignItems="center"
@@ -30,7 +30,7 @@ const LinkRefinements = ({filter}) => {
                     >
                         <Text fontSize="sm">{value.label}</Text>
                     </Link>
-                    </>
+
                 )
             })}
         </Stack>
