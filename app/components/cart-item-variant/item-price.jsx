@@ -20,7 +20,7 @@ const ItemPrice = ({currency, ...props}) => {
     const variant = useCartItemVariant()
     const basket = useBasket()
 
-    const {price, basePrice, priceAfterItemDiscount} = variant
+    const {price, priceAfterItemDiscount} = variant
 
     const displayPrice = priceAfterItemDiscount ? Math.min(price, priceAfterItemDiscount) : price
 
@@ -28,24 +28,20 @@ const ItemPrice = ({currency, ...props}) => {
 
     return (
         <Stack
-            textAlign="right"
-            direction={hasDiscount ? 'column' : 'row'}
-            justifyContent="flex-end"
-            alignItems="baseline"
-            spacing={hasDiscount ? 0 : 1}
-            wrap="row"
-            {...props}
+            textAlign="center"
+            alignItems="center"
         >
-            <Text fontWeight="bold">
+            <Text fontSize="0.9rem">
                 <FormattedNumber
                     style="currency"
                     currency={currency || basket.currency || DEFAULT_CURRENCY}
                     value={displayPrice}
                 />
+            
                 {hasDiscount && (
                     <Text
                         as="span"
-                        fontSize="sm"
+                        fontSize="0.75rem"
                         fontWeight="normal"
                         textDecoration="line-through"
                         color="gray.500"
@@ -59,20 +55,6 @@ const ItemPrice = ({currency, ...props}) => {
                     </Text>
                 )}
             </Text>
-
-            {basePrice && price !== basePrice && (
-                <Text fontSize="14px">
-                    <FormattedNumber
-                        style="currency"
-                        currency={currency || basket.currency || DEFAULT_CURRENCY}
-                        value={basePrice}
-                    />
-                    <FormattedMessage
-                        defaultMessage="ea"
-                        description="Abbreviated 'each', follows price per item, like $10/ea"
-                    />
-                </Text>
-            )}
         </Stack>
     )
 }

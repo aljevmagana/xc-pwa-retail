@@ -7,12 +7,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-    Box,
     Button,
     ButtonGroup,
-    Checkbox,
     Divider,
-    Flex,
     Stack,
     useDisclosure
 } from '@chakra-ui/react'
@@ -38,7 +35,6 @@ export const REMOVE_CART_ITEM_CONFIRMATION_DIALOG_CONFIG = {
  * (eg.: Remove or Edit or Add to wishlist for cart items)
  */
 const CartSecondaryButtonGroup = ({
-    onAddToWishlistClick = noop,
     onEditClick = noop,
     onRemoveItemClick = noop
 }) => {

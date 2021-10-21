@@ -7,7 +7,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-import {Box, Flex, Stack, Text, Select} from '@chakra-ui/react'
+import {Box, Flex, Stack, Text, Select, Grid, GridItem, HStack} from '@chakra-ui/react'
 import CartItemVariant from '../cart-item-variant'
 import CartItemVariantImage from '../cart-item-variant/item-image'
 import CartItemVariantName from '../cart-item-variant/item-name'
@@ -34,29 +34,34 @@ const ProductItem = ({
     showLoading = false
 }) => {
     const {stepQuantity, stockLevel} = useProduct(product)
+    console.log(product)
     return (
-        <Box position="relative" data-testid={`sf-cart-item-${product.productId}`}>
+        <Box position="relative" data-testid={`sf-cart-item-${product.productId}`} borderBottom="1px solid" borderBottomColor="#e9ecef">
             <CartItemVariant variant={product}>
                 {showLoading && <LoadingSpinner />}
                 <Stack align="flex-start">
                     <Flex width="full" alignItems="flex-start" backgroundColor="white">
-                        <CartItemVariantImage width={['88px', '136px']} mr={4} />
-
-                        <Stack spacing={3} flex={1}>
-                            <Stack spacing={1}>
-                                <CartItemVariantName />
-                                <CartItemVariantAttributes />
-                            </Stack>
-
-                            <Flex align="flex-end" justify="space-between">
-                                <Stack spacing={1}>
-                                    <Text fontSize="sm" color="gray.700">
-                                        <FormattedMessage defaultMessage="Quantity:" />
-                                    </Text>
+                        <Grid templateColumns="repeat(12, 1fr)" alignItems="center" padding="1.2rem 2rem" >
+                            <GridItem colSpan={5}>
+                                <HStack>
+                                    <CartItemVariantImage width={['80px', '80px']} mr={4} />
+                                    <Stack spacing={1}>
+                                        <CartItemVariantName />
+                                        <CartItemVariantAttributes />
+                                    </Stack>
+                                </HStack>
+                            </GridItem>
+                            <GridItem colSpan={2} textAlign="center">
+                                <Text fontSize="0.9rem">${product.basePrice}</Text>
+                            </GridItem>
+                            <GridItem colSpan={2}>
+                                
                                     <Select
                                         onChange={(e) => onItemQuantityChange(e.target.value)}
                                         value={product.quantity}
-                                        width="75px"
+                                        width="50%"
+                                        marginLeft="25%"
+                                        size="sm"
                                     >
                                         {new Array(stockLevel).fill(0).map((_, index) => {
                                             if ((index + 1) % stepQuantity === 0) {
@@ -68,17 +73,21 @@ const ProductItem = ({
                                             }
                                         })}
                                     </Select>
-                                </Stack>
+                                
+                            </GridItem>
+                            <GridItem colSpan={2}>
                                 <Stack>
                                     <CartItemVariantPrice />
                                     <Box display={['none', 'block', 'block', 'block']}>
                                         {primaryAction}
                                     </Box>
                                 </Stack>
-                            </Flex>
+                            </GridItem>
+                            <GridItem colSpan={1}>
+                                {secondaryActions}
+                            </GridItem>
 
-                            {secondaryActions}
-                        </Stack>
+                        </Grid>
                     </Flex>
                     {!showLoading && (
                         <Box display={['block', 'none', 'none', 'none']} w={'full'}>

@@ -239,14 +239,33 @@ const Cart = () => {
                             gap={{base: 10, xl: 20}}
                         >
                             <GridItem>
-                                <Grid>
-                                    <GridItem>                        
-                                        <Text w="260px">ITEM</Text>
-                                    </GridItem>  
-                                    <Text>PRICE</Text>
-                                    <Text>QUANTITY</Text>
-                                    <Text>TOTAL</Text>
-                               
+                                <Grid
+                                 padding="1.2rem 2rem" 
+                                 templateColumns="repeat(12, 1fr)" 
+                                 background="#f8f9fa" 
+                                 fontWeight="bold" 
+                                 fontSize="0.9rem"
+                                 letterSpacing="0.2em"
+                                 textAlign="center"
+                                 gap={4}
+                                 >
+
+                                    <GridItem colSpan={5}  minWidth="min-content">                        
+                                        <Text>ITEM</Text>
+                                    </GridItem>
+                                    <GridItem colSpan={2} minWidth="min-content">
+                                        <Text>PRICE</Text>
+                                    </GridItem>
+                                    <GridItem colSpan={2} minWidth="min-content">
+                                        <Text>QUANTITY</Text>
+                                    </GridItem> 
+                                    <GridItem colSpan={2} minWidth="min-content">
+                                        <Text>TOTAL</Text>
+                                    </GridItem>
+                                    <GridItem colSpan={1} minWidth="min-content">
+                                    </GridItem>
+                                </Grid>
+
                                     <Stack spacing={4}>
                                         {basket.productItems.map((product, idx) => (
                                             <ProductItem
@@ -294,7 +313,7 @@ const Cart = () => {
                                             />
                                         )}
                                     </Box>
-                                </Grid>
+                                
                             </GridItem>
                             <GridItem>
                                 <Stack spacing={4} background="#f8f9fa" padding="1rem">
