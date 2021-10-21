@@ -81,10 +81,6 @@ const PriceRangeRefinements = ({ filter, toggleFilter, selectedFilters }) => {
             label:priceStringLabel,
             value:[priceStringValue]
         }
-
-        console.log("selectedFilters");
-        console.log(selectedFilters);
-        console.log(selectedFilters?.includes(priceStringValue));
         toggleFilter(
             priceRefinementDetail,
             'price',
