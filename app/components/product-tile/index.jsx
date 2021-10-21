@@ -154,7 +154,7 @@ const ProductTile = (props) => {
                             <WrapItem>
                                 <Center w="40px" h="40px">
                                     <Button
-                                        disabled={true} 
+                                        disabled={(productSearchItem?.variationAttributes.length > 1) ? true : false} 
                                         onClick={(e) => {
                                             e.preventDefault()
                                             handleAddToCart()
