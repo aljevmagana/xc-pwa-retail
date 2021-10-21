@@ -17,17 +17,19 @@ import Link from '../../components/link'
 // Components
 import {
     Box,
+    Button,
     Center,
     Container,
+    Drawer,
+    DrawerBody,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
     Flex,
-    HStack,
-    Grid,
-    Select,
-    Text,
     FormControl,
-    Stack,
-    useDisclosure,
-    Button,
+    Grid,
+    HStack,
     Modal,
     ModalHeader,
     ModalBody,
@@ -35,19 +37,13 @@ import {
     ModalContent,
     ModalCloseButton,
     ModalOverlay,
+    Select,
     SimpleGrid,
-    Drawer,
-    DrawerBody,
-    DrawerHeader,
-    DrawerOverlay,
-    DrawerContent,
-    DrawerCloseButton,
     Spacer,
-    useMultiStyleConfig,
-    Tabs,
-    TabList,
-    Tab,
-    extendTheme
+    Stack,
+    Text,
+    useDisclosure,
+    useMultiStyleConfig
 } from '@chakra-ui/react'
 
 // Project Components
@@ -64,10 +60,13 @@ import ProductViewModal from './partials/product-view-modal'
 import { FilterIcon, ChevronDownIcon } from '../../components/icons'
 
 // Hooks
-import { useLimitUrls, usePageUrls, useSortUrls, useSearchParams } from '../../hooks'
+import useBasket from '../../commerce-api/hooks/useBasket'
+import { useLimitUrls, usePageUrls, useSortUrls, useSearchParams, useVariationAttributes } from '../../hooks'
 import useCustomerProductLists from '../../commerce-api/hooks/useCustomerProductLists'
 import { useToast } from '../../hooks/use-toast'
 import { parse as parseSearchParams } from '../../hooks/use-search-params'
+import { useVariant as useVariant } from '../../hooks/use-variant'
+import { useProduct as useProduct } from '../../hooks/use-product'
 
 // Others
 import { CategoriesContext } from '../../contexts'
@@ -91,7 +90,7 @@ const REFINEMENT_DISALLOW_LIST = ['c_isNew']
 const ProductList = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-
+    const basket = useBasket()
 
 
     const [sortOpen, setSortOpen] = useState(false)
@@ -109,7 +108,6 @@ const ProductList = (props) => {
         }
     }
     const [reverse, setReverse] = useState(true);
-
 
     const showError = () => {
         showToast({
@@ -139,6 +137,8 @@ const ProductList = (props) => {
     const [wishlist, setWishlist] = useState({})
     // keep track of the items has been add/remove to/from wishlist
     const [wishlistLoading, setWishlistLoading] = useState([])
+
+    // Product being selected from Quick View or Add to Cart
     const [productSelect, setProductSelect] = useState();
     const [openQuickView, setOpenQuickView] = useState(false);
 
@@ -171,9 +171,51 @@ const ProductList = (props) => {
             const wishlist = customerProductLists.data.find(
                 (list) => list.type === customerProductListTypes.WISHLIST
             )
-            setWishlist(wishlist)
+            setWishlist(wishlist)            
+        }
+
+        // finds the price ranges in productsearch result
+        try {
+            let priceValue = "";
+            productSearchResult?.refinements.filter((filterItem) => {
+                if(filterItem.attributeId == 'price') {
+                    priceValue = filterItem
+                    minMaxPriceProcess(priceValue)
+                }
+            })            
+        } catch(e) {
+
         }
     }, [customerProductLists.data, productSearchResult])
+
+    
+    // function to get the minimum and maximum price base on the original price range
+    const minMaxPriceProcess = (priceValue) => {
+        let priceRangeList = [];
+        let minMaxPrice = [];
+        if (priceValue) {
+            let priceArray = priceValue.values
+            priceArray.forEach((price) => {
+                let priceString = price.value.replace("(","").replace(")","").replace("..",",")
+                priceString = priceString.split(',').map(Number)
+                let iterator = priceString.values();
+                for (const value of iterator) {
+                    priceRangeList.push(value)
+                }
+            })
+            let min = Math.min(...priceRangeList);
+            let max = Math.max(...priceRangeList);
+
+            let priceStringValue = `(`+`${min}`+ `..` + `${max}`+`)`;
+            minMaxPrice.push(min,max)
+
+            let priceSearchParamRefine = (searchParams?.refine) ? searchParams?.refine : {price:null}
+
+            productSearchResult?.refinements.push({attributeId:'price_range', label:'Price Range', values:priceStringValue, priceRefine:priceSearchParamRefine});
+            return;
+        }
+        return;
+    }
 
     /**
      * Removes product from wishlist
@@ -303,9 +345,10 @@ const ProductList = (props) => {
         )
     }
 
+    // Showing 1 of X Page
     const showingXofX = () => {
-        let x_limit = productSearchResult?.limit;
-        let x_offset = productSearchResult?.offset;
+        let x_limit = productSearchResult?.limit || 0;
+        let x_offset = productSearchResult?.offset || 0;
         let x_string = "";
 
         let x1 = 0
@@ -328,13 +371,35 @@ const ProductList = (props) => {
         )
     }
 
-    const getProductDetails = (product) => {
+    // function that handles quick Add to Cart, quick ATC are disabled if product are more than 1
+    const handleAddToCart = async (product) => {
+        const quantity = 1
+        try {
+            if (!product?.orderable || !quantity) return
+            // The basket accepts an array of `ProductItems`, so lets create a single
+            // item array to add to the basket.
+            const productItems = [
+                {
+                    productId: product.representedProduct.id,
+                    quantity,
+                    price: product.price
+                }
+            ]
+            basket.addItemToBasket(productItems)
+            window.scrollTo(0, 0);
+        } catch (error) {
+            showError(error)
+        }
+    }
+    const getProductDetails = async (product) => {
         setProductSelect(product);
+
         if (product) {
             displayQuickView()
         }
     }
 
+    /* Trigger Product Tile Quickview */
     const displayQuickView = () => {
         setOpenQuickView(true);
     }
@@ -364,7 +429,6 @@ const ProductList = (props) => {
                     isLoading={isLoading}
                 />
             </Flex>
-            
             <Spacer />
             <Container maxWidth="1140px" variant="plpContainer" maxW="container.lg">
 
@@ -480,7 +544,7 @@ const ProductList = (props) => {
                                 </Stack>
                                 <Box>
                                     {/* Sort By Filter */}
-                                    <SimpleGrid columns={{sm: 2, md: 2, lg:3}} className="plp-main-sortby-container" margintop="1rem" marginBottom="1rem" gap={6}>
+                                    <SimpleGrid columns={{ sm: 2, md: 2, lg: 3 }} className="plp-main-sortby-container" margintop="1rem" marginBottom="1rem" gap={6}>
                                         <Box>
 
                                             <Flex align="center" justify="center" marginBottom="1rem">
@@ -539,7 +603,7 @@ const ProductList = (props) => {
                                     <Spacer />
                                     {/* PLP Grids */}
                                     <SimpleGrid
-                                        columns={{sm: 1, md: 2, lg:3}}
+                                        columns={{ sm: 1, md: 2, lg: 3 }}
                                         spacingX={6}
                                         spacingY={{ base: 12, lg: 16 }}
                                     >
@@ -570,6 +634,9 @@ const ProductList = (props) => {
                                                         }}
                                                         onQuickViewClick={() => {
                                                             getProductDetails(productSearchItem)
+                                                        }}
+                                                        handleAddToCart={() => {
+                                                            handleAddToCart(productSearchItem);
                                                         }}
 
                                                         isInWishlist={isInWishlist}
@@ -702,7 +769,7 @@ const ProductList = (props) => {
                         </DrawerContent>
                     </Drawer>
                     {
-                        (openQuickView) ? <ProductViewModal product={productSelect} isOpen={openQuickView} onClose={() => { setOpenQuickView(false) }} props={props} /> : <></>
+                        (openQuickView) ? <ProductViewModal product={productSelect} isOpen={openQuickView} onOpen={onOpen} onClose={() => { setOpenQuickView(false) }} props={props} /> : <></>
                     }
 
                 </Box>

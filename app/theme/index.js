@@ -51,9 +51,11 @@ import LocaleSelector from './components/project/locale-selector'
 import OfflineBanner from './components/project/offline-banner'
 import Pagination from './components/project/pagination'
 import PlpPagination from './components/project/plp-pagination'
+import PriceRangeSlider from './components/project/pricerange-slider'
 import PlpHeading from './components/project/plp-heading'
 import ProductTile from './components/project/product-tile'
 import ProductList from './foundations/product-list'
+import Refinements from './components/project/refinements'
 import SocialIcons from './components/project/social-icons'
 import SwatchGroup from './components/project/swatch-group'
 import ImageGallery from './components/project/image-gallery'
@@ -107,9 +109,11 @@ const overrides = {
         SocialIcons,
         Pagination,
         PlpPagination,
+        PriceRangeSlider,
         PlpHeading,
         ProductList,
         ProductTile,
+        Refinements,
         SwatchGroup,
         ImageGallery
     }

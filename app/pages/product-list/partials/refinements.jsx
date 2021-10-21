@@ -5,7 +5,7 @@
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Text,
     Stack,
@@ -14,7 +14,8 @@ import {
     AccordionItem,
     AccordionButton,
     AccordionPanel,
-    AccordionIcon
+    AccordionIcon,
+    useMultiStyleConfig,
 } from '@chakra-ui/react'
 import PropTypes from 'prop-types'
 import ColorRefinements from './color-refinements'
@@ -22,20 +23,25 @@ import SizeRefinements from './size-refinements'
 import RadioRefinements from './radio-refinements'
 import CheckboxRefinements from './checkbox-refinements'
 import LinkRefinements from './link-refinements'
+import PriceRangeRefinements from './pricerange-refinements'
 import {isServer} from '../../../utils/utils'
 import {FILTER_ACCORDION_SATE} from '../../../constants'
+
 
 const componentMap = {
     cgid: LinkRefinements,
     c_refinementColor: ColorRefinements,
     c_size: SizeRefinements,
-    price: RadioRefinements
+    price: RadioRefinements,
+    price_range: PriceRangeRefinements
 }
 
 const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
+    const style = useMultiStyleConfig("Refinements");
+
     // Getting the indices of filters to open accordions by default
     let filtersIndexes = filters?.map((filter, idx) => idx)
-    // Use saved state for accordions
+
     if (!isServer) {
         const savedExpandedAccordionIndexes =
             window.localStorage.getItem(FILTER_ACCORDION_SATE) &&
@@ -78,8 +84,9 @@ const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
                         const Values = componentMap[filter.attributeId] || CheckboxRefinements
                         const selectedFiltersArray = selectedFilters?.[filter.attributeId]
                         if (filter.values) {
+                            let displaynone = (filter.attributeId == 'price') ? "none" : "";
                             return (
-                                <Stack key={filter.attributeId} divider={<Divider />}>
+                                <Stack key={filter.attributeId} divider={<Divider/>} style={{display:`${displaynone}`}}>
                                     <AccordionItem
                                         paddingTop={idx !== 0 ? 6 : 0}
                                         borderBottom={
@@ -101,6 +108,7 @@ const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
                                                         textAlign="left"
                                                         fontSize="md"
                                                         fontWeight={600}
+                                                        {...style.categorytext}
                                                     >
                                                         {filter.label}
                                                     </Text>

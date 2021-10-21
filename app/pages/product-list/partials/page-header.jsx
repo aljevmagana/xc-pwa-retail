@@ -10,6 +10,7 @@ import PropTypes from 'prop-types'
 import { isServer } from '../../../utils/utils'
 // Components
 import { AspectRatio, Box, Heading, Image, Flex, Text, Fade, Spacer, Stack, useMultiStyleConfig } from '@chakra-ui/react'
+import { Parallax, Background } from 'react-parallax'
 
 // Utilities
 import { getAssetUrl } from 'pwa-kit-react-sdk/ssr/universal/utils'
@@ -31,21 +32,31 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
             <Spacer />
 
             <>
-                <Box>
-                    <AspectRatio ratio={32/9}>
-                        <Box>
-                            <Box style={{position:"absolute", zIndex:"1"}}>
-                                <Stack>
-                                <Flex align="center" justify="center">
-                                    {' Home / ', category && <Breadcrumb variant='plpContainer' colour='white' categories={category.parentCategoryTree} />}
-                                    {searchQuery && <Text>Search Results for</Text>}
-                                </Flex>
-                                {/* Category Title */}
-                                <Flex color="white" align="center" justify="center">
-                                    <Heading fontSize="6.4vh" marginBottom="3vh" variant="plpHeading">
-                                        {`${category?.name || searchQuery || ''}`}
-                                    </Heading>
-                                    {/* <Heading as="h2" size="lg" marginRight={2}>
+                <Box {...styles}>
+                    <Parallax
+                        className="parallaxsection"
+                        bgImage={imageBanner}
+                        strength={400}
+                        bgImageStyle={{
+                            aspectRatio: "32/10",
+                            objectFit: "cover"
+                        }}
+                    >
+                        <div style={{ height: '57vh' }}>
+                            <AspectRatio ratio={32 / 10}>
+                                <Background>
+                                    <Box style={{ position: "absolute", zIndex: "1", top: "18vh" }}>
+                                        <Stack>
+                                            <Flex align="center" justify="center">
+                                                {' Home / ', category && <Breadcrumb variant='plpContainer' colour='white' categories={category.parentCategoryTree} />}
+                                                {searchQuery && <Text>Search Results for</Text>}
+                                            </Flex>
+                                            {/* Category Title */}
+                                            <Flex color="white" align="center" justify="center">
+                                                <Heading fontSize="6.4vh" marginBottom="3vh" variant="plpHeading">
+                                                    {`${category?.name || searchQuery || ''}`}
+                                                </Heading>
+                                                {/* <Heading as="h2" size="lg" marginRight={2}>
                                             {isServer ? (
                                                 <Fragment>({productSearchResult?.total})</Fragment>
                                             ) : (
@@ -54,23 +65,19 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                             )}
                                         </Heading> 
                                     */}
-                                </Flex>
-                                <Flex color="white !important" align="center" justify="center">
-                                    <Text fontSize="2.1vh">Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
-                                </Flex>
-                                </Stack>                            
-                            </Box>
-                            <Box {...styles}>
-                            <Image src={imageBanner} alt="categoryBanner" objectFit="cover" />
-                            </Box>
-                        </Box>
-                    </AspectRatio>
-
+                                            </Flex>
+                                            <Flex color="white !important" align="center" justify="center">
+                                                <Text fontSize="2.1vh">Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
+                                            </Flex>
+                                        </Stack>
+                                    </Box>
+                                </Background>
+                            </AspectRatio>
+                        </div>
+                    </Parallax>
                 </Box>
+
             </>
-
-            {/* Breadcrumb */}
-
 
         </Box>
     )

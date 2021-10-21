@@ -6,10 +6,10 @@
  */
 
 import React from 'react'
-import {Box, Text, Radio, RadioGroup, Stack} from '@chakra-ui/react'
+import { Box, Text, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import PropTypes from 'prop-types'
 
-const RadioRefinements = ({filter, toggleFilter, selectedFilters}) => {
+const RadioRefinements = ({ filter, toggleFilter, selectedFilters }) => {
     return (
         <Box>
             <RadioGroup value={selectedFilters}>
@@ -22,15 +22,16 @@ const RadioRefinements = ({filter, toggleFilter, selectedFilters}) => {
                                     <Radio
                                         display="flex"
                                         alignItems="center"
-                                        height={{base: '44px', lg: '24px'}}
+                                        height={{ base: '44px', lg: '24px' }}
                                         value={value.value}
-                                        onChange={() =>
+                                        onChange={() => {
                                             toggleFilter(
                                                 value,
                                                 filter.attributeId,
                                                 selectedFilters?.includes(value.value),
                                                 false
                                             )
+                                        }
                                         }
                                         fontSize="sm"
                                     >
