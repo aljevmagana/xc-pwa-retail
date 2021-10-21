@@ -17,6 +17,12 @@
       "value": "Estimated Total"
     }
   ],
+  "+s1hab": [
+    {
+      "type": 0,
+      "value": "ADD TO WISHLIST"
+    }
+  ],
   "+y/wae": [
     {
       "type": 1,
@@ -379,12 +385,6 @@
       "value": "Credit Card"
     }
   ],
-  "ADKef8": [
-    {
-      "type": 0,
-      "value": "Add to cart"
-    }
-  ],
   "AYIKp4": [
     {
       "type": 0,
@@ -419,12 +419,6 @@
     {
       "type": 0,
       "value": "Please enter your phone number"
-    }
-  ],
-  "BWpuKl": [
-    {
-      "type": 0,
-      "value": "Update"
     }
   ],
   "BlJFo9": [
@@ -651,12 +645,6 @@
       "value": "name"
     }
   ],
-  "KV/9Hv": [
-    {
-      "type": 0,
-      "value": "Questions"
-    }
-  ],
   "Kz7I2o": [
     {
       "type": 0,
@@ -667,12 +655,6 @@
     {
       "type": 0,
       "value": "Subtotal"
-    }
-  ],
-  "LiHQih": [
-    {
-      "type": 0,
-      "value": "Coming Soon"
     }
   ],
   "LrQ8C0": [
@@ -715,6 +697,12 @@
     {
       "type": 0,
       "value": "Back to previous page"
+    }
+  ],
+  "NX5HNL": [
+    {
+      "type": 0,
+      "value": "UPDATE"
     }
   ],
   "NymXNv": [
@@ -821,12 +809,6 @@
       "value": "Create an account for faster checkout"
     }
   ],
-  "OrvEHn": [
-    {
-      "type": 0,
-      "value": "Product Detail"
-    }
-  ],
   "P5ouV8": [
     {
       "type": 0,
@@ -889,6 +871,12 @@
       "value": "First Name"
     }
   ],
+  "QM8nrT": [
+    {
+      "type": 1,
+      "value": "sortOption"
+    }
+  ],
   "QclMUn": [
     {
       "type": 0,
@@ -905,16 +893,6 @@
     {
       "type": 0,
       "value": "New Arrivals"
-    }
-  ],
-  "RlxeOk": [
-    {
-      "type": 0,
-      "value": "Sort By: "
-    },
-    {
-      "type": 1,
-      "value": "sortOption"
     }
   ],
   "SQJto2": [
@@ -1033,12 +1011,6 @@
     {
       "type": 0,
       "value": "Postal Code"
-    }
-  ],
-  "V+9Zzz": [
-    {
-      "type": 0,
-      "value": "Size & Fit"
     }
   ],
   "V+R4NC": [
@@ -1255,12 +1227,6 @@
       "value": "static/img/feeling-red.png"
     }
   ],
-  "dUxyza": [
-    {
-      "type": 0,
-      "value": "Reviews"
-    }
-  ],
   "dfEp3Z": [
     {
       "type": 0,
@@ -1344,37 +1310,43 @@
   "footer.column.account": [
     {
       "type": 0,
-      "value": "Account"
-    }
-  ],
-  "footer.column.customer_support": [
-    {
-      "type": 0,
-      "value": "Customer Support"
+      "value": "Shop"
     }
   ],
   "footer.column.our_company": [
     {
       "type": 0,
-      "value": "Our Company"
+      "value": "Company"
     }
   ],
   "footer.link.about_us": [
     {
       "type": 0,
-      "value": "About Us"
-    }
-  ],
-  "footer.link.contact_us": [
-    {
-      "type": 0,
-      "value": "Contact Us"
+      "value": "Register"
     }
   ],
   "footer.link.order_status": [
     {
       "type": 0,
-      "value": "Order Status"
+      "value": "For Women"
+    }
+  ],
+  "footer.link.order_status1": [
+    {
+      "type": 0,
+      "value": "Stores"
+    }
+  ],
+  "footer.link.order_status2": [
+    {
+      "type": 0,
+      "value": "Our Blog"
+    }
+  ],
+  "footer.link.order_status3": [
+    {
+      "type": 0,
+      "value": "Shop"
     }
   ],
   "footer.link.privacy_policy": [
@@ -1398,7 +1370,7 @@
   "footer.link.signin_create_account": [
     {
       "type": 0,
-      "value": "Sign in or Create Account"
+      "value": "For Men"
     }
   ],
   "footer.link.site_map": [
@@ -1410,7 +1382,25 @@
   "footer.link.store_locator": [
     {
       "type": 0,
-      "value": "Store Locator"
+      "value": "Login"
+    }
+  ],
+  "footer.link.store_locator1": [
+    {
+      "type": 0,
+      "value": "Wishlist"
+    }
+  ],
+  "footer.link.store_locator2": [
+    {
+      "type": 0,
+      "value": "Our Products"
+    }
+  ],
+  "footer.link.store_locator3": [
+    {
+      "type": 0,
+      "value": "Checkouts"
     }
   ],
   "footer.link.terms_conditions": [
@@ -1477,6 +1467,12 @@
     {
       "type": 0,
       "value": "My cart"
+    }
+  ],
+  "header.search.field.value.placeholder": [
+    {
+      "type": 0,
+      "value": "Search for products..."
     }
   ],
   "hp3uqR": [
@@ -1771,6 +1767,12 @@
       "value": "Promotion removed"
     }
   ],
+  "pDRjx+": [
+    {
+      "type": 0,
+      "value": "ADD TO CART"
+    }
+  ],
   "pQ2F3h": [
     {
       "type": 0,
@@ -1863,12 +1865,6 @@
     {
       "type": 0,
       "value": "Please create a password"
-    }
-  ],
-  "qVGRIE": [
-    {
-      "type": 0,
-      "value": "Quantity"
     }
   ],
   "rkxMdY": [

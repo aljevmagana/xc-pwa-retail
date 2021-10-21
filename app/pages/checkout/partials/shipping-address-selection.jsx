@@ -17,6 +17,7 @@ import {PlusIcon} from '../../../components/icons'
 import AddressDisplay from '../../../components/address-display'
 import AddressFields from '../../../components/forms/address-fields'
 import FormActionButtons from '../../../components/forms/form-action-buttons'
+import { FaGratipay } from 'react-icons/fa'
 
 const ShippingAddressEditForm = ({
     title,
@@ -36,7 +37,7 @@ const ShippingAddressEditForm = ({
                 paddingY: 6,
                 rounded: 'base',
                 border: '1px solid',
-                borderColor: 'blue.600'
+                borderColor: 'gray.600'
             })}
             data-testid="sf-shipping-address-edit-form"
         >
@@ -64,6 +65,7 @@ const ShippingAddressEditForm = ({
                                     <Button
                                         type="submit"
                                         width="full"
+                                        _hover={{bgColor: 'gray.900'}}
                                         disabled={form.formState.isSubmitting}
                                     >
                                         {formatMessage(
@@ -246,7 +248,7 @@ const ShippingAddressSelection = ({
                                                             height={3}
                                                             borderLeft="1px solid"
                                                             borderTop="1px solid"
-                                                            borderColor="blue.600"
+                                                            borderColor="gray.600"
                                                             position="absolute"
                                                             left="50%"
                                                             bottom="-23px"
@@ -275,7 +277,7 @@ const ShippingAddressSelection = ({
                                         variant="outline"
                                         border="1px dashed"
                                         borderColor="gray.200"
-                                        color="blue.600"
+                                        color="gray.600"
                                         height={['44px', '44px', '167px']}
                                         rounded="base"
                                         fontWeight="medium"
@@ -290,7 +292,7 @@ const ShippingAddressSelection = ({
                                                 height={3}
                                                 borderLeft="1px solid"
                                                 borderTop="1px solid"
-                                                borderColor="blue.600"
+                                                borderColor="gray.600"
                                                 position="absolute"
                                                 left="50%"
                                                 bottom="-23px"

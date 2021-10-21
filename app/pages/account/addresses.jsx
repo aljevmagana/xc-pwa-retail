@@ -44,7 +44,7 @@ const BoxArrow = () => {
             height={3}
             borderLeft="1px solid"
             borderTop="1px solid"
-            borderColor="blue.600"
+            borderColor="gray.600"
             position="absolute"
             left="50%"
             bottom="-23px"
@@ -68,7 +68,7 @@ const ShippingAddressForm = ({form, hasAddresses, selectedAddressId, toggleEdit,
                 paddingY: 6,
                 rounded: 'base',
                 border: '1px solid',
-                borderColor: 'blue.600'
+                borderColor: 'gray.600'
             })}
         >
             {form.formState.isSubmitting && <LoadingSpinner />}
@@ -204,7 +204,7 @@ const AccountAddresses = () => {
                             variant="outline"
                             border="1px dashed"
                             borderColor="gray.200"
-                            color="blue.600"
+                            color="gray.600"
                             height={{lg: 'full'}}
                             minHeight={11}
                             rounded="base"

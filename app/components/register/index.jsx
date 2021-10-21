@@ -63,7 +63,7 @@ const RegisterForm = ({submitForm, clickSignIn = noop, form}) => {
                                 values={{
                                     // eslint-disable-next-line react/display-name
                                     policy: (chunks) => (
-                                        <ChakraLink as={Link} to="/privacy-policy" color="blue.600">
+                                        <ChakraLink as={Link} to="/privacy-policy" color="gray.600">
                                             {chunks}
                                         </ChakraLink>
                                     ),
@@ -72,7 +72,7 @@ const RegisterForm = ({submitForm, clickSignIn = noop, form}) => {
                                         <ChakraLink
                                             as={Link}
                                             to="/terms-conditions"
-                                            color="blue.600"
+                                            color="gray.600"
                                         >
                                             {chunks}
                                         </ChakraLink>

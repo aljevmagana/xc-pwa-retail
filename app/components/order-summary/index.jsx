@@ -27,6 +27,7 @@ const CartItems = ({basket}) => {
         <Stack spacing={5} width="full">
             <Box>
                 <Button
+                    color="gray.600"
                     variant="link"
                     leftIcon={<BasketIcon boxSize="22px" />}
                     rightIcon={cartItemsExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
@@ -63,7 +64,7 @@ const CartItems = ({basket}) => {
                         )
                     })}
 
-                    <Button as={Link} to="/cart" variant="link" width="full">
+                    <Button as={Link} to="/cart" variant="link" width="full" color="gray.600">
                         <FormattedMessage defaultMessage="Edit cart" />
                     </Button>
                 </Stack>
@@ -94,7 +95,7 @@ const OrderSummary = ({
     }
 
     return (
-        <Stack data-testid="sf-order-summary" spacing={5}>
+        <Stack data-testid="sf-order-summary" spacing={5} bgColor= "#f8f9fa" px="1.5rem" py="1.2rem">
             <Heading fontSize={fontSize} pt={1}>
                 <FormattedMessage defaultMessage="Order Summary" />
             </Heading>

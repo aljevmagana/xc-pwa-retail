@@ -6,13 +6,13 @@
  */
 export default {
     baseStyle: {
-        borderRadius: 'base'
+        borderRadius: '0'
     },
     variants: {
         solid: (props) =>
             props.colorScheme === 'blue'
                 ? {
-                      backgroundColor: 'blue.600',
+                      backgroundColor: 'gray.600',
                       color: 'white',
                       _hover: {bg: 'blue.700', _disabled: {bg: 'blue.300'}},
                       _active: {bg: 'blue.800'},
@@ -22,7 +22,7 @@ export default {
         outline: (props) =>
             props.colorScheme === 'black'
                 ? {color: 'gray.900', _hover: {bg: 'gray.50'}, borderColor: 'gray.200'}
-                : {color: 'blue.600', _hover: {bg: 'gray.50'}},
+                : {color: 'gray.600', _hover: {bg: 'gray.50'}},
         footer: {
             fontSize: 'sm',
             backgroundColor: 'gray.100',
@@ -33,7 +33,7 @@ export default {
             paddingRight: 3
         },
         link: (props) => ({
-            color: props.colorScheme === 'red' ? 'red.500' : 'blue.600',
+            color: props.colorScheme === 'red' ? 'red.500' : 'gray.600',
             fontWeight: 'normal',
             minWidth: '1em',
             lineHeight: 4

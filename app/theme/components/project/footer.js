@@ -73,8 +73,9 @@ export default {
             marginTop: 3
             
         },
-        socialIcons: {
-        
-        }
+        creditCardIcon: {
+            width: '38px',
+            height: '22px'
+        },
     }
 }

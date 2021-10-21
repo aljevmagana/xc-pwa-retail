@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-const mdSize = {height: 11, borderRadius: 'base'}
+const mdSize = {height: 11, borderRadius: '0'}
 
 export default {
     sizes: {
@@ -16,7 +16,7 @@ export default {
     baseStyle: {
         field: {
             _focus: {
-                borderColor: 'blue.600'
+                borderColor: 'gray.600'
             }
         }
     },

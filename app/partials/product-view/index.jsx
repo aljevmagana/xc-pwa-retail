@@ -266,7 +266,7 @@ const ProductView = ({
                             <HideOnMobile>
                                 {showFullLink && product && (
                                     <Link to={`/product/${product.master.masterId}`}>
-                                        <Text color="blue.600">
+                                        <Text color="gray.600">
                                             {intl.formatMessage({
                                                 defaultMessage: 'See full details'
                                             })}
@@ -400,7 +400,7 @@ const ProductView = ({
                         <HideOnDesktop>
                             {showFullLink && product && (
                                 <Link to={`/product/${product.master.masterId}`}>
-                                    <Text color="blue.600">
+                                    <Text color="gray.600">
                                         {intl.formatMessage({
                                             defaultMessage: 'See full details'
                                         })}

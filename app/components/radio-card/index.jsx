@@ -30,7 +30,7 @@ export const RadioCard = (props) => {
                 borderRadius="base"
                 height="full"
                 _checked={{
-                    borderColor: 'blue.600'
+                    borderColor: 'gray.600'
                 }}
                 _focus={{
                     boxShadow: 'outline'
@@ -48,7 +48,7 @@ export const RadioCard = (props) => {
                         borderStyle="solid"
                         borderWidth="0 38px 38px 0"
                         borderColor="transparent"
-                        borderRightColor="blue.600"
+                        borderRightColor="gray.600"
                     >
                         <CheckIcon color="white" position="absolute" right="-40px" top="1px" />
                     </Box>

@@ -51,7 +51,7 @@ const RecentSearches = ({recentSearches, closeAndNavigate}) => {
                             }}
                             variant="menu-link"
                         >
-                            <Text fontWeight="400" color="blue.600" fontSize={'md'}>
+                            <Text fontWeight="400" color="gray.600" fontSize={'md'}>
                                 <FormattedMessage defaultMessage="Clear recent searches" />
                             </Text>
                         </Button>

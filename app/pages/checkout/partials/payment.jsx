@@ -116,7 +116,7 @@ const Payment = () => {
 
                     <Box pt={3}>
                         <Container variant="form">
-                            <Button w="full" onClick={reviewOrder}>
+                            <Button w="full" onClick={reviewOrder} _hover={{bgColor: 'gray.900'}}>
                                 <FormattedMessage defaultMessage="Review Order" />
                             </Button>
                         </Container>

@@ -10,6 +10,7 @@ import {
     Box,
     Text,
     Divider,
+    HStack,
     SimpleGrid,
     useMultiStyleConfig,
     StylesProvider,
@@ -36,6 +37,7 @@ import {DeliveryTime} from '../../components/icons'
 import {SpriteMoney} from '../../components/icons'
 import {CustomerSupport} from '../../components/icons'
 import {BrandLogo} from '../icons'
+import {VisaIcon, MastercardIcon, AmexIcon, DiscoverIcon} from '../../components/icons'
 
 const Feature = ({ title, text, icon, borderRight }) => {
     return (
@@ -57,6 +59,18 @@ const Feature = ({ title, text, icon, borderRight }) => {
       </Stack>
     );
 };
+
+const CreditCardIcons = (props) => {
+    const styles = useStyles()
+    return (
+        <HStack sizing={2} {...props}>
+            <VisaIcon {...styles.creditCardIcon} />
+            <MastercardIcon {...styles.creditCardIcon} />
+            <AmexIcon {...styles.creditCardIcon} />
+            <DiscoverIcon {...styles.creditCardIcon} />
+        </HStack>
+    )
+}
 
 const Footer = ({...otherProps}) => {
     const styles = useMultiStyleConfig('Footer')
@@ -229,7 +243,7 @@ const Footer = ({...otherProps}) => {
                     </Box> */}
 
                     <Box {...styles.bottomHalf}>
-                        <Box maxWidth={'1140px'} mx="auto" display="flex" py={4}>
+                        <Box maxWidth={'1140px'} mx="auto" display="flex" py={4} justifyContent={"space-between"}>
                             <Text {...styles.copyright}>
                                 &copy;{' '}
                                 {intl.formatMessage({
@@ -239,7 +253,7 @@ const Footer = ({...otherProps}) => {
                                 })}
                             </Text>
 
-                            <SocialIcons variant="flex-end" pinterestInnerColor="black" {...styles.socialIcons} />
+                            <CreditCardIcons marginTop={4} marginBottom={4} variant="flex-end"/>
 
                             {/* <HideOnDesktop>
                                 <LegalLinks variant="vertical" />

@@ -123,14 +123,14 @@ const ContactInfo = () => {
                             </Stack>
 
                             <Stack spacing={3}>
-                                <Button type="submit">
+                                <Button type="submit" bgColor="#343a40" _hover={{bgColor: '#23272b'}} borderRadius="0" textTransform="uppercase" fontSize="0.8rem">
                                     {!showPasswordField ? (
                                         <FormattedMessage defaultMessage="Checkout as guest" />
                                     ) : (
                                         <FormattedMessage defaultMessage="Log in" />
                                     )}
                                 </Button>
-                                <Button variant="outline" onClick={toggleGuestCheckout}>
+                                <Button variant="outline" onClick={toggleGuestCheckout} textTransform="uppercase"  fontSize="0.8rem" borderRadius="0" color="#343a40" borderColor="#343a40" _hover={{bgColor: '#343a40', color:'white'}}>
                                     {!showPasswordField ? (
                                         <FormattedMessage defaultMessage="Already have an account? Log in" />
                                     ) : (

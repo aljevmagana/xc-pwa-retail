@@ -30,52 +30,55 @@ const CheckoutFooter = ({...otherProps}) => {
         <Box as="footer" {...styles.container} {...otherProps}>
             <Box {...styles.content}>
                 <StylesProvider value={styles}>
-                    <LinksList
-                        links={[
-                            {
-                                href: '/',
-                                text: intl.formatMessage({
-                                    id: 'footer.link.shipping',
-                                    defaultMessage: 'Shipping'
-                                })
-                            },
-                            {
-                                href: '/',
-                                text: intl.formatMessage({
-                                    id: 'footer.link.returns_exchanges',
-                                    defaultMessage: 'Returns & Exchanges'
-                                })
-                            }
-                        ]}
-                        {...styles.customerService}
-                    />
-
+                    <Box maxWidth={'1140px'} mx="auto" display="flex" py={8} justifyContent={"space-between"}>
+                        <LinksList
+                            links={[
+                                {
+                                    href: '/',
+                                    text: intl.formatMessage({
+                                        id: 'footer.link.shipping',
+                                        defaultMessage: 'Shipping'
+                                    })
+                                },
+                                {
+                                    href: '/',
+                                    text: intl.formatMessage({
+                                        id: 'footer.link.returns_exchanges',
+                                        defaultMessage: 'Returns & Exchanges'
+                                    })
+                                }
+                            ]}
+                            variant="horizontal"
+                            // {...styles.customerService}
+                        />
+                        <LegalLinks variant="horizontal" />
+                    </Box>              
                     <HideOnDesktop>
                         <CreditCardIcons marginTop={4} marginBottom={4} />
                     </HideOnDesktop>
 
-                    <Divider {...styles.horizontalRule} />
+                    {/* <Divider {...styles.horizontalRule} /> */}
 
                     <Box {...styles.bottomHalf}>
-                        <Text {...styles.copyright}>
-                            &copy;{' '}
-                            {intl.formatMessage({
-                                id: 'footer.message.copyright',
-                                defaultMessage:
-                                    '2021 Salesforce. All rights reserved.'
-                            })}
-                        </Text>
+                        <Box maxWidth={'1140px'} mx="auto" display="flex" py={4} justifyContent={"space-between"}>
+                            <Text {...styles.copyright} m="0">
+                                &copy;{' '}
+                                {intl.formatMessage({
+                                    id: 'footer.message.copyright',
+                                    defaultMessage:
+                                        '2021 Salesforce. All rights reserved.'
+                                })}
+                            </Text>
 
-                        <HideOnDesktop>
-                            <LegalLinks variant="vertical" />
-                        </HideOnDesktop>
-                        <HideOnMobile>
-                            <Flex>
-                                <LegalLinks variant="horizontal" />
-                                <Spacer />
-                                <CreditCardIcons />
-                            </Flex>
-                        </HideOnMobile>
+                            <HideOnDesktop>
+                                <LegalLinks variant="vertical" />
+                            </HideOnDesktop>
+                            <HideOnMobile>
+                                <Flex>
+                                    <CreditCardIcons />
+                                </Flex>
+                            </HideOnMobile>
+                        </Box>
                     </Box>
                 </StylesProvider>
             </Box>

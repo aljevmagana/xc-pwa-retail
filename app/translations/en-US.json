@@ -8,6 +8,9 @@
   "+dLAnb": {
     "defaultMessage": "Estimated Total"
   },
+  "+s1hab": {
+    "defaultMessage": "ADD TO WISHLIST"
+  },
   "+y/wae": {
     "defaultMessage": "{errorMessage}"
   },
@@ -152,9 +155,6 @@
   "A8Tnga": {
     "defaultMessage": "Credit Card"
   },
-  "ADKef8": {
-    "defaultMessage": "Add to cart"
-  },
   "AYIKp4": {
     "defaultMessage": "Already have an account? Log in"
   },
@@ -172,9 +172,6 @@
   },
   "BAoId6": {
     "defaultMessage": "Please enter your phone number"
-  },
-  "BWpuKl": {
-    "defaultMessage": "Update"
   },
   "BlJFo9": {
     "defaultMessage": "This email already has an account."
@@ -262,17 +259,11 @@
   "JWbGSW": {
     "defaultMessage": "Shipped to: {name}"
   },
-  "KV/9Hv": {
-    "defaultMessage": "Questions"
-  },
   "Kz7I2o": {
     "defaultMessage": "Password updated"
   },
   "L8seEc": {
     "defaultMessage": "Subtotal"
-  },
-  "LiHQih": {
-    "defaultMessage": "Coming Soon"
   },
   "LrQ8C0": {
     "defaultMessage": "Shop Feeling Red"
@@ -294,6 +285,9 @@
   },
   "NV26qx": {
     "defaultMessage": "Back to previous page"
+  },
+  "NX5HNL": {
+    "defaultMessage": "UPDATE"
   },
   "NymXNv": {
     "defaultMessage": "New Payment Method Saved"
@@ -332,9 +326,6 @@
   "Olgsm/": {
     "defaultMessage": "Create an account for faster checkout"
   },
-  "OrvEHn": {
-    "defaultMessage": "Product Detail"
-  },
   "P5ouV8": {
     "defaultMessage": "Please enter your security code"
   },
@@ -362,6 +353,9 @@
   "Q6wcZ5": {
     "defaultMessage": "First Name"
   },
+  "QM8nrT": {
+    "defaultMessage": "{sortOption}"
+  },
   "QclMUn": {
     "defaultMessage": "Please select your country"
   },
@@ -370,9 +364,6 @@
   },
   "Qpxx+l": {
     "defaultMessage": "New Arrivals"
-  },
-  "RlxeOk": {
-    "defaultMessage": "Sort By: {sortOption}"
   },
   "SQJto2": {
     "defaultMessage": "Sign in"
@@ -427,9 +418,6 @@
   },
   "UqKMjl": {
     "defaultMessage": "Postal Code"
-  },
-  "V+9Zzz": {
-    "defaultMessage": "Size & Fit"
   },
   "V+R4NC": {
     "defaultMessage": "Add Payment Method"
@@ -523,9 +511,6 @@
   "dS8BmB": {
     "defaultMessage": "static/img/feeling-red.png"
   },
-  "dUxyza": {
-    "defaultMessage": "Reviews"
-  },
   "dfEp3Z": {
     "defaultMessage": "Yes, remove item"
   },
@@ -560,22 +545,25 @@
     "defaultMessage": "Password must contain at least 8 characters"
   },
   "footer.column.account": {
-    "defaultMessage": "Account"
-  },
-  "footer.column.customer_support": {
-    "defaultMessage": "Customer Support"
+    "defaultMessage": "Shop"
   },
   "footer.column.our_company": {
-    "defaultMessage": "Our Company"
+    "defaultMessage": "Company"
   },
   "footer.link.about_us": {
-    "defaultMessage": "About Us"
-  },
-  "footer.link.contact_us": {
-    "defaultMessage": "Contact Us"
+    "defaultMessage": "Register"
   },
   "footer.link.order_status": {
-    "defaultMessage": "Order Status"
+    "defaultMessage": "For Women"
+  },
+  "footer.link.order_status1": {
+    "defaultMessage": "Stores"
+  },
+  "footer.link.order_status2": {
+    "defaultMessage": "Our Blog"
+  },
+  "footer.link.order_status3": {
+    "defaultMessage": "Shop"
   },
   "footer.link.privacy_policy": {
     "defaultMessage": "Privacy Policy"
@@ -587,13 +575,22 @@
     "defaultMessage": "Shipping"
   },
   "footer.link.signin_create_account": {
-    "defaultMessage": "Sign in or Create Account"
+    "defaultMessage": "For Men"
   },
   "footer.link.site_map": {
     "defaultMessage": "Site Map"
   },
   "footer.link.store_locator": {
-    "defaultMessage": "Store Locator"
+    "defaultMessage": "Login"
+  },
+  "footer.link.store_locator1": {
+    "defaultMessage": "Wishlist"
+  },
+  "footer.link.store_locator2": {
+    "defaultMessage": "Our Products"
+  },
+  "footer.link.store_locator3": {
+    "defaultMessage": "Checkouts"
   },
   "footer.link.terms_conditions": {
     "defaultMessage": "Terms & Conditions"
@@ -627,6 +624,9 @@
   },
   "header.button.assistive_msg.my_cart": {
     "defaultMessage": "My cart"
+  },
+  "header.search.field.value.placeholder": {
+    "defaultMessage": "Search for products..."
   },
   "hp3uqR": {
     "defaultMessage": "Wishlist"
@@ -767,6 +767,9 @@
   "p2EAP0": {
     "defaultMessage": "Promotion removed"
   },
+  "pDRjx+": {
+    "defaultMessage": "ADD TO CART"
+  },
   "pQ2F3h": {
     "defaultMessage": "Edit Shipping Address"
   },
@@ -799,9 +802,6 @@
   },
   "qGl7SR": {
     "defaultMessage": "Please create a password"
-  },
-  "qVGRIE": {
-    "defaultMessage": "Quantity"
   },
   "rkxMdY": {
     "defaultMessage": "{itemCount, plural, =0 {0 items} one {# item} other {# items}} in cart",
