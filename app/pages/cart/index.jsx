@@ -266,7 +266,7 @@ const Cart = () => {
                                     </GridItem>
                                 </Grid>
 
-                                    <Stack spacing={4}>
+                                    <Stack spacing={4} width="100%">
                                         {basket.productItems.map((product, idx) => (
                                             <ProductItem
                                                 key={product.productId}

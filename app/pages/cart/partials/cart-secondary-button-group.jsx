@@ -9,10 +9,11 @@ import PropTypes from 'prop-types'
 import {
     Button,
     ButtonGroup,
-    Divider,
     Stack,
+    Tooltip,
     useDisclosure
 } from '@chakra-ui/react'
+import {SmallCloseIcon} from '@chakra-ui/icons'
 import {defineMessage, FormattedMessage} from 'react-intl'
 import {useCartItemVariant} from '../../../components/cart-item-variant'
 import ConfirmationModal from '../../../components/confirmation-modal/index'
@@ -54,17 +55,13 @@ const CartSecondaryButtonGroup = ({
     return (
         <>
             <Stack
-                direction={{base: 'column', lg: 'row'}}
-                alignItems={{base: 'flex-start', lg: 'center'}}
-                justifyContent={{base: 'flex-start', lg: 'space-between'}}
-                divider={<Divider display={{base: 'block', lg: 'none'}} />}
+                alignItems='center'
             >
-                <ButtonGroup spacing="6">
+                <ButtonGroup spacing="6" alignItems="center">
                     <Button variant="link" size="sm" onClick={showRemoveItemConfirmation} color="black">
-                        <FormattedMessage defaultMessage="x" />
-                    </Button>
-                    <Button variant="link" size="sm" onClick={() => onEditClick(variant)}>
-                        <FormattedMessage defaultMessage="Edit" />
+                        <Tooltip label="Remove from Cart" bg="gray.300" color="black">
+                            <SmallCloseIcon w={4} h={4}/>
+                        </Tooltip>
                     </Button>
                 </ButtonGroup>
             </Stack>
