@@ -5,7 +5,7 @@
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { WishlistIcon, WishlistSolidIcon } from '../icons'
 
@@ -45,6 +45,7 @@ import { useIntl } from 'react-intl'
 import { productUrlBuilder } from '../../utils/url'
 import Link from '../link'
 import withRegistration from '../../hoc/with-registration'
+import { useVariant, useVariationAttributes } from '../../hooks';
 
 const IconButtonWithRegistration = withRegistration(IconButton)
 
@@ -87,28 +88,29 @@ const ProductTile = (props) => {
         isInWishlist,
         isWishlistLoading,
         onQuickViewClick,
+        handleAddToCart,
         ...rest
 
     } = props
     const { currency, image, price, productName } = productSearchItem
     const styles = useMultiStyleConfig('ProductTile', { isLoading: isWishlistLoading })
-
+    
     return (
 
         <Grid>
-
-
-
             <Link
                 data-testid="product-tile"
-                {...styles.container}
                 to={productUrlBuilder({ id: productSearchItem?.productId }, intl.local)}
+                {...styles.container}
                 {...rest}
             >
-
                 <Box>
                     <Box className={'plp-sub-product-tile-container'} {...styles.imageWrapper}>
-                        <Badge variant="plpBadge">Fresh</Badge>
+                        {
+                            /* For Update Once the Actual Field is available this needs to be dynamic */
+                            (productSearchItem?.price < 70) ? <Badge variant="plpBadge">Fresh</Badge> : ""
+
+                        }
                         <AspectRatio {...styles.image} ratio={9 / 14}>
                             <>
                                 <Img className={'plp-sub-product-tile-image'} alt={image.alt} src={image.disBaseLink} />
@@ -151,7 +153,17 @@ const ProductTile = (props) => {
                         <Wrap className="plp-overlay-container" {...styles.productOverlay} spacing="5px" justify="center">
                             <WrapItem>
                                 <Center w="40px" h="40px">
-                                    <Button {...styles.productOverlayButtonOutline} className="button-left" colorScheme="gray" variant="outline">
+                                    <Button
+                                        disabled={true} 
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            handleAddToCart()
+                                        }}
+                                        className="button-left" 
+                                        colorScheme="gray" 
+                                        variant="outline"
+                                        {...styles.productOverlayButtonOutline} 
+                                    >
                                         <Icon as={FaShoppingCart} />
                                     </Button>
                                 </Center>
@@ -170,9 +182,9 @@ const ProductTile = (props) => {
                                             e.preventDefault()
                                             onQuickViewClick()
                                         }}
-                                        {...styles.productOverlayButtonOutline} 
                                         colorScheme="gray" 
                                         variant="outline" 
+                                        {...styles.productOverlayButtonOutline}
                                     >
                                         <Icon as={FaExpandArrowsAlt} />
                                     </Button>

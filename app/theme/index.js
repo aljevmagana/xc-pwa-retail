@@ -40,6 +40,7 @@ import Breadcrumb from './components/project/breadcrumb'
 import CustomBadge from './components/project/custom-badge'
 import Header from './components/project/header'
 import Heading from './components/project/heading'
+import HomePage from './components/project/homepage.js'
 import ListMenu from './components/project/list-menu'
 import Footer from './components/project/footer'
 import CheckoutFooter from './components/project/checkout-footer'
@@ -94,6 +95,7 @@ const overrides = {
         CustomBadge,
         Header,
         Heading,
+        HomePage,
         Footer,
         CheckoutFooter,
         LinksList,
