@@ -56,7 +56,7 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
         rating: 4,
     }
     return (
-        <VStack spacing={2} align="flex-start" marginBottom={[4, 4, 4, 0, 0]}>
+        <VStack spacing={6} align="flex-start" marginBottom={[4, 4, 4, 0, 0]}>
             {/* Title */}
             <Skeleton isLoaded={name}>
                 <Heading fontSize="2.7rem">{`${name}`}</Heading>
@@ -64,38 +64,40 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
 
             {/* Price */}
             <Skeleton isLoaded={price} >
-                <HStack spacing="25%">
-                    <HStack>
-                        <Text fontWeight="300" fontSize="1.35rem" aria-label="price" align="left">
-                            {intl.formatNumber(price, {
-                                style: 'currency',
-                                currency: currency || DEFAULT_CURRENCY
-                            })} 
-                        </Text>
-                        <Text as="s" fontSize="0.9rem" align="left" color="gray">
-                            {intl.formatNumber((price + 1), {
-                                style: 'currency',
-                                currency: currency || DEFAULT_CURRENCY
-                            })}
-                        </Text>
-                    </HStack>
-                    <Box display="flex" mt="2" alignItems="center">
-                        {Array(5)
-                            .fill("")
-                            .map((_, i) => (
-                            <StarIcon
-                                key={i}
-                                color={i < tempReviews.rating ? "purple.500" : "gray.300"}
-                                m="0.9"
-                            />
-                            ))}
-                        <Box color="gray.600" fontSize="sm" w="100px" pl="5px">
-                            {tempReviews.reviewCount} REVIEWS
+                <Box marginBottom="20px">
+                    <HStack spacing="25%">
+                        <HStack>
+                            <Text fontWeight="300" fontSize="1.35rem" aria-label="price" align="left">
+                                {intl.formatNumber(price, {
+                                    style: 'currency',
+                                    currency: currency || DEFAULT_CURRENCY
+                                })} 
+                            </Text>
+                            <Text as="s" fontSize="0.9rem" align="left" color="gray">
+                                {intl.formatNumber((price + 1), {
+                                    style: 'currency',
+                                    currency: currency || DEFAULT_CURRENCY
+                                })}
+                            </Text>
+                        </HStack>
+                        <Box display="flex" mt="2" alignItems="center">
+                            {Array(5)
+                                .fill("")
+                                .map((_, i) => (
+                                <StarIcon
+                                    key={i}
+                                    color={i < tempReviews.rating ? "purple.500" : "gray.300"}
+                                    m="0.9"
+                                />
+                                ))}
+                            <Box color="gray.600" fontSize="sm" w="100px" pl="5px">
+                                {tempReviews.reviewCount} REVIEWS
+                            </Box>
                         </Box>
-                    </Box>
-                </HStack>
+                    </HStack>
+                </Box>
                 <Skeleton isLoaded={description}>
-                    <Box mt="10px" textAlign="left" fontSize="0.9rem" maxWidth="450">
+                    <Box marginBottom="15px" textAlign="left" fontSize="0.9rem" maxWidth="450">
                         <div>{description}</div>
                     </Box>
                 </Skeleton>
@@ -370,7 +372,7 @@ const ProductView = ({
                             )}
 
                             {/* Quantity Selector */}
-                            <Box marginBottom="48px">
+                            <Box paddingBottom="40px">
                                 <VStack align="stretch" maxWidth={'125px'}>
                                     <Box fontWeight="600">
                                         <HStack spacing="4px">

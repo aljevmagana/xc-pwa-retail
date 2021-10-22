@@ -7,7 +7,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage, FormattedNumber} from 'react-intl'
-import {Box, Flex, Button, Stack, Text, Heading, Divider} from '@chakra-ui/react'
+import {Box, Flex, Button, Stack, StackDivider, Text, Heading, Divider} from '@chakra-ui/react'
 import useBasket from '../../commerce-api/hooks/useBasket'
 import {BasketIcon, ChevronDownIcon, ChevronUpIcon} from '../icons'
 import Link from '../link'
@@ -99,16 +99,20 @@ const OrderSummary = ({
             <Heading fontSize={fontSize} pt={1}>
                 <FormattedMessage defaultMessage="Order Summary" />
             </Heading>
+            <Text fontSize="0.7875rem">
+                Shipping and additional costs are calculated based on values you have entered.
+            </Text>
 
-            <Stack spacing={4} align="flex-start">
+            <Stack spacing={4} align="flex-start" fontSize="0.9rem">
                 {showCartItems && <CartItems basket={basket} />}
 
-                <Stack w="full">
+                <Stack w="full" divider={<StackDivider borderColor="gray.200" />} spacing={4}>
+
                     <Flex justify="space-between">
-                        <Text fontWeight="bold" fontSize={fontSize}>
-                            <FormattedMessage defaultMessage="Subtotal" />
+                        <Text>
+                            <FormattedMessage defaultMessage="Order Subtotal" />
                         </Text>
-                        <Text fontWeight="bold" fontSize={fontSize}>
+                        <Text >
                             <FormattedNumber
                                 style="currency"
                                 currency={basket?.currency}
@@ -119,8 +123,8 @@ const OrderSummary = ({
 
                     {basket.orderPriceAdjustments?.map((adjustment) => (
                         <Flex justify="space-between" key={adjustment.priceAdjustmentId}>
-                            <Text fontSize={fontSize}>{adjustment.itemText}</Text>
-                            <Text color="green.500" fontSize={fontSize}>
+                            <Text>{adjustment.itemText}</Text>
+                            <Text color="green.500">
                                 <FormattedNumber
                                     style="currency"
                                     currency={basket?.currency}
@@ -132,13 +136,15 @@ const OrderSummary = ({
 
                     <Flex justify="space-between">
                         <Flex alignItems="center">
-                            <Text lineHeight={1} fontSize={fontSize}>
-                                <FormattedMessage defaultMessage="Shipping" />
+                            <Text lineHeight={1.5}>
+                                <Stack spacing={1}>
+                                <FormattedMessage defaultMessage="Shipping and Handling" />
                                 {hasShippingPromos && (
-                                    <Text as="span" ml={1}>
+                                    <Text as="span" ml={1} fontSize="0.75rem">
                                         (<FormattedMessage defaultMessage="promo applied" />)
                                     </Text>
                                 )}
+                                </Stack>
                             </Text>
                             {hasShippingPromos && (
                                 <PromoPopover ml={1}>
@@ -165,7 +171,7 @@ const OrderSummary = ({
                                 <FormattedMessage defaultMessage="Free" />
                             </Text>
                         ) : (
-                            <Text fontSize={fontSize}>
+                            <Text>
                                 <FormattedNumber
                                     value={basket.shippingTotal}
                                     style="currency"
@@ -176,11 +182,11 @@ const OrderSummary = ({
                     </Flex>
 
                     <Flex justify="space-between">
-                        <Text fontSize={fontSize}>
+                        <Text>
                             <FormattedMessage defaultMessage="Tax" />
                         </Text>
                         {basket.taxTotal != null ? (
-                            <Text fontSize={fontSize}>
+                            <Text>
                                 <FormattedNumber
                                     value={basket.taxTotal}
                                     style="currency"
@@ -188,7 +194,7 @@ const OrderSummary = ({
                                 />
                             </Text>
                         ) : (
-                            <Text fontSize={fontSize} color="gray.700">
+                            <Text color="gray.700">
                                 TBD
                             </Text>
                         )}
@@ -206,11 +212,11 @@ const OrderSummary = ({
                 <Stack spacing={4} w="full">
                     <Flex w="full" justify="space-between">
                         {isEstimate ? (
-                            <Text fontWeight="bold" fontSize={fontSize}>
-                                <FormattedMessage defaultMessage="Estimated Total" />
+                            <Text>
+                                <FormattedMessage defaultMessage="Total" />
                             </Text>
                         ) : (
-                            <Text fontWeight="bold" fontSize={fontSize}>
+                            <Text>
                                 <FormattedMessage defaultMessage="Order Total" />
                             </Text>
                         )}

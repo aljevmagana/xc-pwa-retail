@@ -12,12 +12,29 @@ import useBasket from '../../../commerce-api/hooks/useBasket'
 const CartTitle = () => {
     const basket = useBasket()
     return (
-        <Text fontWeight="bold" fontSize={['xl', 'xl', 'xl', '2xl']}>
-            <FormattedMessage defaultMessage="Cart" /> ({basket.itemAccumulatedCount}
+        <Text 
+            fontWeight="bold" 
+            fontSize={['2.025rem', '2.025rem', '2.025rem', '4.05rem']} 
+            textAlign="center" 
+            paddingBottom="3rem" 
+            letterSpacing="0.1em"
+            textTransform="uppercase"
+        >
+            <FormattedMessage defaultMessage="Shopping Cart" />
             {/* TODO: [l10n] implement using FormattedMessage instead, so that it will be able to be extracted
             (for example, see https://github.com/mobify/mobify-platform-sdks/blob/27b836e9e624aaa7f90e301033bd42654432d1c0/packages/pwa/app/pages/checkout/confirmation.js#L220)
             */}
-            <FormattedPlural value={basket.itemAccumulatedCount} one=" Item)" other=" Items)" />
+            <Text 
+                fontWeight="normal" 
+                fontSize="1.215rem" 
+                marginTop="2rem" 
+                color="#868e96" 
+                textTransform="none" 
+                letterSpacing="0"
+            >
+                You have {basket.itemAccumulatedCount} <FormattedPlural value={basket.itemAccumulatedCount} one=" Item" other=" Items" /> in your shopping cart
+            </Text>
+            
         </Text>
     )
 }
