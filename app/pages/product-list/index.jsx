@@ -171,24 +171,28 @@ const ProductList = (props) => {
             const wishlist = customerProductLists.data.find(
                 (list) => list.type === customerProductListTypes.WISHLIST
             )
-            setWishlist(wishlist)            
+            setWishlist(wishlist)
         }
 
+
+    }, [customerProductLists.data, productSearchResult])
+
+    useEffect(() => {
         // finds the price ranges in productsearch result
         try {
             let priceValue = "";
             productSearchResult?.refinements.filter((filterItem) => {
-                if(filterItem.attributeId == 'price') {
+                if (filterItem.attributeId == 'price') {
                     priceValue = filterItem
                     minMaxPriceProcess(priceValue)
                 }
-            })            
-        } catch(e) {
+            })
+        } catch (e) {
 
         }
-    }, [customerProductLists.data, productSearchResult])
+    }, [productSearchResult])
 
-    
+
     // function to get the minimum and maximum price base on the original price range
     const minMaxPriceProcess = (priceValue) => {
         let priceRangeList = [];
@@ -196,7 +200,7 @@ const ProductList = (props) => {
         if (priceValue) {
             let priceArray = priceValue.values
             priceArray.forEach((price) => {
-                let priceString = price.value.replace("(","").replace(")","").replace("..",",")
+                let priceString = price.value.replace("(", "").replace(")", "").replace("..", ",")
                 priceString = priceString.split(',').map(Number)
                 let iterator = priceString.values();
                 for (const value of iterator) {
@@ -206,12 +210,12 @@ const ProductList = (props) => {
             let min = Math.min(...priceRangeList);
             let max = Math.max(...priceRangeList);
 
-            let priceStringValue = `(`+`${min}`+ `..` + `${max}`+`)`;
-            minMaxPrice.push(min,max)
+            let priceStringValue = `(` + `${min}` + `..` + `${max}` + `)`;
+            minMaxPrice.push(min, max)
 
-            let priceSearchParamRefine = (searchParams?.refine) ? searchParams?.refine : {price:null}
+            let priceSearchParamRefine = (searchParams?.refine) ? searchParams?.refine : { price: null }
 
-            productSearchResult?.refinements.push({attributeId:'price_range', label:'Price Range', values:priceStringValue, priceRefine:priceSearchParamRefine});
+            productSearchResult?.refinements.push({ attributeId: 'price_range', label: 'Price Range', values: priceStringValue, priceRefine: priceSearchParamRefine });
             return;
         }
         return;
@@ -339,7 +343,7 @@ const ProductList = (props) => {
     // Show 25, 50, 100, All
     const showByTemplate = (showByValue, index) => {
         return (
-            <Flex>
+            <Flex key={index}>
                 <Link fontSize="0.9rem" href={limitUrls[index]}>{showByValue}</Link>
             </Flex>
         )
@@ -363,11 +367,9 @@ const ProductList = (props) => {
         }
 
         return (
-            <Center>
                 <Text>
                     Showing {x1} - {x2} of {total} products
                 </Text>
-            </Center>
         )
     }
 
@@ -550,6 +552,7 @@ const ProductList = (props) => {
                                             <Flex align="center" justify="center" marginBottom="1rem">
                                                 <Center>
                                                     <Box>
+             
                                                         <Text fontSize="0.9rem" marginRight=".5rem">
                                                             {
                                                                 showingXofX()
@@ -902,7 +905,8 @@ ProductList.propTypes = {
     location: PropTypes.object,
     searchQuery: PropTypes.string,
     onAddToWishlistClick: PropTypes.func,
-    onRemoveWishlistClick: PropTypes.func
+    onRemoveWishlistClick: PropTypes.func,
+    handleAddToCart: PropTypes.func
 }
 
 export default ProductList
