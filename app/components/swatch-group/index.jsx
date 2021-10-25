@@ -18,13 +18,12 @@ const SwatchGroup = (props) => {
     const {displayName, children, value, label = '', variant = 'square', onChange = noop} = props
     const styles = useStyleConfig('SwatchGroup')
     return (
-        <Flex {...styles.swatchGroup} role="radiogroup">
+        <Flex {...styles.swatchGroup} role="radiogroup" marginBottom="1rem !important" marginTop="0px !important">
             <HStack {...styles.swatchLabel}>
                 <HStack spacing="4px">
-                    <Box fontWeight="semibold" casing="uppercase" fontSize="0.9rem">{`${label}`}</Box> 
+                    <Box fontWeight="semibold" fontSize=".9rem" letterSpacing="0.1em" textTransform="uppercase">{`${label}`}</Box> 
                     <Text fontSize=".8rem" color="gray.600">(required)</Text>
                 </HStack>
-                <Box>{displayName}</Box>
             </HStack>
             <Flex {...styles.swatchesWrapper}>
                 {React.Children.map(children, (child) => {

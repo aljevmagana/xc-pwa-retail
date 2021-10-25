@@ -283,7 +283,7 @@ const ProductView = ({
                 </Box>
 
                 {/* Variations & Quantity Selector */}
-                <VStack align="stretch" spacing={8} flex={1} marginBottom={[16, 16, 16, 0, 0]} w="25%">
+                <VStack align="stretch" flex={1} marginBottom={[16, 16, 16, 0, 0]} w="25%">
                     {category && (
                         <Skeleton isLoaded={category}>
                             <Breadcrumb categories={category} />
@@ -299,7 +299,7 @@ const ProductView = ({
                                 description={product?.shortDescription || product?.pageDescription}
                             />
                         </Box>
-                        <VStack align="stretch" spacing={4}>
+                        <VStack align="stretch">
                             {/*
                                 Customize the skeletons shown for attributes to suit your needs. At the point
                                 that we show the skeleton we do not know how many variations are selectable. So choose
@@ -325,7 +325,8 @@ const ProductView = ({
                                             selectedValue,
                                             values = []
                                         } = variationAttribute
-
+                                        {/*Data passed through for Swatches is Color, Size then Width 
+                                        causes unsavory loading when reversed or altered on frontend */}
                                         return (
                                             <SwatchGroup
                                                 key={id}
@@ -372,11 +373,11 @@ const ProductView = ({
                             )}
 
                             {/* Quantity Selector */}
-                            <Box paddingBottom="40px">
+                            <Box marginBottom="3rem !important">
                                 <VStack align="stretch" maxWidth={'125px'}>
                                     <Box fontWeight="600">
                                         <HStack spacing="4px">
-                                            <Text>Items</Text>
+                                            <Text fontSize=".9rem" letterSpacing="0.1em" textTransform="uppercase">Items</Text>
                                             <Text fontSize=".8rem" color="gray.600">(required)</Text>
                                         </HStack>
                                     </Box>
