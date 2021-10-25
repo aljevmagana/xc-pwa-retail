@@ -342,9 +342,24 @@ const ProductList = (props) => {
 
     // Show 25, 50, 100, All
     const showByTemplate = (showByValue, index) => {
+        let activeText = (`${productSearchResult?.limit}` == showByValue) ? 'active' : ''
         return (
             <Flex key={index}>
-                <Link fontSize="0.9rem" href={limitUrls[index]}>{showByValue}</Link>
+                {
+                    (activeText) ?
+                    <Link 
+                        fontSize="0.9rem" 
+                        href={limitUrls[index]}
+                        style={{
+                            borderBottom: "solid 2px #495057", 
+                            width: "25px", 
+                            textAlign: "center"
+                        }}
+                    >{showByValue}</Link>
+                    :
+                    <Link fontSize="0.9rem" className={activeText} href={limitUrls[index]}>{showByValue}</Link>
+                }
+                
             </Flex>
         )
     }
@@ -368,7 +383,7 @@ const ProductList = (props) => {
 
         return (
                 <Text>
-                    Showing {x1} - {x2} of {total} products
+                    Showing <b>{x1} - {x2}</b> of <b>{total}</b> products
                 </Text>
         )
     }

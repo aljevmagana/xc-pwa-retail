@@ -21,9 +21,7 @@ const imageBanner = getAssetUrl('static/img/photo/erii-gutierrez-487083-unsplash
 import Breadcrumb from '../../../components/breadcrumb'
 
 const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...otherProps }) => {
-    const styles = useMultiStyleConfig('PlpHeading', {
-        variant: 'plpHeadingImage',
-    })
+    const styles = useMultiStyleConfig('PlpHeading')
 
 
 
@@ -32,18 +30,22 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
             <Spacer />
 
             <>
-                <Box {...styles}>
+                <Box {...styles.plpHeadingImage}>
                     <Parallax
                         className="parallaxsection"
                         bgImage={imageBanner}
                         strength={400}
                         bgImageStyle={{
                             aspectRatio: "32/10",
-                            objectFit: "cover"
+                            objectFit: "cover",
+                            height:"100%",
+                            top:"4.5vh",
+                            width:"100%"
                         }}
+                        
                     >
                         <div style={{ height: '57vh' }}>
-                            <AspectRatio ratio={32 / 10}>
+                            <AspectRatio style={{paddingBottom:"100%"}} ratio={32 / 10}>
                                 <Background>
                                     <Box style={{ position: "absolute", zIndex: "1", top: "18vh" }}>
                                         <Stack>
@@ -57,17 +59,17 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                                     {`${category?.name || searchQuery || ''}`}
                                                 </Heading>
                                                 {/* <Heading as="h2" size="lg" marginRight={2}>
-                                            {isServer ? (
-                                                <Fragment>({productSearchResult?.total})</Fragment>
-                                            ) : (
-                                                // Fade in the total when available. When it's changed or not available yet, do not render it
-                                                !isLoading && <Fade in={true}>({productSearchResult?.total})</Fade>
-                                            )}
-                                        </Heading> 
-                                    */}
+                                                        {isServer ? (
+                                                            <Fragment>({productSearchResult?.total})</Fragment>
+                                                        ) : (
+                                                            // Fade in the total when available. When it's changed or not available yet, do not render it
+                                                            !isLoading && <Fade in={true}>({productSearchResult?.total})</Fade>
+                                                        )}
+                                                    </Heading> 
+                                                */}
                                             </Flex>
                                             <Flex color="white !important" align="center" justify="center">
-                                                <Text fontSize="2.1vh">Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
+                                                <Text textAlign="center" fontSize={{ sm: "1.8vh", md:"2.1vh"}}>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
                                             </Flex>
                                         </Stack>
                                     </Box>
