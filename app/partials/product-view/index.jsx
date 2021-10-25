@@ -32,6 +32,11 @@ import {
 } from '@chakra-ui/react'
 
 import {StarIcon} from '@chakra-ui/icons'
+import {
+    FaHeart,
+    FaRegHeart
+} from 'react-icons/fa';
+
 
 import {useProduct} from '../../hooks'
 
@@ -184,14 +189,15 @@ const ProductView = ({
                     key="cart-button"
                     onClick={handleCartItem}
                     disabled={!canOrder}
-                    width="175px"
                     variant="outline"
                     marginBottom={4}
                     background="#343a40"
                     color="white"
-                    py="30px"
+                    padding="2rem 1.5rem 2rem 1.5rem"
                     marginTop={4}
                     fontSize="0.7875rem"
+                    letterSpacing=".3em"
+                    border="1px"
                     _hover={{
                         background: "black",
                         color: "white",
@@ -199,8 +205,8 @@ const ProductView = ({
                 >
                     <BasketIcon pr="5px"/>
                     {updateCart
-                        ? intl.formatMessage({defaultMessage: 'UPDATE'})
-                        : intl.formatMessage({defaultMessage: 'ADD TO CART'})}
+                        ? <Text>UPDATE</Text>
+                        : <Text  >ADD TO CART</Text>}
                 </Button>
             )
         }
@@ -212,25 +218,26 @@ const ProductView = ({
                     onClick={handleWishlistItem}
                     disabled={isCustomerProductListLoading || !canAddToWishlist}
                     isLoading={isCustomerProductListLoading}
-                    width="175px"
+
                     variant="outline"
-                    marginBottom={4}
                     ml="10px"
-                    fontSize="12px"
-                    color="gray" 
+                    fontSize="0.6875rem"
+                    color="gray"
+                    padding="0.6rem" 
                     type="submit"
+                    letterSpacing=".3em"
                     _hover={{
                         background: "gray",
                         color: "white",
                       }}
                 >
                     {updateWishlist
-                    ? <WishlistSolidIcon pr="5px" /> :
-                    <WishlistIcon pr="5px" />
+                    ? <FaHeart /> :
+                    <FaRegHeart />
                 }
                     {updateWishlist
-                        ? intl.formatMessage({defaultMessage: 'UPDATE'})
-                        : intl.formatMessage({defaultMessage: 'ADD TO WISHLIST'})}
+                        ? <Text paddingLeft="5px">UPDATE</Text>
+                        : <Text paddingLeft="5px">ADD TO WISHLIST</Text>}
                 </ButtonWithRegistration>
             )
         }
@@ -413,7 +420,7 @@ const ProductView = ({
                         </HideOnDesktop>
                     </VStack>
 
-                    <Box display={['none', 'none', 'none', 'block']}>
+                    <Box display={['none', 'none', 'none', 'block']} alignItems="center">
                         {!showLoading && showInventoryMessage && (
                             <Fade in={true}>
                                 <Text color="orange.600" fontWeight={600} marginBottom={8}>
