@@ -23,6 +23,7 @@ build/
 tmp/
 *.log
 node_modules
+yarn.lock
 
 # Generated files
 app/cache-hash-manifest.json
