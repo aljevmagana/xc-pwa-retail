@@ -24,8 +24,9 @@ import RadioRefinements from './radio-refinements'
 import CheckboxRefinements from './checkbox-refinements'
 import LinkRefinements from './link-refinements'
 import PriceRangeRefinements from './pricerange-refinements'
-import {isServer} from '../../../utils/utils'
-import {FILTER_ACCORDION_SATE} from '../../../constants'
+import { isServer } from '../../../utils/utils'
+import { FILTER_ACCORDION_SATE } from '../../../constants'
+import { HideOnDesktop, HideOnMobile } from '../../../components/responsive'
 
 
 const componentMap = {
@@ -36,7 +37,7 @@ const componentMap = {
     price_range: PriceRangeRefinements
 }
 
-const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
+const Refinements = ({ filters, toggleFilter, selectedFilters, isLoading }) => {
     const style = useMultiStyleConfig("Refinements");
 
     // Getting the indices of filters to open accordions by default
@@ -67,7 +68,7 @@ const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
     }
 
     return (
-        <Stack spacing={8}>
+        <Stack className="accordion-wrapper" spacing={8} marginTop={["2rem"]} width={["100%"]}>
             {/* Wait to have filters before rendering the Accordion to allow the deafult indexes to be accurate */}
             {filtersIndexes && (
                 <Accordion
@@ -86,7 +87,7 @@ const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
                         if (filter.values) {
                             let displaynone = (filter.attributeId == 'price') ? "none" : "";
                             return (
-                                <Stack key={filter.attributeId} divider={<Divider/>} style={{display:`${displaynone}`}}>
+                                <Stack key={filter.attributeId} divider={<Divider />} style={{ display: `${displaynone}` }}>
                                     <AccordionItem
                                         paddingTop={idx !== 0 ? 6 : 0}
                                         borderBottom={
@@ -97,7 +98,7 @@ const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
                                         paddingBottom={6}
                                         borderTop={idx === 0 && 'none'}
                                     >
-                                        {({isExpanded}) => (
+                                        {({ isExpanded }) => (
                                             <>
                                                 <AccordionButton
                                                     paddingTop={0}
@@ -112,7 +113,16 @@ const Refinements = ({filters, toggleFilter, selectedFilters, isLoading}) => {
                                                     >
                                                         {filter.label}
                                                     </Text>
-                                                    <AccordionIcon />
+                                                    <HideOnDesktop>
+                                                        {
+                                                            (isExpanded) ? 
+                                                            <AccordionIcon style={{transform:"rotate(0deg)", marginBottom:"1.2rem", color: "#868e96"}}  /> 
+                                                            : 
+                                                            <AccordionIcon marginBottom="1.2rem" style={{transform:"rotate(270deg)", marginBottom:"1.2rem", color: "#868e96"}} />
+
+                                                        }
+                                                        
+                                                    </HideOnDesktop>
                                                 </AccordionButton>
                                                 <AccordionPanel paddingLeft={0}>
                                                     <Values

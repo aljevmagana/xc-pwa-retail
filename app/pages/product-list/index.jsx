@@ -40,6 +40,7 @@ import {
     Select,
     SimpleGrid,
     Spacer,
+    VStack,
     Stack,
     Text,
     useDisclosure,
@@ -47,9 +48,9 @@ import {
 } from '@chakra-ui/react'
 
 // Project Components
-import Pagination from './partials/pagination'
+import ResponsivePagination from './partials/responsive-pagination';
 import ProductTile, { Skeleton as ProductTileSkeleton } from '../../components/product-tile'
-import { HideOnDesktop } from '../../components/responsive'
+import { HideOnDesktop, HideOnMobile } from '../../components/responsive'
 import Refinements from './partials/refinements'
 import SelectedRefinements from './partials/selected-refinements'
 import EmptySearchResults from './partials/empty-results'
@@ -347,19 +348,28 @@ const ProductList = (props) => {
             <Flex key={index}>
                 {
                     (activeText) ?
-                    <Link 
-                        fontSize="0.9rem" 
-                        href={limitUrls[index]}
-                        style={{
-                            borderBottom: "solid 2px #495057", 
-                            width: "25px", 
-                            textAlign: "center"
-                        }}
-                    >{showByValue}</Link>
-                    :
-                    <Link fontSize="0.9rem" className={activeText} href={limitUrls[index]}>{showByValue}</Link>
+                        <Link
+                            fontSize="0.9rem"
+                            href={limitUrls[index]}
+                            style={{
+                                borderBottom: "solid 2px #495057",
+                                width: "25px",
+                                textAlign: "center",
+                                textDecoration: "none"
+                            }}
+                        >{showByValue}</Link>
+                        :
+                        <Link
+                            fontSize="0.9rem"
+                            className={activeText}
+                            href={limitUrls[index]}
+                            textDecoration="none"
+                            _hover={{ textDecorration: "none" }}
+                        >
+                            {showByValue}
+                        </Link>
                 }
-                
+
             </Flex>
         )
     }
@@ -382,9 +392,9 @@ const ProductList = (props) => {
         }
 
         return (
-                <Text>
-                    Showing <b>{x1} - {x2}</b> of <b>{total}</b> products
-                </Text>
+            <Text>
+                Showing <b>{x1} - {x2}</b> of <b>{total}</b> products
+            </Text>
         )
     }
 
@@ -567,7 +577,7 @@ const ProductList = (props) => {
                                             <Flex align="center" justify="center" marginBottom="1rem">
                                                 <Center>
                                                     <Box>
-             
+
                                                         <Text fontSize="0.9rem" marginRight=".5rem">
                                                             {
                                                                 showingXofX()
@@ -668,7 +678,7 @@ const ProductList = (props) => {
                                         paddingTop={8}
                                     >
                                         <Center>
-                                            <Pagination currentURL={basePath} urls={pageUrls} />
+                                            <ResponsivePagination Pagination currentURL={basePath} urls={pageUrls} currentTotal={productSearchResult?.total} />
                                         </Center>
                                         {/*
                                             Our design doesn't call for a page size select. Show this element if you want
@@ -688,6 +698,16 @@ const ProductList = (props) => {
                                             ))}
                                         </Select>
                                     </Flex>
+                                    <HideOnDesktop>
+                                        <VStack>
+                                            <Refinements
+                                                isLoading={filtersLoading}
+                                                toggleFilter={toggleFilter}
+                                                filters={productSearchResult?.refinements}
+                                                selectedFilters={searchParams.refine}
+                                            />
+                                        </VStack>
+                                    </HideOnDesktop>
                                 </Box>
                             </Grid>
                         </>

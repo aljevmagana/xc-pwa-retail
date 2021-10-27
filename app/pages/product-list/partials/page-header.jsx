@@ -44,7 +44,7 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                         }}
                         
                     >
-                        <div style={{ height: '57vh' }}>
+                        <Box height={['50vh','85vh']}>
                             <AspectRatio style={{paddingBottom:"100%"}} ratio={32 / 10}>
                                 <Background>
                                     <Box style={{ position: "absolute", zIndex: "1", top: "18vh" }}>
@@ -55,7 +55,7 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                             </Flex>
                                             {/* Category Title */}
                                             <Flex color="white" align="center" justify="center">
-                                                <Heading fontSize="6.4vh" marginBottom="3vh" variant="plpHeading">
+                                                <Heading fontSize={["2.025rem", "4.05rem"]} marginBottom="3vh" variant="plpHeading">
                                                     {`${category?.name || searchQuery || ''}`}
                                                 </Heading>
                                                 {/* <Heading as="h2" size="lg" marginRight={2}>
@@ -69,13 +69,13 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                                 */}
                                             </Flex>
                                             <Flex color="white !important" align="center" justify="center">
-                                                <Text textAlign="center" fontSize={{ sm: "1.8vh", md:"2.1vh"}}>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
+                                                <Text textAlign="center" fontSize={["1rem", "1.215rem"]}>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
                                             </Flex>
                                         </Stack>
                                     </Box>
                                 </Background>
                             </AspectRatio>
-                        </div>
+                        </Box>
                     </Parallax>
                 </Box>
 
