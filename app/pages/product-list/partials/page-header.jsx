@@ -11,7 +11,7 @@ import { isServer } from '../../../utils/utils'
 // Components
 import { AspectRatio, Box, Heading, Image, Flex, Text, Fade, Spacer, Stack, useMultiStyleConfig } from '@chakra-ui/react'
 import { Parallax, Background } from 'react-parallax'
-
+import { HideOnMobile, HideOnDesktop } from '../../../components/responsive'
 // Utilities
 import { getAssetUrl } from 'pwa-kit-react-sdk/ssr/universal/utils'
 
@@ -30,35 +30,37 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
             <Spacer />
 
             <>
+
                 <Box {...styles.plpHeadingImage}>
-                    <Parallax
-                        className="parallaxsection"
-                        bgImage={imageBanner}
-                        strength={400}
-                        bgImageStyle={{
-                            aspectRatio: "32/10",
-                            objectFit: "cover",
-                            height:"100%",
-                            top:"4.5vh",
-                            width:"100%"
-                        }}
-                        
-                    >
-                        <Box height={['50vh','85vh']}>
-                            <AspectRatio style={{paddingBottom:"100%"}} ratio={32 / 10}>
-                                <Background>
-                                    <Box style={{ position: "absolute", zIndex: "1", top: "18vh" }}>
-                                        <Stack>
-                                            <Flex align="center" justify="center">
-                                                {' Home / ', category && <Breadcrumb variant='plpContainer' colour='white' categories={category.parentCategoryTree} />}
-                                                {searchQuery && <Text>Search Results for</Text>}
-                                            </Flex>
-                                            {/* Category Title */}
-                                            <Flex color="white" align="center" justify="center">
-                                                <Heading fontSize={["2.025rem", "4.05rem"]} marginBottom="3vh" variant="plpHeading">
-                                                    {`${category?.name || searchQuery || ''}`}
-                                                </Heading>
-                                                {/* <Heading as="h2" size="lg" marginRight={2}>
+                <HideOnDesktop>
+                        <Parallax
+                            className="parallaxsection"
+                            bgImage={imageBanner}
+                            strength={400}
+                            bgImageStyle={{
+                                aspectRatio: "32/10",
+                                objectFit: "cover",
+                                height: "100%",
+                                top: "7.5vh",
+                            }}
+
+                        >
+
+                            <Box height={['50vh', '85vh']}>
+                                <AspectRatio style={{ paddingBottom: "100%" }} ratio={32 / 10}>
+                                    <Background>
+                                        <Box style={{ position: "absolute", zIndex: "1", top: "15vh" }}>
+                                            <Stack>
+                                                <Flex align="center" justify="center">
+                                                    {' Home / ', category && <Breadcrumb variant='plpContainer' colour='white' categories={category.parentCategoryTree} />}
+                                                    {searchQuery && <Text>Search Results for</Text>}
+                                                </Flex>
+                                                {/* Category Title */}
+                                                <Flex color="white" align="center" justify="center">
+                                                    <Heading fontSize={["2.025rem", "4.05rem"]} marginBottom="3vh" variant="plpHeading">
+                                                        {`${category?.name || searchQuery || ''}`}
+                                                    </Heading>
+                                                    {/* <Heading as="h2" size="lg" marginRight={2}>
                                                         {isServer ? (
                                                             <Fragment>({productSearchResult?.total})</Fragment>
                                                         ) : (
@@ -67,16 +69,65 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                                         )}
                                                     </Heading> 
                                                 */}
-                                            </Flex>
-                                            <Flex color="white !important" align="center" justify="center">
-                                                <Text textAlign="center" fontSize={["1rem", "1.215rem"]}>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
-                                            </Flex>
-                                        </Stack>
-                                    </Box>
-                                </Background>
-                            </AspectRatio>
-                        </Box>
-                    </Parallax>
+                                                </Flex>
+                                                <Flex color="white !important" align="center" justify="center">
+                                                    <Text textAlign="center" fontSize={["1rem", "1.215rem"]}>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
+                                                </Flex>
+                                            </Stack>
+                                        </Box>
+                                    </Background>
+                                </AspectRatio>
+                            </Box>
+                        </Parallax>
+                    </HideOnDesktop>
+                    <HideOnMobile>
+                        <Parallax
+                            className="parallaxsection"
+                            bgImage={imageBanner}
+                            strength={400}
+                            bgImageStyle={{
+                                aspectRatio: "32/10",
+                                objectFit: "cover",
+                                height: "100%",
+                                top: "3.5vh",
+                            }}
+
+                        >
+
+                            <Box height={['50vh', '85vh']}>
+                                <AspectRatio style={{ paddingBottom: "100%" }} ratio={32 / 10}>
+                                    <Background>
+                                        <Box style={{ position: "absolute", zIndex: "1", top: "30vh" }}>
+                                            <Stack>
+                                                <Flex align="center" justify="center">
+                                                    {' Home / ', category && <Breadcrumb variant='plpContainer' colour='white' categories={category.parentCategoryTree} />}
+                                                    {searchQuery && <Text>Search Results for</Text>}
+                                                </Flex>
+                                                {/* Category Title */}
+                                                <Flex color="white" align="center" justify="center">
+                                                    <Heading fontSize={["2.025rem", "4.05rem"]} marginBottom="3vh" variant="plpHeading">
+                                                        {`${category?.name || searchQuery || ''}`}
+                                                    </Heading>
+                                                    {/* <Heading as="h2" size="lg" marginRight={2}>
+                                                        {isServer ? (
+                                                            <Fragment>({productSearchResult?.total})</Fragment>
+                                                        ) : (
+                                                            // Fade in the total when available. When it's changed or not available yet, do not render it
+                                                            !isLoading && <Fade in={true}>({productSearchResult?.total})</Fade>
+                                                        )}
+                                                    </Heading> 
+                                                */}
+                                                </Flex>
+                                                <Flex color="white !important" align="center" justify="center">
+                                                    <Text textAlign="center" fontSize={["1rem", "1.215rem"]}>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
+                                                </Flex>
+                                            </Stack>
+                                        </Box>
+                                    </Background>
+                                </AspectRatio>
+                            </Box>
+                        </Parallax>
+                    </HideOnMobile>
                 </Box>
 
             </>
