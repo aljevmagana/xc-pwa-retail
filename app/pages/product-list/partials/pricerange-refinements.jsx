@@ -24,7 +24,7 @@ import PropTypes from 'prop-types'
 
 const PriceRangeRefinements = ({ filter, toggleFilter, selectedFilters }) => {
 
-    const style = useMultiStyleConfig('PriceRangeSlider');
+    const styles = useMultiStyleConfig('PriceRangeSlider');
 
     let priceRangeList = [];
     let priceString = "";
@@ -103,20 +103,20 @@ const PriceRangeRefinements = ({ filter, toggleFilter, selectedFilters }) => {
                     onChangeEnd={(val) => setMinMax(val)}
                     colorScheme={"#212529"}
                 >
-                    <RangeSliderTrack {...style.rangeslidertrack}>
-                        <RangeSliderFilledTrack {...style.rangesliderfilledtrack} />
+                    <RangeSliderTrack {...styles.rangeslidertrack}>
+                        <RangeSliderFilledTrack {...styles.rangesliderfilledtrack} />
                     </RangeSliderTrack>
-                    <RangeSliderThumb  index={0}  {...style.rangesliderthumb}/>
-                    <RangeSliderThumb index={1} {...style.rangesliderthumb} />
+                    <RangeSliderThumb  index={0}  {...styles.rangesliderthumb}/>
+                    <RangeSliderThumb index={1} {...styles.rangesliderthumb} />
                 </RangeSlider>
             </Box>
             <Flex marginTop={'1rem'}>
                 <Box>
-                    <Text {...style.rangesliderpricetext}>From ${selectMinText}.00 </Text>
+                    <Text {...styles.rangesliderpricetext}>From ${selectMinText}.00 </Text>
                 </Box>
                 <Spacer />
                 <Box>
-                    <Text {...style.rangesliderpricetext}>To ${selectMaxText}.00 </Text>
+                    <Text {...styles.rangesliderpricetext}>To ${selectMaxText}.00 </Text>
                 </Box>
             </Flex>
         </Box>

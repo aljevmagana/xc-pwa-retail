@@ -37,7 +37,12 @@ const SizeRefinements = ({filter, toggleFilter, selectedFilters}) => {
                             marginBottom={0}
                             marginRight={0}
                         >
-                            <Center {...styles.swatchButton}>{value.label}</Center>
+                            <Center 
+                                fontSize= "0.785rem"
+                                fontWeight= "normal"
+                                {...styles.swatchButton}
+                            >{value.label}
+                            </Center>
                         </Button>
                     )
                 })}
