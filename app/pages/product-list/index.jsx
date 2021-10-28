@@ -349,6 +349,7 @@ const ProductList = (props) => {
                 {
                     (activeText) ?
                         <Link
+                            color="#868e96"
                             fontSize="0.9rem"
                             href={limitUrls[index]}
                             style={{
@@ -395,7 +396,7 @@ const ProductList = (props) => {
 
         return (
             <Text>
-                Showing <b>{x1} - {x2}</b> of <b>{total}</b> products
+                <span style={{color:"#868e96"}}>Showing</span> <b>{x1} - {x2}</b> <span style={{color:"#868e96"}}>of</span> <b>{total}</b> <span style={{color:"#868e96"}}>products</span>
             </Text>
         )
     }
@@ -450,7 +451,7 @@ const ProductList = (props) => {
             {/* PLP Page Center Title  */}
             <Flex
                 position={["relative"]} 
-                marginTop={["13vh","5%"]}
+                marginTop={["9vh","5%"]}
             >
                 <PageHeader
                     searchQuery={searchQuery}
@@ -460,14 +461,14 @@ const ProductList = (props) => {
                 />
             </Flex>
             <Spacer />
-            <Container maxWidth="1140px" variant="plpContainer" maxW="container.lg">
+            <Container maxWidth="1140px" paddingTop={["0","1rem"]} variant="plpContainer" maxW="container.lg">
 
                 <Box
                     className="sf-product-list-page"
                     data-testid="sf-product-list-page"
                     layerStyle="page"
                     /* paddingTop={{ base: 1, lg: 8 }} */
-                    paddingTop={'0px !important'}
+                    paddingTop={["1rem",'0px !important']}
                     {...rest}
                 >
                     <Helmet>
@@ -491,7 +492,7 @@ const ProductList = (props) => {
                             >
 
 
-                                <Box flex={1} paddingTop={'45px'}>
+                                <Box flex={1}>
                                     <SelectedRefinements
                                         filters={productSearchResult?.refinements}
                                         toggleFilter={toggleFilter}
@@ -593,7 +594,7 @@ const ProductList = (props) => {
 
                                         </Box>
                                         <Box>
-                                            <Flex align="center" justify="center" marginBottom="1rem">
+                                            <Flex align="center" color="#868e96" justify="center" marginBottom="1rem">
                                                 <Center>
                                                     <Box>
                                                         <Text fontSize="0.9rem" marginRight=".5rem">{'Show '}</Text>
@@ -613,7 +614,7 @@ const ProductList = (props) => {
                                             </Flex>
                                         </Box>
                                         <Box>
-                                            <Flex align="center" justify={"center"} margintop="1rem" marginBottom="1rem">
+                                            <Flex align="center" color="#868e96" justify={"center"} margintop="1rem" marginBottom="1rem">
                                                 <Center>
                                                     <Box
                                                     >

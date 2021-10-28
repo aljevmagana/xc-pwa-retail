@@ -35,7 +35,10 @@ const stylingpagination = {
         justifyContent: "center",
         display: "flex",
         paddingLeft: "0",
-        listStyle: "none"
+        listStyle: "none",
+        maxWidth: "280px"
+
+        
     },
     ".page-item .page-link": {
         position: "relative",
