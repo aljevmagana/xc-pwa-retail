@@ -14,6 +14,9 @@ export default {
             container:{
                 textAlign: "center",
             },
+            container2_1:{
+                position: "relative", textAlign: "left" 
+            },
             container2: {
                 top: "20%",
                 position: "absolute",

@@ -12,7 +12,7 @@ import { Parallax, Background } from 'react-parallax'
 import { getAssetUrl } from 'pwa-kit-react-sdk/ssr/universal/utils'
 
 const insideStyles = {
-    position: "absolute",
+    position: "relative",
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)"
@@ -24,21 +24,30 @@ const Hero = ({ title, label, img, actions, ...props }) => {
     const styles = useMultiStyleConfig("HomePage")
     return (
         <div>
+
             <Parallax
                 className="parallaxsection"
                 bgImage={getAssetUrl('static/img/photo/dmitriy-ilkevich-437760-unsplash-parallax.jpg')}
                 strength={400}
-                bgImageStyle={{ height: "auto" }}
+                bgImageStyle={{
+                    aspectRatio: "32/10",
+                    objectFit: "cover",
+                    height: "100%",
+                    top: "7.5vh",
+                    left: "50%"
+                }}
+                style={{ height: "100vh" }}
             >
-                <div style={{ height: '100vh' }}>
-                    <Background>
+
+                <Background>
+                    <AspectRatio>
                         <div style={insideStyles}>
                             <Container>
                                 <Box>
                                     <VStack>
 
                                         <Box>
-                                            <Heading as="h5" size="sm" style={{ ...styles.parallaxsection.stretchtext }}>
+                                            <Heading as="h1" size={["sm", "sm"]} style={{ ...styles.parallaxsection.stretchtext }}>
                                                 Just Arrived
                                             </Heading>
                                         </Box>
@@ -59,15 +68,75 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                                 </Box>
                             </Container>
                         </div>
-                    </Background>
-                </div>
+                    </AspectRatio>
+                </Background>
+
             </Parallax>
 
             <Parallax
                 className="parallaxsection"
                 bgImage={getAssetUrl('static/img/photo/serrah-galos-494279-unsplash-parallax.jpg')}
-                bgImageStyle={{ height: "auto" }}
                 strength={400}
+                bgImageStyle={{
+                    aspectRatio: "32/10",
+                    objectFit: "cover",
+                    height: "100%",
+                    top: "1.5vh",
+                    left: "50%"
+                }}
+                style={{ height: "100vh" }}
+            >
+
+                <Background>
+
+                    <div style={{
+                        position: "relative",
+                        top: "50%",
+                        left: "0%",
+                        transform: "translate(-50%,50%)"
+                    }}>
+                        <Container maxWidth="1140px">
+                            <div style={{ ...styles.parallaxsection.container2_1 }} >
+                                <Box>
+                                    <VStack align="stretch">
+                                        <Box>
+                                            <Heading as="h1" size="4xl" {...styles.parallaxsection.heading2} isTruncated>
+                                                Ethnic <br />
+                                                Sweaters
+                                            </Heading>
+                                        </Box>
+                                        <Box>
+                                            <Text {...styles.parallaxsection.subtext}>
+                                                Trendy. Comfy. Beautiful
+                                            </Text>
+                                        </Box>
+                                        <Box>
+                                            <Link href="/en-US/category/womens-clothing-jackets">
+                                                <Button {...styles.parallaxsection.buttonsolid}>
+                                                    See Look Book
+                                                </Button>
+                                            </Link>
+                                        </Box>
+                                    </VStack>
+                                </Box>
+                            </div>
+                        </Container>
+                    </div>
+
+                </Background>
+
+            </Parallax>
+
+            <Parallax
+                className="parallaxsection"
+                bgImage={getAssetUrl('static/img/photo/serrah-galos-494279-unsplash-parallax.jpg')}
+                bgImageStyle={{
+                    aspectRatio: "32/10",
+                    objectFit: "cover",
+                    height: "100%",
+                    left: "50%"
+                }}
+                style={{ height: "100vh" }}
             >
                 <div style={{ height: '100vh' }}>
                     <Background>
@@ -101,11 +170,17 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                 </div>
             </Parallax>
 
+
             <Parallax
                 className="parallaxsection"
                 bgImage={getAssetUrl('static/img/photo/kyle-loftus-592041-unsplash-parallax.jpg')}
-                bgImageStyle={{ height: "auto" }}
-                strength={400}
+                bgImageStyle={{
+                    aspectRatio: "32/10",
+                    objectFit: "cover",
+                    height: "100%",
+                    left: "50%"
+                }}
+                style={{ height: "100vh" }}
             >
                 <div style={{ height: '100vh' }}>
                     <Background>
@@ -146,30 +221,35 @@ const Hero = ({ title, label, img, actions, ...props }) => {
             <Parallax
                 className="parallaxsection"
                 bgImage={getAssetUrl('static/img/photo/serrah-galos-494312-unsplash-parallax.jpg')}
-                bgImageStyle={{ height: "auto" }}
-                strength={400}
+                bgImageStyle={{
+                    aspectRatio: "32/10",
+                    objectFit: "cover",
+                    height: "100%",
+                    left: "50%"
+                }}
+                style={{ height: "100vh" }}
             >
                 <div style={{ height: '100vh' }}>
                     <Background>
                         <Container>
                             <div style={insideStyles}>
-                            <Box>
-                                <VStack>
+                                <Box>
+                                    <VStack>
 
-                                    <Box>
-                                        <Heading as="h1" size="3xl" isTruncated {...styles.parallaxsection.heading4} >
-                                            Men's Collection
-                                        </Heading>
-                                    </Box>
-                                    <Box>
-                                        <Link href="/en-US/category/mens-clothing">
-                                            <Button {...styles.parallaxsection.buttonsolidlarge}>
-                                                See Look Book
-                                            </Button>
-                                        </Link>
-                                    </Box>
-                                </VStack>
-                            </Box>
+                                        <Box>
+                                            <Heading as="h1" size="3xl" isTruncated {...styles.parallaxsection.heading4} >
+                                                Men's Collection
+                                            </Heading>
+                                        </Box>
+                                        <Box>
+                                            <Link href="/en-US/category/mens-clothing">
+                                                <Button {...styles.parallaxsection.buttonsolidlarge}>
+                                                    See Look Book
+                                                </Button>
+                                            </Link>
+                                        </Box>
+                                    </VStack>
+                                </Box>
                             </div>
                         </Container>
                     </Background>

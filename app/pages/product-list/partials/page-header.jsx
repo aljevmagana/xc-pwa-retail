@@ -28,11 +28,9 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
     return (
         <Box width="100%" {...otherProps} data-testid="sf-product-list-breadcrumb">
             <Spacer />
-
             <>
-
-                <Box {...styles.plpHeadingImage}>
                 <HideOnDesktop>
+                    <Box {...styles.plpHeadingImageMobile}>
                         <Parallax
                             className="parallaxsection"
                             bgImage={imageBanner}
@@ -79,8 +77,10 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                 </AspectRatio>
                             </Box>
                         </Parallax>
-                    </HideOnDesktop>
-                    <HideOnMobile>
+                    </Box>
+                </HideOnDesktop>
+                <HideOnMobile>
+                    <Box {...styles.plpHeadingImage}>
                         <Parallax
                             className="parallaxsection"
                             bgImage={imageBanner}
@@ -127,11 +127,9 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                 </AspectRatio>
                             </Box>
                         </Parallax>
-                    </HideOnMobile>
-                </Box>
-
+                    </Box>
+                </HideOnMobile>
             </>
-
         </Box>
     )
 }
