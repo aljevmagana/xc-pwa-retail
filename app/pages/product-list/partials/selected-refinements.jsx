@@ -58,8 +58,11 @@ const SelectedRefinements = ({toggleFilter, selectedFilterValues, filters}) => {
                                 marginTop={1}
                                 padding={5}
                                 color="black"
-                                colorScheme="gray"
+                                backgroundColor="#e9ecef"
+                                fontWeight="normal"
                                 size="sm"
+                                _hover={{ backgroundColor: "#e9ecef" }}
+                                _active={{ backgroundColor: "#e9ecef" }}
                                 iconSpacing={1}
                                 rightIcon={
                                     <CloseIcon color="black" boxSize={4} mr="-7px" mb="-6px" />

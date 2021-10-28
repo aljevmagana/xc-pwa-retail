@@ -94,7 +94,7 @@ const ProductTile = (props) => {
     } = props
     const { currency, image, price, productName } = productSearchItem
     const styles = useMultiStyleConfig('ProductTile', { isLoading: isWishlistLoading })
-    
+
     return (
 
         <Grid>
@@ -151,23 +151,23 @@ const ProductTile = (props) => {
                         )}
 
                         <Wrap className="plp-overlay-container" {...styles.productOverlay} spacing="5px" justify="center">
-                            <WrapItem>
+                            {/* <WrapItem>
                                 <Center w="40px" h="40px">
                                     <Button
-                                        disabled={(productSearchItem?.variationAttributes.length > 1) ? true : false} 
+                                        disabled={(productSearchItem?.variationAttributes.length > 1) ? true : false}
                                         onClick={(e) => {
                                             e.preventDefault()
                                             handleAddToCart()
                                         }}
-                                        className="button-left" 
-                                        colorScheme="gray" 
+                                        className="button-left"
+                                        colorScheme="gray"
                                         variant="outline"
-                                        {...styles.productOverlayButtonOutline} 
+                                        {...styles.productOverlayButtonOutline}
                                     >
                                         <Icon as={FaShoppingCart} />
                                     </Button>
                                 </Center>
-                            </WrapItem>
+                            </WrapItem> */}
                             <WrapItem>
                                 <Center w="auto" h="40px">
                                     <Button {...styles.productOverlayButton} colorScheme="gray">
@@ -175,21 +175,21 @@ const ProductTile = (props) => {
                                     </Button>
                                 </Center>
                             </WrapItem>
-                            <WrapItem>
+                            {/* <WrapItem>
                                 <Center w="40px" h="40px">
-                                    <Button 
+                                    <Button
                                         onClick={(e) => {
                                             e.preventDefault()
                                             onQuickViewClick()
                                         }}
-                                        colorScheme="gray" 
-                                        variant="outline" 
+                                        colorScheme="gray"
+                                        variant="outline"
                                         {...styles.productOverlayButtonOutline}
                                     >
                                         <Icon as={FaExpandArrowsAlt} />
                                     </Button>
                                 </Center>
-                            </WrapItem>
+                            </WrapItem> */}
                         </Wrap>
                     </Box>
                 </Box>

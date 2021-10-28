@@ -38,9 +38,10 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                             bgImageStyle={{
                                 aspectRatio: "32/10",
                                 objectFit: "cover",
-                                height: "100%",
-                                top: "7.5vh",
+                                height: "58.5vh",
+                                
                             }}
+                            style={{maxHeight:"50vh"}}
 
                         >
 
@@ -69,7 +70,7 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                                 */}
                                                 </Flex>
                                                 <Flex color="white !important" align="center" justify="center">
-                                                    <Text textAlign="center" fontSize={["1rem", "1.215rem"]}>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
+                                                    <Text textAlign="center" padding={"0 1rem"} fontSize={["1rem", "1.215rem"]}>Lorem ipsum Description,  consectetur adipisicing elit, sed do eiusmod tempor incididunt</Text>
                                                 </Flex>
                                             </Stack>
                                         </Box>
@@ -88,16 +89,17 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                             bgImageStyle={{
                                 aspectRatio: "32/10",
                                 objectFit: "cover",
-                                height: "100%",
-                                top: "3.5vh",
+                                height: "62vh",
+                                top: "0vh",
                             }}
+                            style={{maxHeight:"57vh"}}
 
                         >
 
                             <Box height={['50vh', '85vh']}>
                                 <AspectRatio style={{ paddingBottom: "100%" }} ratio={32 / 10}>
                                     <Background>
-                                        <Box style={{ position: "absolute", zIndex: "1", top: "30vh" }}>
+                                        <Box style={{ position: "absolute", zIndex: "1", top: "15vh" }}>
                                             <Stack>
                                                 <Flex align="center" justify="center">
                                                     {' Home / ', category && <Breadcrumb variant='plpContainer' colour='white' categories={category.parentCategoryTree} />}
