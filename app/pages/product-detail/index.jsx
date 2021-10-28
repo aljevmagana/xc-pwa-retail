@@ -281,37 +281,37 @@ const ProductDetail = ({category, product, isLoading}) => {
                                     <Table>
                                         <Tr>
                                             <Td>PRODUCT #</Td>
-                                            <Td color="gray.600">{temporaryAddInfo.productNum}</Td>
+                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.productNum}</Td>
                                         </Tr>
                                         <Tr>
                                             <Td >AVAILABLE PACKAGING</Td>
-                                            <Td color="gray.600">{temporaryAddInfo.packaging}</Td>
+                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.packaging}</Td>
                                         </Tr>
                                         <Tr>
                                             <Td>WEIGHT</Td>
-                                            <Td color="gray.600" >{temporaryAddInfo.weight}</Td>
+                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.weight}</Td>
                                         </Tr>
                                         <Tr>
                                             <Td >DIMENSIONS</Td>
-                                            <Td color="gray.600" >{temporaryAddInfo.dimensions}</Td>
+                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.dimensions}</Td>
                                         </Tr>
                                     </Table>
                                     <Table>
                                         <Tr>
                                             <Td>ORIGIN</Td>
-                                            <Td color="gray.600" >{temporaryAddInfo.origin}</Td>
+                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.origin}</Td>
                                         </Tr>
                                         <Tr>
                                             <Td >MANUFACTURER</Td>
-                                            <Td color="gray.600">{temporaryAddInfo.manufacturer}</Td>
+                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.manufacturer}</Td>
                                         </Tr>
                                         <Tr>
                                             <Td >RELEASE DATE</Td>
-                                            <Td color="gray.600" >{temporaryAddInfo.releaseDate}</Td>
+                                            <Td color="#868e96"  textAlign={["right", "left"]}>{temporaryAddInfo.releaseDate}</Td>
                                         </Tr>
                                         <Tr>
                                             <Td >MATERIALS</Td>
-                                            <Td color="gray.600" >{temporaryAddInfo.materials}</Td>
+                                            <Td color="#868e96" textAlign={["right", "left"]} >{temporaryAddInfo.materials}</Td>
                                         </Tr>
                                     </Table>
                                 </Stack>
