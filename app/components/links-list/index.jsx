@@ -28,7 +28,7 @@ const LinksList = ({
                         to={heading.href}
                         onClick={onLinkClick}
                         ref={headingLinkRef}
-                        {...styles.headingLink}
+                        {...styles.headinglink}
                     >
                         <Heading {...styles.heading} {...(heading.styles ? heading.styles : {})}>
                             {heading.text}

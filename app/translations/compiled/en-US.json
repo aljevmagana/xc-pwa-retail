@@ -11,12 +11,6 @@
       "value": "Promotions Applied"
     }
   ],
-  "+dLAnb": [
-    {
-      "type": 0,
-      "value": "Estimated Total"
-    }
-  ],
   "+s1hab": [
     {
       "type": 0,
@@ -27,12 +21,6 @@
     {
       "type": 1,
       "value": "errorMessage"
-    }
-  ],
-  "/kLqfV": [
-    {
-      "type": 0,
-      "value": "This is a gift."
     }
   ],
   "/vJwLB": [
@@ -421,16 +409,16 @@
       "value": "Please enter your phone number"
     }
   ],
+  "BJ2TKX": [
+    {
+      "type": 0,
+      "value": "Checkout"
+    }
+  ],
   "BlJFo9": [
     {
       "type": 0,
       "value": "This email already has an account."
-    }
-  ],
-  "Cl4TrE": [
-    {
-      "type": 0,
-      "value": "Add to wishlist"
     }
   ],
   "Cm91xY": [
@@ -645,6 +633,12 @@
       "value": "name"
     }
   ],
+  "KFD6en": [
+    {
+      "type": 0,
+      "value": "Shopping Cart"
+    }
+  ],
   "Kz7I2o": [
     {
       "type": 0,
@@ -661,6 +655,12 @@
     {
       "type": 0,
       "value": "Shop Feeling Red"
+    }
+  ],
+  "MJ2jZQ": [
+    {
+      "type": 0,
+      "value": "Total"
     }
   ],
   "MPcjO/": [
@@ -789,12 +789,6 @@
     {
       "type": 0,
       "value": " items"
-    }
-  ],
-  "OVAmhz": [
-    {
-      "type": 0,
-      "value": "Back to cart"
     }
   ],
   "OVvfLK": [
@@ -977,12 +971,6 @@
       "value": "You haven't placed an order yet"
     }
   ],
-  "TdTXXf": [
-    {
-      "type": 0,
-      "value": "Learn more"
-    }
-  ],
   "TemVby": [
     {
       "type": 0,
@@ -1029,12 +1017,6 @@
     {
       "type": 0,
       "value": "Continue shopping to add items to your cart"
-    }
-  ],
-  "VSlYv6": [
-    {
-      "type": 0,
-      "value": "Quantity:"
     }
   ],
   "WHgdsk": [
@@ -1433,6 +1415,12 @@
       "value": "Be the first to know"
     }
   ],
+  "frmrf6": [
+    {
+      "type": 0,
+      "value": "Order Subtotal"
+    }
+  ],
   "fuzq0p": [
     {
       "type": 0,
@@ -1547,6 +1535,12 @@
     {
       "type": 0,
       "value": "Save"
+    }
+  ],
+  "kUAy+l": [
+    {
+      "type": 0,
+      "value": "Shipping and Handling"
     }
   ],
   "kVzyDt": [
@@ -2117,12 +2111,6 @@
     {
       "type": 0,
       "value": "Please enter 2-letter state/province"
-    }
-  ],
-  "zODu/+": [
-    {
-      "type": 0,
-      "value": "ea"
     }
   ],
   "zXbRZR": [

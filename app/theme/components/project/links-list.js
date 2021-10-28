@@ -14,7 +14,7 @@ export default {
             fontSize: 'sm',
             color: '#868e96'
         },
-        headingLink: {
+        headinglink: {
             display: 'inline-flex'
         },
         heading: {
@@ -22,7 +22,8 @@ export default {
             fontFamily: '"HK Grotesk", sans-serif',
             letterSpacing: '0.1em',
             fontSize: '0.9em',
-            textTransform: 'uppercase'
+            textTransform: 'uppercase',
+            color: '#343a40'
 
         }
     },

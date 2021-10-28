@@ -8,7 +8,7 @@ export default {
     baseStyle: {
         container: {},
         nestedAccordion: {
-            paddingLeft: 4
+            paddingLeft: 0
         },
         internalButton: {},
         internalButtonIcon: {

@@ -79,8 +79,11 @@ const NestedAccordion = (props) => {
                                             )}
 
                                             <Text
-                                                fontSize={fontSizes[depth]}
+                                                fontSize='0.9rem'
+                                                letterSpacing='0.15em'
                                                 fontWeight={fontWeights[depth]}
+                                                textTransform='uppercase'
+                                                color= '#495057'
                                             >
                                                 {name}
                                             </Text>
@@ -92,8 +95,9 @@ const NestedAccordion = (props) => {
                                             to={urlBuilder(item, intl.locale)}
                                         >
                                             <Text
-                                                fontSize={fontSizes[depth]}
-                                                fontWeight={fontWeights[depth]}
+                                                fontSize='0.9rem'
+                                                letterSpacing='0.15em'
+                                                color= '#212529'
                                             >
                                                 {name}
                                             </Text>
