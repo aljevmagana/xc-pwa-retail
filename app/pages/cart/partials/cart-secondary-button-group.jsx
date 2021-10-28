@@ -7,15 +7,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-    Box,
     Button,
     ButtonGroup,
-    Checkbox,
-    Divider,
-    Flex,
     Stack,
+    Tooltip,
     useDisclosure
 } from '@chakra-ui/react'
+import {SmallCloseIcon} from '@chakra-ui/icons'
 import {defineMessage, FormattedMessage} from 'react-intl'
 import {useCartItemVariant} from '../../../components/cart-item-variant'
 import ConfirmationModal from '../../../components/confirmation-modal/index'
@@ -38,7 +36,6 @@ export const REMOVE_CART_ITEM_CONFIRMATION_DIALOG_CONFIG = {
  * (eg.: Remove or Edit or Add to wishlist for cart items)
  */
 const CartSecondaryButtonGroup = ({
-    onAddToWishlistClick = noop,
     onEditClick = noop,
     onRemoveItemClick = noop
 }) => {
@@ -58,38 +55,15 @@ const CartSecondaryButtonGroup = ({
     return (
         <>
             <Stack
-                direction={{base: 'column', lg: 'row'}}
-                alignItems={{base: 'flex-start', lg: 'center'}}
-                justifyContent={{base: 'flex-start', lg: 'space-between'}}
-                divider={<Divider display={{base: 'block', lg: 'none'}} />}
+                alignItems='center'
             >
-                <ButtonGroup spacing="6">
-                    <Button variant="link" size="sm" onClick={showRemoveItemConfirmation}>
-                        <FormattedMessage defaultMessage="Remove" />
-                    </Button>
-                    {customer.isRegistered && (
-                        <Button
-                            variant="link"
-                            size="sm"
-                            onClick={() => onAddToWishlistClick(variant)}
-                        >
-                            <FormattedMessage defaultMessage="Add to wishlist" />
-                        </Button>
-                    )}
-                    <Button variant="link" size="sm" onClick={() => onEditClick(variant)}>
-                        <FormattedMessage defaultMessage="Edit" />
+                <ButtonGroup spacing="6" alignItems="center">
+                    <Button variant="link" size="sm" onClick={showRemoveItemConfirmation} color="black">
+                        <Tooltip label="Remove from Cart" bg="gray.300" color="black">
+                            <SmallCloseIcon w={4} h={4}/>
+                        </Tooltip>
                     </Button>
                 </ButtonGroup>
-                <Flex alignItems="center">
-                    <Checkbox spacing={2} isReadOnly={true}>
-                        <FormattedMessage defaultMessage="This is a gift." />
-                    </Checkbox>
-                    <Box marginLeft={1}>
-                        <Button marginLeft={1} variant="link" size="sm">
-                            <FormattedMessage defaultMessage="Learn more" />
-                        </Button>
-                    </Box>
-                </Flex>
             </Stack>
             <ConfirmationModal
                 {...REMOVE_CART_ITEM_CONFIRMATION_DIALOG_CONFIG}

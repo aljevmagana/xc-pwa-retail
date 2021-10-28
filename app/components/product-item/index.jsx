@@ -7,7 +7,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-import {Box, Flex, Stack, Text, Select} from '@chakra-ui/react'
+import {
+    Box,
+    Button, 
+    Stack, 
+    Text, 
+    Select, 
+    Grid, 
+    GridItem, 
+    HStack,
+    Input,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
+} from '@chakra-ui/react'
 import CartItemVariant from '../cart-item-variant'
 import CartItemVariantImage from '../cart-item-variant/item-image'
 import CartItemVariantName from '../cart-item-variant/item-name'
@@ -26,6 +41,8 @@ import {useProduct} from '../../hooks'
  * @param {boolean} showLoading Renders a loading spinner with overlay if set to true.
  * @returns A JSX element representing product item in a list (eg: wishlist, cart, etc).
  */
+
+
 const ProductItem = ({
     product,
     primaryAction,
@@ -34,52 +51,56 @@ const ProductItem = ({
     showLoading = false
 }) => {
     const {stepQuantity, stockLevel} = useProduct(product)
+    
     return (
-        <Box position="relative" data-testid={`sf-cart-item-${product.productId}`}>
+        <Box position="relative" data-testid={`sf-cart-item-${product.productId}`} borderBottom="1px solid" borderBottomColor="#e9ecef" width="100%">
             <CartItemVariant variant={product}>
                 {showLoading && <LoadingSpinner />}
-                <Stack layerStyle="cardBordered" align="flex-start">
-                    <Flex width="full" alignItems="flex-start" backgroundColor="white">
-                        <CartItemVariantImage width={['88px', '136px']} mr={4} />
+                <Stack>
 
-                        <Stack spacing={3} flex={1}>
-                            <Stack spacing={1}>
-                                <CartItemVariantName />
-                                <CartItemVariantAttributes />
-                            </Stack>
-
-                            <Flex align="flex-end" justify="space-between">
-                                <Stack spacing={1}>
-                                    <Text fontSize="sm" color="gray.700">
-                                        <FormattedMessage defaultMessage="Quantity:" />
-                                    </Text>
-                                    <Select
-                                        onChange={(e) => onItemQuantityChange(e.target.value)}
-                                        value={product.quantity}
-                                        width="75px"
-                                    >
-                                        {new Array(stockLevel).fill(0).map((_, index) => {
-                                            if ((index + 1) % stepQuantity === 0) {
-                                                return (
-                                                    <option key={index} value={index + 1}>
-                                                        {index + 1}
-                                                    </option>
-                                                )
-                                            }
-                                        })}
-                                    </Select>
-                                </Stack>
+                        <Grid templateColumns="repeat(12, 1fr)" alignItems="center" padding="1.2rem 2rem">
+                            <GridItem colSpan={5} minWidth="min-content">
+                                <HStack>
+                                    <CartItemVariantImage width={['80px', '80px']} mr={4} />
+                                    <Stack spacing={1}>
+                                        <CartItemVariantName />
+                                        <CartItemVariantAttributes />
+                                    </Stack>
+                                </HStack>
+                            </GridItem>
+                            <GridItem colSpan={2} textAlign="center">
+                                <Text fontSize="0.9rem">${product.basePrice}</Text>
+                            </GridItem>
+                            <GridItem colSpan={2} minWidth="min-content" textAlign="center">
+                                <NumberInput
+                                    value={product.quantity}
+                                    onChange={(value) => {
+                                        onItemQuantityChange(parseInt(value))
+                                    }}
+                                    min={1}
+                                    step={stepQuantity}
+                                    max={stockLevel}
+                                    size="sm"
+                                    width="50%"
+                                    marginLeft="25%"
+                                >
+                                    <NumberInputField />
+                                    <NumberInputStepper>
+                                        <NumberIncrementStepper children="+"/>
+                                        <NumberDecrementStepper children="-"/>
+                                    </NumberInputStepper>
+                                </NumberInput>
+                            </GridItem>
+                            <GridItem colSpan={2} minWidth="min-content">
                                 <Stack>
                                     <CartItemVariantPrice />
-                                    <Box display={['none', 'block', 'block', 'block']}>
-                                        {primaryAction}
-                                    </Box>
                                 </Stack>
-                            </Flex>
+                            </GridItem>
+                            <GridItem colSpan={1} minWidth="min-content">
+                                {secondaryActions}
+                            </GridItem>
 
-                            {secondaryActions}
-                        </Stack>
-                    </Flex>
+                        </Grid>
                     {!showLoading && (
                         <Box display={['block', 'none', 'none', 'none']} w={'full'}>
                             {primaryAction}

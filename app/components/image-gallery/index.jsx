@@ -100,7 +100,7 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size}
         <Flex direction="column">
             {heroImage && heroImage.map((image, i) => { 
                 return (
-                    <Box {...styles.heroImageGroup}>
+                    <Box {...styles.heroImageGroup} key= {`product-${i}`}>
                         <AspectRatio {...styles.heroImage} ratio={1}>
 
                             <Img alt={image.alt} src={image.disBaseLink} />

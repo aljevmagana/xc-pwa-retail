@@ -44,6 +44,7 @@ import {
 import Link from '../../components/link'
 // Icons
 import {BrandLogo, LocationIcon, SignoutIcon, UserIcon} from '../icons'
+import Search from '../search'
 
 // Others
 import {noop} from '../../utils/utils'
@@ -97,7 +98,7 @@ const DrawerMenu = ({isOpen, onClose = noop, onLogoClick = noop, root}) => {
     return (
         <Drawer isOpen={isOpen} onClose={onClose} placement="left" size={drawerSize}>
             <DrawerOverlay>
-                <DrawerContent>
+                <DrawerContent  maxWidth="100%">
                     {/* Header Content */}
                     <DrawerHeader>
                         <IconButton
@@ -113,6 +114,16 @@ const DrawerMenu = ({isOpen, onClose = noop, onLogoClick = noop, root}) => {
                     <DrawerBody>
                         {showLoading && <LoadingSpinner />}
 
+                        <Search
+                            placeholder={intl.formatMessage({
+                                id: 'header.search.field.value.placeholder',
+                                defaultMessage: 'Search for products...'
+                            })}
+                            {...styles.search}
+                        />
+
+                        <DrawerSeparator />
+                        
                         {/* Category Navigation */}
                         {root ? (
                             <Fade in={true}>
@@ -131,9 +142,10 @@ const DrawerMenu = ({isOpen, onClose = noop, onLogoClick = noop, root}) => {
                                                         paddingLeft={8}
                                                         as={Link}
                                                         to={categoryUrlBuilder(item)}
-                                                        fontSize={FONT_SIZES[depth]}
-                                                        fontWeight={FONT_WEIGHTS[depth]}
-                                                        color="black"
+                                                        fontSize='0.9rem'
+                                                        letterSpacing='0.15em'
+                                                        color='#212529'
+                                                        fontWeight= 'normal'
                                                     >
                                                         {intl.formatMessage({
                                                             id:
@@ -272,6 +284,9 @@ const DrawerMenu = ({isOpen, onClose = noop, onLogoClick = noop, root}) => {
                         {/* Support Links */}
                         <NestedAccordion
                             allowMultiple={true}
+                            fontSize='0.9rem'
+                            letterSpacing='0.15em'
+                            color= '#495057'
                             // NOTE: Modify this content and builder as you see fit.
                             urlBuilder={() => '/'}
                             item={{
