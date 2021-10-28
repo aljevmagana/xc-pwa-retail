@@ -14,14 +14,12 @@ import {StarIcon} from '@chakra-ui/icons'
 
 // Components
 import {
-    Avatar,
     Box,
     Button,
     ButtonGroup,
     Center,
     FormControl,
     FormLabel,
-    Heading,
     Image,
     Input,
     Tabs,
@@ -236,8 +234,10 @@ const ProductDetail = ({category, product, isLoading}) => {
             layerStyle="page"
             data-testid="product-details-page"
             justifyContent="center"
-            pt="7.5%"
-            maxWidth="1140px"
+            pt={["5rem", "7.5%"]}
+            pl="15px"
+            pr="15px"
+            maxWidth={["none","540px","720px", "960px", "1140px"]}
         >
             <Helmet>
                 <title>{product?.pageTitle}</title>
@@ -277,7 +277,7 @@ const ProductDetail = ({category, product, isLoading}) => {
                                 <Text color="#868e96" fontSize="0.9rem">{product?.longDescription}</Text>
                             </TabPanel>
                             <TabPanel mb={6} mt={4}>
-                                <HStack fontSize="0.7875rem">
+                                <Stack direction={["column", "row"]} fontSize="0.7875rem">
                                     <Table>
                                         <Tr>
                                             <Td>PRODUCT #</Td>
@@ -314,9 +314,9 @@ const ProductDetail = ({category, product, isLoading}) => {
                                             <Td color="gray.600" >{temporaryAddInfo.materials}</Td>
                                         </Tr>
                                     </Table>
-                                </HStack>
+                                </Stack>
                             </TabPanel>
-                            <TabPanel mb={6} mt={4} maxWidth="83.33333%">
+                            <TabPanel mb={6} mt={4} maxWidth={["100%", "83.33%"]}>
                                 <VStack
                                   divider={<StackDivider borderColor="gray.200" />}
                                   spacing={4}
