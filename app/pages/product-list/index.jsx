@@ -355,7 +355,9 @@ const ProductList = (props) => {
                                 borderBottom: "solid 2px #495057",
                                 width: "25px",
                                 textAlign: "center",
-                                textDecoration: "none"
+                                textDecoration: "none",
+                                top:"1px",
+                                position:"relative"
                             }}
                         >{showByValue}</Link>
                         :
@@ -447,7 +449,8 @@ const ProductList = (props) => {
 
             {/* PLP Page Center Title  */}
             <Flex
-                style={{ position: "relative", marginTop: "5%" }}
+                position={["relative"]} 
+                marginTop={["13vh","5%"]}
             >
                 <PageHeader
                     searchQuery={searchQuery}
@@ -610,13 +613,13 @@ const ProductList = (props) => {
                                             </Flex>
                                         </Box>
                                         <Box>
-                                            <Flex align="center" justify="center" margintop="1rem" marginBottom="1rem">
+                                            <Flex align="center" justify={"center"} margintop="1rem" marginBottom="1rem">
                                                 <Center>
                                                     <Box
                                                     >
                                                         <Text fontSize="0.9rem">Sort by</Text>
                                                     </Box>
-                                                    <Box>
+                                                    <Box width={"auto"}>
                                                         <Sort
                                                             sortUrls={sortUrls}
                                                             productSearchResult={productSearchResult}
