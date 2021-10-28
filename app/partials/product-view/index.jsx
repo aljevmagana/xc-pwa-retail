@@ -63,7 +63,7 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
         <VStack spacing={6} align="flex-start" marginBottom={[4, 4, 4, 0, 0]}>
             {/* Title */}
             <Skeleton isLoaded={name}>
-                <Heading fontSize="2.7rem">{`${name}`}</Heading>
+                <Text fontSize="2.7rem" lineHeight="1.1" color="#212529" fontWeight="700" fontFamily="HK Grotesk, sans-serif">{`${name}`}</Text>
             </Skeleton>
 
             {/* Price */}
@@ -297,6 +297,7 @@ const ProductView = ({
 
                     variant="outline"
                     ml={["0px", "10px"]}
+                    marginTop={["5px", "0px"]}
                     fontSize="0.6875rem"
                     color="gray"
                     padding="0.6rem" 
@@ -347,7 +348,7 @@ const ProductView = ({
                     <SwatchItems variationAttributes={variationAttributes} showLoading={showLoading} history={history}/>
 
                     {/* Quantity Selector */}
-                    <Box marginBottom="3rem !important">
+                    <Box marginBottom="2.5rem !important">
                         <VStack align="stretch" maxWidth={'125px'}>
                             <Box fontWeight="600">
                                 <HStack spacing="4px">
