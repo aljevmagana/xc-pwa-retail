@@ -11,6 +11,7 @@ export default {
         'subscribe',
         'subscribeField',
         'subscribeButtonContainer',
+        'subscribeButton',
         'subscribeHeading',
         'subscribeMessage',
         'localeSelector',
@@ -35,19 +36,28 @@ export default {
             maxWidth: {base: '21.5rem', lg: 'none'}
         },
         subscribeField: {
-            background: 'white',
+            background: 'transparent',
+            fontSize: '0.9rem',
             color: 'gray.900'
         },
         subscribeButtonContainer: {
             width: 'auto'
         },
+        subscribeButton: {
+            background: 'transparent',
+            fontSize: 'xl'
+        },
         subscribeHeading: {
-            fontSize: 'md',
-            marginBottom: 2
+            marginBottom: 4,
+            textTransform: 'uppercase',
+            color: '#343a40',
+            letterSpacing: '0.1em',
+            fontSize: '0.9rem'
         },
         subscribeMessage: {
-            fontSize: 'sm',
-            marginBottom: 4
+            marginBottom: 4,
+            fontSize: '0.9rem',
+            color: '#868e96'
         },
         localeSelector: {
             display: 'inline-block',
@@ -61,17 +71,26 @@ export default {
             }
         },
         bottomHalf: {
-            maxWidth: {base: '34.5rem', lg: '100%'},
+            maxWidth: '100%',
             color: '#dee2e6',
             background: '#343a40'
+        },
+        bottomHalfContent: {
+            maxWidth:'1140px', 
+            mx:'auto', 
+            display:'flex',
+            py: 4,
+            justifyContent:'space-between',
+            alignItems: {base: 'center', lg: 'left'},
+            flexDirection: {base: 'column', lg: 'row'}
         },
         horizontalRule: {
             marginBottom: 4
         },
         copyright: {
             fontSize: 'sm',
-            marginTop: 3
-            
+            marginTop: 3,
+            marginBottom: {base: 4, lg : 0}     
         },
         creditCardIcon: {
             width: '38px',

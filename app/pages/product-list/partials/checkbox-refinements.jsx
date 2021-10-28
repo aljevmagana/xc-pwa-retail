@@ -12,6 +12,7 @@ import PropTypes from 'prop-types'
 const CheckboxRefinements = ({filter, toggleFilter, selectedFilters}) => {
     return (
         <Stack spacing={1}>
+            console.log(filter.values);
             {filter.values
                 ?.filter((refinementValue) => refinementValue.hitCount > 0)
                 .map((value) => {

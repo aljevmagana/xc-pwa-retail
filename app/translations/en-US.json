@@ -5,17 +5,11 @@
   "+O5yEM": {
     "defaultMessage": "Promotions Applied"
   },
-  "+dLAnb": {
-    "defaultMessage": "Estimated Total"
-  },
   "+s1hab": {
     "defaultMessage": "ADD TO WISHLIST"
   },
   "+y/wae": {
     "defaultMessage": "{errorMessage}"
-  },
-  "/kLqfV": {
-    "defaultMessage": "This is a gift."
   },
   "/vJwLB": {
     "defaultMessage": "Please enter your email address"
@@ -173,11 +167,11 @@
   "BAoId6": {
     "defaultMessage": "Please enter your phone number"
   },
+  "BJ2TKX": {
+    "defaultMessage": "Checkout"
+  },
   "BlJFo9": {
     "defaultMessage": "This email already has an account."
-  },
-  "Cl4TrE": {
-    "defaultMessage": "Add to wishlist"
   },
   "Cm91xY": {
     "defaultMessage": "Complete The Set"
@@ -259,6 +253,9 @@
   "JWbGSW": {
     "defaultMessage": "Shipped to: {name}"
   },
+  "KFD6en": {
+    "defaultMessage": "Shopping Cart"
+  },
   "Kz7I2o": {
     "defaultMessage": "Password updated"
   },
@@ -267,6 +264,9 @@
   },
   "LrQ8C0": {
     "defaultMessage": "Shop Feeling Red"
+  },
+  "MJ2jZQ": {
+    "defaultMessage": "Total"
   },
   "MPcjO/": {
     "defaultMessage": "Are you sure you want to sign out? You will need to sign back in to proceed with your current order."
@@ -316,9 +316,6 @@
   "OUPaUZ": {
     "defaultMessage": "{count} items",
     "description": "Number of items in order"
-  },
-  "OVAmhz": {
-    "defaultMessage": "Back to cart"
   },
   "OVvfLK": {
     "defaultMessage": "You're now signed in"
@@ -400,9 +397,6 @@
   "TSYROF": {
     "defaultMessage": "You haven't placed an order yet"
   },
-  "TdTXXf": {
-    "defaultMessage": "Learn more"
-  },
   "TemVby": {
     "defaultMessage": "Full Name"
   },
@@ -427,9 +421,6 @@
   },
   "V8WZRT": {
     "defaultMessage": "Continue shopping to add items to your cart"
-  },
-  "VSlYv6": {
-    "defaultMessage": "Quantity:"
   },
   "WHgdsk": {
     "defaultMessage": "Out of stock"
@@ -607,6 +598,9 @@
   "footer.subscribe.heading.first_to_know": {
     "defaultMessage": "Be the first to know"
   },
+  "frmrf6": {
+    "defaultMessage": "Order Subtotal"
+  },
   "fuzq0p": {
     "defaultMessage": "Checkout as guest"
   },
@@ -660,6 +654,9 @@
   },
   "jvo0vs": {
     "defaultMessage": "Save"
+  },
+  "kUAy+l": {
+    "defaultMessage": "Shipping and Handling"
   },
   "kVzyDt": {
     "defaultMessage": "Thank you for your order!"
@@ -902,10 +899,6 @@
   },
   "zHi6BD": {
     "defaultMessage": "Please enter 2-letter state/province"
-  },
-  "zODu/+": {
-    "defaultMessage": "ea",
-    "description": "Abbreviated 'each', follows price per item, like $10/ea"
   },
   "zXbRZR": {
     "defaultMessage": "Order Number: {orderNumber}"

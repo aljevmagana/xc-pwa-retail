@@ -10,13 +10,15 @@ export default {
             flex: 1
         },
         icon: {
-            width: 5,
-            height: 5
+            width: {base:'5', lg:'5'},
+            height: {base:'auto', lg:'5'},
         },
         item: {
             textAlign: 'center',
-            paddingLeft: 2,
-            paddingRight: 2
+            paddingLeft: {base:'0', lg:'2'},
+            paddingRight: {base:'2', lg: '2'},
+            minWidth: {base:'auto'},
+            height: {base:'auto'}
         }
     },
     variants: {

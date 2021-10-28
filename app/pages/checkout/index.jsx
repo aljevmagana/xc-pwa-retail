@@ -17,6 +17,7 @@ import useBasket from '../../commerce-api/hooks/useBasket'
 import Payment from './partials/payment'
 import CheckoutSkeleton from './partials/checkout-skeleton'
 import OrderSummary from '../../components/order-summary'
+import CheckoutTitle from './partials/checkout-title'
 
 const Checkout = () => {
     const navigate = useNavigation()
@@ -48,7 +49,9 @@ const Checkout = () => {
                 py={{base: 7, lg: 24}}
                 px={{base: 0, lg: 8}}
             >
-                <Grid templateColumns={{base: '1fr', lg: '66% 1fr'}} gap={{base: 10, xl: 20}}>
+                
+                <CheckoutTitle />
+                <Grid templateColumns={{base: '1fr', lg: '66% 1fr'}} gap={{base: 10}}>
                     <GridItem>
                         <Stack spacing={4}>
                             {globalError && (

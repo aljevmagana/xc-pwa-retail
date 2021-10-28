@@ -22,6 +22,7 @@ import {
     InputGroup,
     InputRightElement,
     Button,
+    Icon,
     FormControl,
     Flex
 } from '@chakra-ui/react'
@@ -38,6 +39,11 @@ import {SpriteMoney} from '../../components/icons'
 import {CustomerSupport} from '../../components/icons'
 import {BrandLogo} from '../icons'
 import {VisaIcon, MastercardIcon, AmexIcon, DiscoverIcon} from '../../components/icons'
+
+//Font Awesome Icons
+import {
+    FaTelegramPlane
+} from 'react-icons/fa';
 
 const Feature = ({ title, text, icon, borderRight }) => {
     return (
@@ -78,8 +84,8 @@ const Footer = ({...otherProps}) => {
 
     return (
         <Box as="footer" {...styles.container} {...otherProps}>
-            <Box py={24} bg="#f8f9fa">
-                <SimpleGrid columns={{ base: 1, md: 3 }} maxWidth={'1140px'} mx="auto">
+            <Box py={{base: 12, lg: 24}} bg="#f8f9fa">
+                <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{base:12, lg: 3}} maxWidth={'1140px'} mx="auto">
                     <Feature borderRight="1px"
                         icon={<DeliveryTime color="black" boxSize={12}/>}
                         title={'FREE SHIPPING & RETURN'}
@@ -106,16 +112,15 @@ const Footer = ({...otherProps}) => {
             <Box {...styles.content} bgColor="#dee2e6">
 
                 <StylesProvider value={styles}>
-                    <HideOnMobile>
-                        <SimpleGrid columns={4} spacing={3} py={24} maxWidth={'1140px'} mx="auto">
-                            <Stack spacing={6}>
+                        <SimpleGrid columns={{base:1, lg: 4}} spacing={{base:12, lg: 3}} px={{base:6, lg: 0}} py={24} maxWidth={'1140px'} mx="auto">
+                            <Stack spacing={{base:3, lg: 6}}>
                                 <Box>
-                                    <BrandLogo {...styles.logo} width={16}/>
+                                    <BrandLogo {...styles.logo} width={{base:'60px', lg: '85px'}} height={"100%"}/>
                                 </Box>
                                 <Text fontSize={'sm'}>
                                     © 2020 Chakra Templates. All rights reserved
                                 </Text>
-                                <Stack direction={'row'} spacing={6}>
+                                <Stack direction={'row'} spacing={{base:0, lg: 6}}>
                                     <SocialIcons variant="flex-start" color='#868e96' {...styles.socialIcons} />
                                 </Stack>
                             </Stack>
@@ -207,14 +212,9 @@ const Footer = ({...otherProps}) => {
                                 ]}
                             />
                             <Box>
-                                <Subscribe />
+                                <Subscribe maxWidth={{base: '100%', lg: 'auto'}}/>
                             </Box>
                         </SimpleGrid>
-                    </HideOnMobile>
-
-                    <HideOnDesktop>
-                        <Subscribe />
-                    </HideOnDesktop>
 
                     {/* <Box {...styles.localeSelector}>
                         <FormControl
@@ -243,7 +243,7 @@ const Footer = ({...otherProps}) => {
                     </Box> */}
 
                     <Box {...styles.bottomHalf}>
-                        <Box maxWidth={'1140px'} mx="auto" display="flex" py={4} justifyContent={"space-between"}>
+                        <Box {...styles.bottomHalfContent}>
                             <Text {...styles.copyright}>
                                 &copy;{' '}
                                 {intl.formatMessage({
@@ -292,13 +292,14 @@ const Subscribe = ({...otherProps}) => {
 
             <Box>
                 <InputGroup>
-                    <Input type="email" placeholder="you@email.com" {...styles.subscribeField} />
+                    <Input type="email" placeholder="Your Email Address" {...styles.subscribeField} />
                     <InputRightElement {...styles.subscribeButtonContainer}>
-                        <Button variant="footer">
-                            {intl.formatMessage({
+                        <Button variant="footer" {...styles.subscribeButton}>
+                            {/* {intl.formatMessage({
                                 id: 'footer.subscribe.button.sign_up',
                                 defaultMessage: 'Sign Up'
-                            })}
+                            })} */}
+                            <Icon as={FaTelegramPlane} />
                         </Button>
                     </InputRightElement>
                 </InputGroup>

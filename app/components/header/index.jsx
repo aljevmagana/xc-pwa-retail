@@ -54,6 +54,7 @@ const ENTER_KEY = 'Enter'
 const IconButtonWithRegistration = withRegistration(IconButton)
 
 import {MaleUser} from '../../components/icons'
+import { HideOnMobile } from '../responsive'
 /**
  * The header is the main source for accessing
  * navigation, search, basket, and other
@@ -118,7 +119,7 @@ const Header = ({
         <Box {...styles.container} {...props}>
             <Box {...styles.content}>
                 {showLoading && <LoadingSpinner wrapperStyles={{height: '100vh'}} />}
-                <Flex wrap="wrap" alignItems={['baseline', 'baseline', 'baseline', 'center']}>
+                <Flex wrap="wrap" alignItems={'center'}>
                     <IconButton
                         aria-label={intl.formatMessage({
                             id: 'header.button.assistive_msg.logo',
@@ -141,15 +142,17 @@ const Header = ({
                         {...styles.icons}
                         onClick={onMenuClick}
                     />
-                    <Box {...styles.searchContainer}>
-                        <Search
-                            placeholder={intl.formatMessage({
-                                id: 'header.search.field.value.placeholder',
-                                defaultMessage: 'Search for products...'
-                            })}
-                            {...styles.search}
-                        />
-                    </Box>
+                    <HideOnMobile>
+                        <Box {...styles.searchContainer}>
+                            <Search
+                                placeholder={intl.formatMessage({
+                                    id: 'header.search.field.value.placeholder',
+                                    defaultMessage: 'Search for products...'
+                                })}
+                                {...styles.search}
+                            />
+                        </Box>
+                    </HideOnMobile>
                     <MaleUser
                         {...styles.accountIcon}
                         tabIndex={0}
