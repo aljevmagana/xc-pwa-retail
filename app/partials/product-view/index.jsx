@@ -17,9 +17,9 @@ import {
     Skeleton,
     Box,
     Text,
+    Stack,
     VStack,
     HStack,
-    Select,
     Fade,
     useDisclosure,
     useTheme,
@@ -28,10 +28,14 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
-    Image
 } from '@chakra-ui/react'
 
 import {StarIcon} from '@chakra-ui/icons'
+import {
+    FaHeart,
+    FaRegHeart
+} from 'react-icons/fa';
+
 
 import {useProduct} from '../../hooks'
 
@@ -47,7 +51,7 @@ import {Skeleton as ImageGallerySkeleton} from '../../components/image-gallery'
 import AddToCartModal from '../../components/add-to-cart-modal'
 import RecommendedProducts from '../../components/recommended-products'
 import {HideOnDesktop, HideOnMobile} from '../../components/responsive'
-import {BasketIcon, WishlistIcon, WishlistSolidIcon} from '../../components/icons'
+import {BasketIcon} from '../../components/icons'
 
 const ProductViewHeader = ({name, price, currency, category, description}) => {
     const intl = useIntl()
@@ -65,7 +69,7 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
             {/* Price */}
             <Skeleton isLoaded={price} >
                 <Box marginBottom="20px">
-                    <HStack spacing="25%">
+                    <Stack direction={["column", "row"]} spacing={["0%","25%"]}>
                         <HStack>
                             <Text fontWeight="300" fontSize="1.35rem" aria-label="price" align="left">
                                 {intl.formatNumber(price, {
@@ -94,7 +98,7 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
                                 {tempReviews.reviewCount} REVIEWS
                             </Box>
                         </Box>
-                    </HStack>
+                    </Stack>
                 </Box>
                 <Skeleton isLoaded={description}>
                     <Box marginBottom="15px" textAlign="left" fontSize="0.9rem" maxWidth="450">
@@ -102,7 +106,85 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
                     </Box>
                 </Skeleton>
             </Skeleton>
+            
         </VStack>
+    )
+}
+const SwatchItems = ({variationAttributes, showLoading, history}) => {
+    return(
+        <>
+            {/*
+                Customize the skeletons shown for attributes to suit your needs. At the point
+                that we show the skeleton we do not know how many variations are selectable. So choose
+                a a skeleton that will meet most of your needs.
+            */}
+            {showLoading ? (
+                <>
+                    {/* First Attribute Skeleton */}
+                    <Skeleton height={6} width={32} />
+                    <Skeleton height={20} width={64} />
+
+                    {/* Second Attribute Skeleton */}
+                    <Skeleton height={6} width={32} />
+                    <Skeleton height={20} width={64} />
+                </>
+            ) : (
+                <>
+                    {/* Attribute Swatches */}
+                    {variationAttributes.map((variationAttribute) => {
+                        const {
+                            id,
+                            name,
+                            selectedValue,
+                            values = []
+                        } = variationAttribute
+                        {/*Data passed through for Swatches is Color, Size then Width 
+                        causes unsavory loading when reversed or altered on frontend */}
+                        return (
+                            <SwatchGroup
+                                key={id}
+                                onChange={(_, href) => {
+                                    if (!href) return
+                                    history.replace(href)
+                                }}
+                                variant={id === 'color' ? 'circle' : 'square'}
+                                value={selectedValue?.value}
+                                displayName={selectedValue?.name || ''}
+                                label={name}
+                            >
+                                {values.map(({href, name, image, value, orderable}) => (
+                                    <Swatch
+                                        key={value}
+                                        href={href}
+                                        disabled={!orderable}
+                                        value={value}
+                                        name={name}
+                                    >
+                                        {image ? (
+                                            <Box
+                                                height="100%"
+                                                width="100%"
+                                                minWidth="32px"
+                                                backgroundRepeat="no-repeat"
+                                                backgroundSize="cover"
+                                                backgroundColor={name.toLowerCase()}
+                                                backgroundImage={
+                                                    image
+                                                        ? `url(${image.disBaseLink})`
+                                                        : ''
+                                                }
+                                            />
+                                        ) : (
+                                            name
+                                        )}
+                                    </Swatch>
+                                ))}
+                            </SwatchGroup>
+                        )
+                    })}
+                </>
+            )}
+        </>
     )
 }
 
@@ -155,7 +237,6 @@ const ProductView = ({
     } = useProduct(product)
     const canAddToWishlist = !isProductLoading
     const canOrder = !isProductLoading && variant?.orderable && quantity <= stockLevel
-
     const renderActionButtons = () => {
         const buttons = []
 
@@ -184,14 +265,15 @@ const ProductView = ({
                     key="cart-button"
                     onClick={handleCartItem}
                     disabled={!canOrder}
-                    width="175px"
                     variant="outline"
-                    marginBottom={4}
+                    marginBottom={[0, 4]}
                     background="#343a40"
                     color="white"
-                    py="30px"
+                    padding={"2rem 1.5rem 2rem 1.5rem"}
                     marginTop={4}
                     fontSize="0.7875rem"
+                    letterSpacing=".3em"
+                    border="1px"
                     _hover={{
                         background: "black",
                         color: "white",
@@ -199,8 +281,8 @@ const ProductView = ({
                 >
                     <BasketIcon pr="5px"/>
                     {updateCart
-                        ? intl.formatMessage({defaultMessage: 'UPDATE'})
-                        : intl.formatMessage({defaultMessage: 'ADD TO CART'})}
+                        ? <Text>UPDATE</Text>
+                        : <Text  >ADD TO CART</Text>}
                 </Button>
             )
         }
@@ -212,25 +294,26 @@ const ProductView = ({
                     onClick={handleWishlistItem}
                     disabled={isCustomerProductListLoading || !canAddToWishlist}
                     isLoading={isCustomerProductListLoading}
-                    width="175px"
+
                     variant="outline"
-                    marginBottom={4}
-                    ml="10px"
-                    fontSize="12px"
-                    color="gray" 
+                    ml={["0px", "10px"]}
+                    fontSize="0.6875rem"
+                    color="gray"
+                    padding="0.6rem" 
                     type="submit"
+                    letterSpacing=".3em"
                     _hover={{
                         background: "gray",
                         color: "white",
                       }}
                 >
                     {updateWishlist
-                    ? <WishlistSolidIcon pr="5px" /> :
-                    <WishlistIcon pr="5px" />
+                    ? <FaHeart /> :
+                    <FaRegHeart />
                 }
                     {updateWishlist
-                        ? intl.formatMessage({defaultMessage: 'UPDATE'})
-                        : intl.formatMessage({defaultMessage: 'ADD TO WISHLIST'})}
+                        ? <Text paddingLeft="5px">UPDATE</Text>
+                        : <Text paddingLeft="5px">ADD TO WISHLIST</Text>}
                 </ButtonWithRegistration>
             )
         }
@@ -248,6 +331,11 @@ const ProductView = ({
         <Flex direction={'column'} data-testid="product-view">
             {/* Basic information etc. title, price, breadcrumb*/}      
             <Box display={['block', 'block', 'block', 'none']}>
+                {category && (
+                    <Skeleton isLoaded={category}>
+                        <Breadcrumb categories={category} />
+                    </Skeleton>
+                )}
                 <ProductViewHeader
                     name={product?.name}
                     price={product?.price}
@@ -255,6 +343,45 @@ const ProductView = ({
                     category={category}
                     description={product?.shortDescription || product?.pageDescription}
                 />
+                <VStack align="stretch">
+                    <SwatchItems variationAttributes={variationAttributes} showLoading={showLoading} history={history}/>
+
+                    {/* Quantity Selector */}
+                    <Box marginBottom="3rem !important">
+                        <VStack align="stretch" maxWidth={'125px'}>
+                            <Box fontWeight="600">
+                                <HStack spacing="4px">
+                                    <Text fontSize=".9rem" letterSpacing="0.1em" textTransform="uppercase">Items</Text>
+                                    <Text fontSize=".8rem" color="gray.600">(required)</Text>
+                                </HStack>
+                            </Box>
+                            <NumberInput
+                                value={quantity}
+                                onChange={(value) => {
+                                    setQuantity(parseInt(value))
+                                }}
+                                min={1}
+                                step={stepQuantity}
+                                max={stockLevel}
+                                size="sm"
+                                maxW={20}
+                            >
+                                <NumberInputField />
+                                <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                </NumberInputStepper>
+                            </NumberInput>
+                        </VStack>
+                        </Box>
+                </VStack>
+                <Box
+                width="100%"
+                display={['block', 'block', 'block', 'none']}
+                paddingBottom="2em"
+                >
+                    {renderActionButtons()}
+                </Box>
             </Box>
             <Flex direction={['column', 'column', 'column', 'row']}>
                 <Box flex={1} mr={[0, 0, 0, 8, 8]}>
@@ -283,100 +410,32 @@ const ProductView = ({
                 </Box>
 
                 {/* Variations & Quantity Selector */}
-                <VStack align="stretch" spacing={8} flex={1} marginBottom={[16, 16, 16, 0, 0]} w="25%">
-                    {category && (
+                <VStack align="stretch" flex={1} marginBottom={[16, 16, 16, 0, 0]} w={["100%","25%"]}>
+                    <HideOnMobile>
+                        {category && (
                         <Skeleton isLoaded={category}>
                             <Breadcrumb categories={category} />
                         </Skeleton>
-                    )}
-                    <Box position="sticky" top="20px" zIndex={2}>
-                        <Box display={['none', 'none', 'none', 'block']}>
-                            <ProductViewHeader
-                                name={product?.name}
-                                price={product?.price}
-                                currency={product?.currency}
-                                category={category}
-                                description={product?.shortDescription || product?.pageDescription}
-                            />
-                        </Box>
-                        <VStack align="stretch" spacing={4}>
-                            {/*
-                                Customize the skeletons shown for attributes to suit your needs. At the point
-                                that we show the skeleton we do not know how many variations are selectable. So choose
-                                a a skeleton that will meet most of your needs.
-                            */}
-                            {showLoading ? (
-                                <>
-                                    {/* First Attribute Skeleton */}
-                                    <Skeleton height={6} width={32} />
-                                    <Skeleton height={20} width={64} />
-
-                                    {/* Second Attribute Skeleton */}
-                                    <Skeleton height={6} width={32} />
-                                    <Skeleton height={20} width={64} />
-                                </>
-                            ) : (
-                                <>
-                                    {/* Attribute Swatches */}
-                                    {variationAttributes.map((variationAttribute) => {
-                                        const {
-                                            id,
-                                            name,
-                                            selectedValue,
-                                            values = []
-                                        } = variationAttribute
-
-                                        return (
-                                            <SwatchGroup
-                                                key={id}
-                                                onChange={(_, href) => {
-                                                    if (!href) return
-                                                    history.replace(href)
-                                                }}
-                                                variant={id === 'color' ? 'circle' : 'square'}
-                                                value={selectedValue?.value}
-                                                displayName={selectedValue?.name || ''}
-                                                label={name}
-                                            >
-                                                {values.map(({href, name, image, value, orderable}) => (
-                                                    <Swatch
-                                                        key={value}
-                                                        href={href}
-                                                        disabled={!orderable}
-                                                        value={value}
-                                                        name={name}
-                                                    >
-                                                        {image ? (
-                                                            <Box
-                                                                height="100%"
-                                                                width="100%"
-                                                                minWidth="32px"
-                                                                backgroundRepeat="no-repeat"
-                                                                backgroundSize="cover"
-                                                                backgroundColor={name.toLowerCase()}
-                                                                backgroundImage={
-                                                                    image
-                                                                        ? `url(${image.disBaseLink})`
-                                                                        : ''
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            name
-                                                        )}
-                                                    </Swatch>
-                                                ))}
-                                            </SwatchGroup>
-                                        )
-                                    })}
-                                </>
-                            )}
-
-                            {/* Quantity Selector */}
-                            <Box paddingBottom="40px">
+                        )}
+                    </HideOnMobile>
+                        <Box position="sticky" top="20px" zIndex={2} display={['none', 'none', 'none', 'block']}>
+                            <Box display={['none', 'none', 'none', 'block']}>
+                                <ProductViewHeader
+                                    name={product?.name}
+                                    price={product?.price}
+                                    currency={product?.currency}
+                                    category={category}
+                                    description={product?.shortDescription || product?.pageDescription}
+                                />
+                            </Box>
+                            <VStack align="stretch">
+                                <SwatchItems variationAttributes={variationAttributes} showLoading={showLoading} history={history}/>
+                                {/* Quantity Selector */}
+                            <Box marginBottom="3rem !important">
                                 <VStack align="stretch" maxWidth={'125px'}>
                                     <Box fontWeight="600">
                                         <HStack spacing="4px">
-                                            <Text>Items</Text>
+                                            <Text fontSize=".9rem" letterSpacing="0.1em" textTransform="uppercase">Items</Text>
                                             <Text fontSize=".8rem" color="gray.600">(required)</Text>
                                         </HStack>
                                     </Box>
@@ -398,47 +457,34 @@ const ProductView = ({
                                         </NumberInputStepper>
                                     </NumberInput>
                                 </VStack>
-                        </Box>
-                        <HideOnDesktop>
-                            {showFullLink && product && (
-                                <Link to={`/product/${product.master.masterId}`}>
-                                    <Text color="gray.600">
-                                        {intl.formatMessage({
-                                            defaultMessage: 'See full details'
-                                        })}
-                                    </Text>
-                                </Link>
-                            )}
-                        </HideOnDesktop>
-                    </VStack>
+                             </Box>
+                                <HideOnDesktop>
+                                    {showFullLink && product && (
+                                        <Link to={`/product/${product.master.masterId}`}>
+                                            <Text color="gray.600">
+                                                {intl.formatMessage({
+                                                    defaultMessage: 'See full details'
+                                                })}
+                                            </Text>
+                                        </Link>
+                                    )}
+                                </HideOnDesktop>
+                            </VStack>
 
-                    <Box display={['none', 'none', 'none', 'block']}>
-                        {!showLoading && showInventoryMessage && (
-                            <Fade in={true}>
-                                <Text color="orange.600" fontWeight={600} marginBottom={8}>
-                                    {inventoryMessage}
-                                </Text>
-                            </Fade>
-                        )}
-                        {renderActionButtons()}
-                    </Box>
-                    </Box>
+                            <Box display={['none', 'none', 'none', 'block']} alignItems="center">
+                                {!showLoading && showInventoryMessage && (
+                                    <Fade in={true}>
+                                        <Text color="orange.600" fontWeight={600} marginBottom={8}>
+                                            {inventoryMessage}
+                                        </Text>
+                                    </Fade>
+                                )}
+                                {renderActionButtons()}
+                            </Box>
+                        </Box>
+                    
                 </VStack>
             </Flex>
-            {/*Add to Cart Button for mobile versions*/}
-            <Box
-                position="fixed"
-                bg="white"
-                width="100%"
-                display={['block', 'block', 'block', 'none']}
-                p={[4, 4, 6]}
-                left={0}
-                bottom={0}
-                zIndex={2}
-                boxShadow={theme.shadows.top}
-            >
-                {renderActionButtons()}
-            </Box>
 
             {isAddToCartModalOpen && (
                 <AddToCartModal

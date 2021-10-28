@@ -29,11 +29,24 @@ const Swatch = (props) => {
 
     let hoverStyle = {}
     let buttonHeight = ""
+    let checkedStyle ={}
     if(variant !== 'circle'){
         buttonHeight="30px"
         hoverStyle = {
-            background: "gray",
+            background: "#868e96",
             color: "white",
+        }
+        checkedStyle = {
+            background: "#868e96",
+            color: "white"
+        }
+    } else{
+        checkedStyle={
+            borderColor: "#495057",
+            border: "2px"
+        }
+        hoverStyle = {
+            borderColor: "#696969"
         }
     }
     return (
@@ -49,7 +62,9 @@ const Swatch = (props) => {
             aria-checked={selected}
             variant="outline"
             border="1px"
+            borderColor="#ced4da"
             fontSize="0.6875rem"
+            _checked={checkedStyle}
             maxHeight={buttonHeight}
             _hover={hoverStyle}
         >
