@@ -10,18 +10,36 @@ import PropTypes from 'prop-types'
 import { AspectRatio, Button, Box, Center, Container, Flex, Heading, Img, Link, Text, VStack, useMultiStyleConfig, useTheme } from '@chakra-ui/react'
 import { Parallax, Background } from 'react-parallax'
 import { getAssetUrl } from 'pwa-kit-react-sdk/ssr/universal/utils'
+import { HideOnMobile, HideOnDesktop } from '../../components/responsive'
 
-const insideStyles = {
+const insideStyles1 = {
     position: "relative",
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)"
 };
 
-const Hero = ({ title, label, img, actions, ...props }) => {
+const insideStyles = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)"
+};
+
+
+const insideStylesMobile = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)"
+};
+
+const Hero = ({ title, label, img, actions, isMobile, ...props }) => {
     const { src, alt } = img
     const theme = useTheme()
     const styles = useMultiStyleConfig("HomePage")
+    let bgAffterEffect, textEffect;
+    
     return (
         <div>
 
@@ -32,17 +50,20 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                 bgImageStyle={{
                     aspectRatio: "32/10",
                     objectFit: "cover",
+                    objectPosition: "left center",
                     height: "100%",
-                    top: "7.5vh",
                     left: "50%"
                 }}
+                strength={400}
                 style={{ height: "100vh" }}
             >
+                <div style={{ height: '100vh' }}>
+                <Background style={bgAffterEffect}>
 
-                <Background>
-                    <AspectRatio>
-                        <div style={insideStyles}>
-                            <Container>
+
+                    <Container>
+                        <HideOnMobile>
+                            <div style={insideStyles}>
                                 <Box>
                                     <VStack>
 
@@ -52,9 +73,12 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                                             </Heading>
                                         </Box>
                                         <Box>
-                                            <Heading as="h1" size="4xl" isTruncated {...styles.parallaxsection.heading1} >
+
+
+                                            <Text fontSize={["4rem", "6rem"]} isTruncated {...styles.parallaxsection.heading1} >
                                                 Autumn Vibes
-                                            </Heading>
+                                            </Text>
+
                                         </Box>
                                         <Box>
                                             <Link href="/en-US/category/womens-clothing-tops">
@@ -66,53 +90,29 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                                         </Box>
                                     </VStack>
                                 </Box>
-                            </Container>
-                        </div>
-                    </AspectRatio>
-                </Background>
+                            </div>
+                        </HideOnMobile>
 
-            </Parallax>
-
-            <Parallax
-                className="parallaxsection"
-                bgImage={getAssetUrl('static/img/photo/serrah-galos-494279-unsplash-parallax.jpg')}
-                strength={400}
-                bgImageStyle={{
-                    aspectRatio: "32/10",
-                    objectFit: "cover",
-                    height: "100%",
-                    top: "1.5vh",
-                    left: "50%"
-                }}
-                style={{ height: "100vh" }}
-            >
-
-                <Background>
-
-                    <div style={{
-                        position: "relative",
-                        top: "50%",
-                        left: "0%",
-                        transform: "translate(-50%,50%)"
-                    }}>
-                        <Container maxWidth="1140px">
-                            <div style={{ ...styles.parallaxsection.container2_1 }} >
+                        <HideOnDesktop>
+                            <div style={insideStylesMobile}>
                                 <Box>
-                                    <VStack align="stretch">
+                                    <VStack>
+
                                         <Box>
-                                            <Heading as="h1" size="4xl" {...styles.parallaxsection.heading2} isTruncated>
-                                                Ethnic <br />
-                                                Sweaters
+                                            <Heading as="h1" size={["sm", "sm"]} style={{ ...styles.parallaxsection.stretchtext }}>
+                                                Just Arrived
                                             </Heading>
                                         </Box>
                                         <Box>
-                                            <Text {...styles.parallaxsection.subtext}>
-                                                Trendy. Comfy. Beautiful
+
+                                            <Text fontSize={["3.3rem", "6rem"]} maxWidth={["320", "100%"]} isTruncated {...styles.parallaxsection.heading1mobile} >
+                                                Autumn Vibes
                                             </Text>
                                         </Box>
                                         <Box>
-                                            <Link href="/en-US/category/womens-clothing-jackets">
-                                                <Button {...styles.parallaxsection.buttonsolid}>
+                                            <Link href="/en-US/category/womens-clothing-tops">
+                                                <Button {...styles.parallaxsection.buttonoutline}>
+
                                                     See Look Book
                                                 </Button>
                                             </Link>
@@ -120,10 +120,13 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                                     </VStack>
                                 </Box>
                             </div>
-                        </Container>
-                    </div>
+                        </HideOnDesktop>
+
+                    </Container>
+
 
                 </Background>
+                </div>
 
             </Parallax>
 
@@ -133,9 +136,11 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                 bgImageStyle={{
                     aspectRatio: "32/10",
                     objectFit: "cover",
+                    objectPosition: "right center",
                     height: "100%",
                     left: "50%"
                 }}
+                strength={400}
                 style={{ height: "100vh" }}
             >
                 <div style={{ height: '100vh' }}>
@@ -145,10 +150,10 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                                 <Box>
                                     <VStack align="stretch">
                                         <Box>
-                                            <Heading as="h1" size="4xl" {...styles.parallaxsection.heading2} isTruncated>
+                                            <Text fontSize={["3.5rem", "6rem"]} {...styles.parallaxsection.heading2} isTruncated>
                                                 Ethnic <br />
                                                 Sweaters
-                                            </Heading>
+                                            </Text>
                                         </Box>
                                         <Box>
                                             <Text {...styles.parallaxsection.subtext}>
@@ -177,42 +182,77 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                 bgImageStyle={{
                     aspectRatio: "32/10",
                     objectFit: "cover",
+                    objectPosition: "left center",
                     height: "100%",
                     left: "50%"
                 }}
+                strength={400}
                 style={{ height: "100vh" }}
             >
                 <div style={{ height: '100vh' }}>
                     <Background>
-                        <Container maxWidth="1140px">
-                            <div style={{ ...styles.parallaxsection.container3 }}>
-                                <Box>
-                                    <VStack align="stretch">
-                                        <Box>
-                                            <Heading as="h5" size="sm" style={{ ...styles.parallaxsection.stretchtext }}>
-                                                Our Favourites
-                                            </Heading>
-                                        </Box>
-                                        <Box>
-                                            <Heading as="h1" size="4xl" isTruncated {...styles.parallaxsection.heading3} >
-                                                Shirts
-                                            </Heading>
-                                        </Box>
-                                        <Box>
-                                            <Text {...styles.parallaxsection.subtext}>
-                                                Vestibulum tortor quam. <br /> Feugiat vitae, ultricies eget.
-                                            </Text>
-                                        </Box>
-                                        <Box>
-                                            <Link href="/en-US/category/mens-clothing-dress-shirts">
-                                                <Button {...styles.parallaxsection.buttonoutline}>
-                                                    See Look Book
-                                                </Button>
-                                            </Link>
-                                        </Box>
-                                    </VStack>
-                                </Box>
-                            </div>
+                        <Container textAlign={["left", "right"]} maxWidth="1140px">
+                            <HideOnMobile>
+                                <div style={{ ...styles.parallaxsection.container3 }}>
+                                    <Box>
+                                        <VStack textAlign={["left", "right"]} align="stretch">
+                                            <Box>
+                                                <Heading as="h5" size="sm" style={{ ...styles.parallaxsection.stretchtext }}>
+                                                    Our Favourites
+                                                </Heading>
+                                            </Box>
+                                            <Box>
+                                                <Text fontSize={["1.5rem", "4.5rem"]} isTruncated {...styles.parallaxsection.heading3} >
+                                                    Shirts
+                                                </Text>
+                                            </Box>
+                                            <Box>
+                                                <Text  {...styles.parallaxsection.subtext}>
+                                                    Vestibulum tortor quam. <br /> Feugiat vitae, ultricies eget.
+                                                </Text>
+                                            </Box>
+                                            <Box>
+                                                <Link href="/en-US/category/mens-clothing-dress-shirts">
+                                                    <Button {...styles.parallaxsection.buttonoutline}>
+                                                        See Look Book
+                                                    </Button>
+                                                </Link>
+                                            </Box>
+                                        </VStack>
+                                    </Box>
+                                </div>
+                            </HideOnMobile>
+                            <HideOnDesktop>
+                                <div style={{ ...styles.parallaxsection.container3mobile }}>
+                                    <Box>
+                                        <VStack textAlign={["left"]} align="stretch">
+                                            <Box>
+                                                <Heading as="h5" size="sm" style={{ ...styles.parallaxsection.stretchtext }}>
+                                                    Our Favourites
+                                                </Heading>
+                                            </Box>
+                                            <Box>
+                                                <Text fontSize={["2.7rem"]} isTruncated {...styles.parallaxsection.heading3mobile} >
+                                                    Shirts
+                                                </Text>
+                                            </Box>
+                                            <Box>
+                                                <Text  {...styles.parallaxsection.subtext}>
+                                                    Vestibulum tortor quam. <br /> Feugiat vitae, ultricies eget.
+                                                </Text>
+                                            </Box>
+                                            <Box>
+                                                <Link href="/en-US/category/mens-clothing-dress-shirts">
+                                                    <Button {...styles.parallaxsection.buttonoutline}>
+                                                        See Look Book
+                                                    </Button>
+                                                </Link>
+                                            </Box>
+                                        </VStack>
+                                    </Box>
+                                </div>
+                            </HideOnDesktop>
+
                         </Container>
                     </Background>
                 </div>
@@ -227,30 +267,57 @@ const Hero = ({ title, label, img, actions, ...props }) => {
                     height: "100%",
                     left: "50%"
                 }}
+                strength={400}
                 style={{ height: "100vh" }}
             >
                 <div style={{ height: '100vh' }}>
                     <Background>
                         <Container>
-                            <div style={insideStyles}>
-                                <Box>
-                                    <VStack>
+                            <HideOnMobile>
+                                <div style={insideStyles}>
+                                    <Box>
+                                        <VStack>
 
-                                        <Box>
-                                            <Heading as="h1" size="3xl" isTruncated {...styles.parallaxsection.heading4} >
-                                                Men's Collection
-                                            </Heading>
-                                        </Box>
-                                        <Box>
-                                            <Link href="/en-US/category/mens-clothing">
-                                                <Button {...styles.parallaxsection.buttonsolidlarge}>
-                                                    See Look Book
-                                                </Button>
-                                            </Link>
-                                        </Box>
-                                    </VStack>
-                                </Box>
-                            </div>
+                                            <Box>
+
+                                                <Heading as="h1" size="3xl" isTruncated {...styles.parallaxsection.heading4} >
+                                                    Men's Collection
+                                                </Heading>
+
+                                            </Box>
+                                            <Box>
+                                                <Link href="/en-US/category/mens-clothing">
+                                                    <Button {...styles.parallaxsection.buttonsolidlarge}>
+                                                        See Look Book
+                                                    </Button>
+                                                </Link>
+                                            </Box>
+                                        </VStack>
+                                    </Box>
+                                </div>
+                            </HideOnMobile>
+                            <HideOnDesktop>
+                                <div style={insideStylesMobile}>
+                                    <Box>
+                                        <VStack>
+
+                                            <Box>
+                                                <Text isTruncated {...styles.parallaxsection.heading4mobile} >
+                                                    Men's <br /> Collection
+                                                </Text>
+
+                                            </Box>
+                                            <Box>
+                                                <Link href="/en-US/category/mens-clothing">
+                                                    <Button {...styles.parallaxsection.buttonsolidlarge}>
+                                                        See Look Book
+                                                    </Button>
+                                                </Link>
+                                            </Box>
+                                        </VStack>
+                                    </Box>
+                                </div>
+                            </HideOnDesktop>
                         </Container>
                     </Background>
                 </div>

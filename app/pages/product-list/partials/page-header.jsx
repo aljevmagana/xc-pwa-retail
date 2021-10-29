@@ -48,7 +48,7 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                             <Box height={['50vh', '85vh']}>
                                 <AspectRatio style={{ paddingBottom: "100%" }} ratio={32 / 10}>
                                     <Background>
-                                        <Box style={{ position: "absolute", zIndex: "1", top: "15vh" }}>
+                                        <Box style={{ position: "absolute", zIndex: "1", top: "10vh" }}>
                                             <Stack>
                                                 <Flex align="center" justify="center">
                                                     {' Home / ', category && <Breadcrumb variant='plpContainer' colour='white' categories={category.parentCategoryTree} />}
@@ -91,6 +91,7 @@ const PageHeader = ({ category, productSearchResult, isLoading, searchQuery, ...
                                 objectFit: "cover",
                                 height: "62vh",
                                 top: "0vh",
+                                width: "100%"
                             }}
                             style={{maxHeight:"57vh"}}
 
