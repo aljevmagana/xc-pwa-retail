@@ -26,7 +26,14 @@ export default {
                 top: "30%",
                 position: "absolute",
                 textAlign: "right",
-                right: "20%"
+                right: "20%",
+                paddingLeft:".5rem"
+            },
+            container3mobile: {
+                top: "30%",
+                position: "absolute",
+                textAlign: "left",
+                left: "5%",
             },
             stretchtext: {
                 letterSpacing: "0.5em",
@@ -50,8 +57,18 @@ export default {
                 marginBottom: "3rem !important",
                 lineHeight: 1.1,
                 textAlign: "center",
-                fontSize: "5.5rem",
+
                 textTransform: "uppercase !important",
+            },
+            heading1mobile: {
+                color:"#343a40",
+                letterSpacing: "0.1em",
+                fontWeight: 700,
+                marginBottom: "3rem !important",
+                lineHeight: 1.1,
+                textAlign: "center",
+                textTransform: "uppercase !important",
+                whiteSpace:"normal"
             },
             heading2: {
                 color:"#343a40",
@@ -59,7 +76,6 @@ export default {
                 fontWeight: 700,
                 textTransform: "uppercase !important",
                 marginBottom: "1rem !important",
-                fontSize: "6rem",
                 lineHeight: 1.1,
                 textAlign: "left"
             },
@@ -73,6 +89,15 @@ export default {
                 lineHeight: 1.1,
                 textAlign: "right"
             },
+            heading3mobile: {
+                color:"#343a40",
+                letterSpacing: "0.1em",
+                fontWeight: 700,
+                textTransform: "uppercase !important",
+                marginBottom: "1rem !important",
+                lineHeight: 1.1,
+                textAlign: "left"
+            },
             heading4: {
                 color:"#343a40",
                 letterSpacing: "0.1em",
@@ -82,6 +107,16 @@ export default {
                 fontSize: "4.5rem",
                 lineHeight: 1.1,
                 textAlign: "right"
+            },
+            heading4mobile: {
+                color:"#343a40",
+                letterSpacing: "0.1em",
+                fontWeight: 700,
+                textTransform: "uppercase !important",
+                marginBottom: "1rem !important",
+                fontSize: "2.5rem",
+                lineHeight: 1.1,
+                textAlign: "center"
             },
             buttonoutline: {
                 background: "transparent !importnat",
