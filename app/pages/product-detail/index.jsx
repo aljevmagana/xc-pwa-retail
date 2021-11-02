@@ -234,7 +234,7 @@ const ProductDetail = ({category, product, isLoading}) => {
             layerStyle="page"
             data-testid="product-details-page"
             justifyContent="center"
-            pt={["5rem", "7.5%"]}
+            pt={["4rem", "7.5%"]}
             pl="15px"
             pr="15px"
             maxWidth={["none","540px","720px", "960px", "1140px"]}
@@ -260,15 +260,15 @@ const ProductDetail = ({category, product, isLoading}) => {
                     <Tabs w="100%" color="#868e96">
                         <TabList borderBottom="1px">
                             {/* Details */}
-                            <Tab textTransform="uppercase" letterSpacing=".1em" fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
+                            <Tab textTransform="uppercase" letterSpacing={[0, ".1em"]} fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
                                 Description
                             </Tab>
                             {/* Size & Fit */}
-                            <Tab textTransform="uppercase" letterSpacing=".1em" fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
+                            <Tab textTransform="uppercase" letterSpacing={[0, ".1em"]} fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
                                 Additional Information
                             </Tab>
                             {/* Reviews */}
-                            <Tab textTransform="uppercase" letterSpacing=".1em" fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
+                            <Tab textTransform="uppercase" letterSpacing={[0, ".1em"]} fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
                                 Reviews
                             </Tab>
                         </TabList>
