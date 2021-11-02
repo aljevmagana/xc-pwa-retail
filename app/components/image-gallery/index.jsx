@@ -9,6 +9,9 @@ import React, {useState, useMemo, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {useLocation} from 'react-router-dom'
 
+
+import {HideOnDesktop, HideOnMobile} from '../responsive'
+
 // Chakra Components
 import {
     AspectRatio,
@@ -42,13 +45,13 @@ export const Skeleton = ({size}) => {
                 <AspectRatio ratio={1} {...styles.heroImageSkeleton}>
                     <ChakraSkeleton />
                 </AspectRatio>
-                <Flex>
-                    {new Array(4).fill(0).map((_, index) => (
-                        <AspectRatio ratio={1} {...styles.thumbnailImageSkeleton} key={index}>
-                            <ChakraSkeleton />
-                        </AspectRatio>
-                    ))}
-                </Flex>
+                    <Flex>
+                        {new Array(4).fill(0).map((_, index) => (
+                            <AspectRatio ratio={1} {...styles.thumbnailImageSkeleton} key={index}>
+                                <ChakraSkeleton />
+                            </AspectRatio>
+                        ))}
+                    </Flex>
             </Flex>
         </Box>
     )
@@ -94,21 +97,62 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size}
         [selectedVariationAttributes]
     )
 
-    const heroImage = heroImageGroup?.images
+    const heroImage = heroImageGroup?.images?.[selectedIndex]    
+    const desktopImage = heroImageGroup?.images
     const thumbnailImages = thumbnailImageGroup?.images || []
     return (
-        <Flex direction="column">
-            {heroImage && heroImage.map((image, i) => { 
-                return (
-                    <Box {...styles.heroImageGroup} key= {`product-${i}`}>
-                        <AspectRatio {...styles.heroImage} ratio={1}>
+        <>
+            <Flex direction="column">
+                <HideOnMobile>
+                    {desktopImage && desktopImage.map((image, i) => { 
+                        return (
+                            <Box {...styles.heroImageGroup} key= {`product-${i}`}>
+                                <AspectRatio {...styles.heroImage} ratio={1}>
+                                    <Img alt={image.alt} src={image.disBaseLink} />
+                                </AspectRatio>
+                            </Box>
+                        )})}
+                </HideOnMobile>
+            </Flex>
+            <HideOnDesktop>
+                <Flex direction="column">
+                    {heroImage && (
+                        <Box {...styles.heroImageGroup}>
+                            <AspectRatio {...styles.heroImage} ratio={1}>
+                                <Img alt={heroImage.alt} src={heroImage.disBaseLink} />
+                            </AspectRatio>
+                        </Box>
+                    )}
 
-                            <Img alt={image.alt} src={image.disBaseLink} />
-
-                        </AspectRatio>
-                    </Box>
-                )})}
-        </Flex>
+                    <List display={'flex'} flexWrap={'wrap'}>
+                        {thumbnailImages.map((image, index) => {
+                            const selected = index === selectedIndex
+                            return (
+                                <ListItem
+                                    {...styles.thumbnailImageItem}
+                                    tabIndex={0}
+                                    key={index}
+                                    data-testid="image-gallery-thumbnails"
+                                    onKeyDown={(e) => {
+                                        if (e.keyCode === EnterKeyNumber) {
+                                            return setSelectedIndex(index)
+                                        }
+                                    }}
+                                    onClick={() => setSelectedIndex(index)}
+                                    borderColor={`${selected ? 'black' : ''}`}
+                                    borderWidth={`${selected ? '1px' : 0}`}
+                                >
+                                    <AspectRatio ratio={1}>
+                                        <Img alt={image.alt} src={image.disBaseLink} />
+                                    </AspectRatio>
+                                </ListItem>
+                            )
+                        })}
+                    </List>
+                </Flex>
+            </HideOnDesktop>
+        </>
+        
     )
 }
 

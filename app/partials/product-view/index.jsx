@@ -60,11 +60,13 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
         rating: 4,
     }
     return (
-        <VStack spacing={6} align="flex-start" marginBottom={[4, 4, 4, 0, 0]}>
+        <VStack spacing={[2,6]} align="flex-start" marginBottom={[4, 4, 4, 0, 0]} marginTop={["5%", "0%"]}>
             {/* Title */}
-            <Skeleton isLoaded={name}>
-                <Text fontSize="2.7rem" lineHeight="1.1" color="#212529" fontWeight="700" fontFamily="HK Grotesk, sans-serif">{`${name}`}</Text>
-            </Skeleton>
+
+                <Skeleton isLoaded={name}>
+                    <Text fontSize={["2.5rem","2.7rem"]} lineHeight="1.1" color="#212529" fontWeight="700">{`${name}`}</Text>
+                </Skeleton>
+
 
             {/* Price */}
             <Skeleton isLoaded={price} >
@@ -330,13 +332,40 @@ const ProductView = ({
 
     return (
         <Flex direction={'column'} data-testid="product-view">
-            {/* Basic information etc. title, price, breadcrumb*/}      
-            <Box display={['block', 'block', 'block', 'none']}>
-                {category && (
+            <HideOnDesktop>
+            {category && (
                     <Skeleton isLoaded={category}>
                         <Breadcrumb categories={category} />
                     </Skeleton>
                 )}
+            </HideOnDesktop>
+            <Flex direction={['column', 'column', 'column', 'row']}>
+                <Box flex={1} mr={[0, 0, 0, 8, 8]}>
+                    {product ? (
+                        <>
+                            <ImageGallery
+                                size={imageSize}
+                                imageGroups={product.imageGroups}
+                                selectedVariationAttributes={variationParams}
+                            />
+                            <HideOnMobile>
+                                {showFullLink && product && (
+                                    <Link to={`/product/${product.master.masterId}`}>
+                                        <Text color="gray.600">
+                                            {intl.formatMessage({
+                                                defaultMessage: 'See full details'
+                                            })}
+                                        </Text>
+                                    </Link>
+                                )}
+                            </HideOnMobile>
+                        </>
+                    ) : (
+                        <ImageGallerySkeleton />
+                    )}
+                </Box>
+            {/* Basic information etc. title, price, breadcrumb*/}      
+            <Box display={['block', 'block', 'block', 'none']}>                
                 <ProductViewHeader
                     name={product?.name}
                     price={product?.price}
@@ -384,31 +413,8 @@ const ProductView = ({
                     {renderActionButtons()}
                 </Box>
             </Box>
-            <Flex direction={['column', 'column', 'column', 'row']}>
-                <Box flex={1} mr={[0, 0, 0, 8, 8]}>
-                    {product ? (
-                        <>
-                            <ImageGallery
-                                size={imageSize}
-                                imageGroups={product.imageGroups}
-                                selectedVariationAttributes={variationParams}
-                            />
-                            <HideOnMobile>
-                                {showFullLink && product && (
-                                    <Link to={`/product/${product.master.masterId}`}>
-                                        <Text color="gray.600">
-                                            {intl.formatMessage({
-                                                defaultMessage: 'See full details'
-                                            })}
-                                        </Text>
-                                    </Link>
-                                )}
-                            </HideOnMobile>
-                        </>
-                    ) : (
-                        <ImageGallerySkeleton />
-                    )}
-                </Box>
+            
+                
 
                 {/* Variations & Quantity Selector */}
                 <VStack align="stretch" flex={1} marginBottom={[16, 16, 16, 0, 0]} w={["100%","25%"]}>
