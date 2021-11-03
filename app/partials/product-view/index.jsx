@@ -9,10 +9,8 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {useHistory, useLocation} from 'react-router-dom'
 import {FormattedMessage, useIntl} from 'react-intl'
-
 import {
     Flex,
-    Heading,
     Button,
     Skeleton,
     Box,
@@ -29,16 +27,12 @@ import {
     NumberIncrementStepper,
     NumberDecrementStepper,
 } from '@chakra-ui/react'
-
 import {StarIcon} from '@chakra-ui/icons'
 import {
     FaHeart,
     FaRegHeart
 } from 'react-icons/fa';
-
-
 import {useProduct} from '../../hooks'
-
 // project components
 import SwatchGroup from '../../components/swatch-group'
 import Swatch from '../../components/swatch-group/swatch'
@@ -53,7 +47,7 @@ import RecommendedProducts from '../../components/recommended-products'
 import {HideOnDesktop, HideOnMobile} from '../../components/responsive'
 import {BasketIcon} from '../../components/icons'
 
-const ProductViewHeader = ({name, price, currency, category, description}) => {
+const ProductViewHeader = ({name, price, currency, description}) => {
     const intl = useIntl()
     const tempReviews ={
         reviewCount: 25,
@@ -62,12 +56,9 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
     return (
         <VStack spacing={[2,6]} align="flex-start" marginBottom={[4, 4, 4, 0, 0]} marginTop={["5%", "0%"]}>
             {/* Title */}
-
                 <Skeleton isLoaded={name}>
                     <Text fontSize={["2.5rem","2.7rem"]} lineHeight="1.1" color="#212529" fontWeight="700">{`${name}`}</Text>
                 </Skeleton>
-
-
             {/* Price */}
             <Skeleton isLoaded={price} >
                 <Box marginBottom="20px">
@@ -107,8 +98,7 @@ const ProductViewHeader = ({name, price, currency, category, description}) => {
                         <div>{description}</div>
                     </Box>
                 </Skeleton>
-            </Skeleton>
-            
+            </Skeleton>            
         </VStack>
     )
 }
@@ -198,7 +188,6 @@ ProductViewHeader.propTypes = {
 }
 
 const ButtonWithRegistration = withRegistration(Button)
-
 /**
  * Render a product detail view that includes name, image gallery, price,
  * variant selections, action buttons
@@ -251,7 +240,6 @@ const ProductView = ({
             addToCart(variant, quantity)
             onAddToCartModalOpen()
         }
-
         const handleWishlistItem = () => {
             if (!updateWishlist && !addToWishlist) return null
             if (updateWishlist) {
@@ -260,7 +248,6 @@ const ProductView = ({
             }
             addToWishlist(variant, quantity)
         }
-
         if (addToCart || updateCart) {
             buttons.push(
                 <Button
@@ -296,7 +283,6 @@ const ProductView = ({
                     onClick={handleWishlistItem}
                     disabled={isCustomerProductListLoading || !canAddToWishlist}
                     isLoading={isCustomerProductListLoading}
-
                     variant="outline"
                     ml={["0px", "10px"]}
                     marginTop={["5px", "0px"]}
@@ -323,7 +309,6 @@ const ProductView = ({
 
         return buttons
     }
-
     useEffect(() => {
         if (isAddToCartModalOpen) {
             onAddToCartModalClose()
@@ -364,60 +349,9 @@ const ProductView = ({
                         <ImageGallerySkeleton />
                     )}
                 </Box>
-            {/* Basic information etc. title, price, breadcrumb*/}      
-            <Box display={['block', 'block', 'block', 'none']}>                
-                <ProductViewHeader
-                    name={product?.name}
-                    price={product?.price}
-                    currency={product?.currency}
-                    category={category}
-                    description={product?.shortDescription || product?.pageDescription}
-                />
-                <VStack align="stretch">
-                    <SwatchItems variationAttributes={variationAttributes} showLoading={showLoading} history={history}/>
-
-                    {/* Quantity Selector */}
-                    <Box marginBottom="2.5rem !important">
-                        <VStack align="stretch" maxWidth={'125px'}>
-                            <Box fontWeight="600">
-                                <HStack spacing="4px">
-                                    <Text fontSize=".9rem" letterSpacing="0.1em" textTransform="uppercase">Items</Text>
-                                    <Text fontSize=".8rem" color="gray.600">(required)</Text>
-                                </HStack>
-                            </Box>
-                            <NumberInput
-                                value={quantity}
-                                onChange={(value) => {
-                                    setQuantity(parseInt(value))
-                                }}
-                                min={1}
-                                step={stepQuantity}
-                                max={stockLevel}
-                                size="sm"
-                                maxW={20}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </VStack>
-                        </Box>
-                </VStack>
-                <Box
-                width="100%"
-                display={['block', 'block', 'block', 'none']}
-                paddingBottom="2em"
-                >
-                    {renderActionButtons()}
-                </Box>
-            </Box>
-            
-                
-
+             
                 {/* Variations & Quantity Selector */}
-                <VStack align="stretch" flex={1} marginBottom={[16, 16, 16, 0, 0]} w={["100%","25%"]}>
+                <VStack align="stretch" flex={1} marginBottom={[8, 8, 8, 0, 0]} w={["100%","25%"]}>
                     <HideOnMobile>
                         {category && (
                         <Skeleton isLoaded={category}>
@@ -425,8 +359,9 @@ const ProductView = ({
                         </Skeleton>
                         )}
                     </HideOnMobile>
-                        <Box position="sticky" top="20px" zIndex={2} display={['none', 'none', 'none', 'block']}>
-                            <Box display={['none', 'none', 'none', 'block']}>
+                        <Box position="sticky" top="20px" zIndex={2} display={'block'}>
+                            <Box display={'block'}>
+                            {/* Basic information etc. title, price, breadcrumb*/}     
                                 <ProductViewHeader
                                     name={product?.name}
                                     price={product?.price}
@@ -438,7 +373,7 @@ const ProductView = ({
                             <VStack align="stretch">
                                 <SwatchItems variationAttributes={variationAttributes} showLoading={showLoading} history={history}/>
                                 {/* Quantity Selector */}
-                            <Box marginBottom="3rem !important">
+                            <Box marginBottom={["1rem", "3rem"]}>
                                 <VStack align="stretch" maxWidth={'125px'}>
                                     <Box fontWeight="600">
                                         <HStack spacing="4px">
@@ -478,7 +413,7 @@ const ProductView = ({
                                 </HideOnDesktop>
                             </VStack>
 
-                            <Box display={['none', 'none', 'none', 'block']} alignItems="center">
+                            <Box display='block' alignItems="center">
                                 {!showLoading && showInventoryMessage && (
                                     <Fade in={true}>
                                         <Text color="orange.600" fontWeight={600} marginBottom={8}>
@@ -513,7 +448,6 @@ const ProductView = ({
         </Flex>
     )
 }
-
 ProductView.propTypes = {
     product: PropTypes.object,
     category: PropTypes.array,
@@ -526,5 +460,4 @@ ProductView.propTypes = {
     showFullLink: PropTypes.bool,
     imageSize: PropTypes.oneOf(['sm', 'md'])
 }
-
 export default ProductView

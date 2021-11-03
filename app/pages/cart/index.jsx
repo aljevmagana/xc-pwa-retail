@@ -25,6 +25,7 @@ import useCustomerProductLists from '../../commerce-api/hooks/useCustomerProduct
 import {API_ERROR_MESSAGE, customerProductListTypes} from '../../constants'
 import useNavigation from '../../hooks/use-navigation'
 import useCustomer from '../../commerce-api/hooks/useCustomer'
+import { HideOnMobile } from '../../components/responsive'
 
 const Cart = () => {
     const basket = useBasket()
@@ -223,7 +224,7 @@ const Cart = () => {
     }
 
     return (
-        <Box flex="1" data-testid="sf-cart-container" pt="5%">
+        <Box flex="1" data-testid="sf-cart-container" pt={["7.5%", "5%"]}>
             <Container
                 maxWidth="container.xl"
                 px={[4, 6, 6, 4]}
@@ -249,23 +250,21 @@ const Cart = () => {
                                  textAlign="center"
                                  gap={4}
                                  >
-
-                                    <GridItem colSpan={5}  minWidth="min-content">                        
+                                    <GridItem colSpan={[12, 5]}  minWidth="min-content">                        
                                         <Text>ITEM</Text>
                                     </GridItem>
-                                    <GridItem colSpan={2} minWidth="min-content">
+                                    <GridItem colSpan={2} minWidth="min-content" display={["none", "block"]}>
                                         <Text>PRICE</Text>
                                     </GridItem>
-                                    <GridItem colSpan={2} minWidth="min-content">
+                                    <GridItem colSpan={2} minWidth="min-content" display={["none", "block"]}>
                                         <Text>QUANTITY</Text>
                                     </GridItem> 
-                                    <GridItem colSpan={2} minWidth="min-content">
+                                    <GridItem colSpan={2} minWidth="min-content" display={["none", "block"]}>
                                         <Text>TOTAL</Text>
                                     </GridItem>
-                                    <GridItem colSpan={1} minWidth="min-content">
+                                        <GridItem colSpan={1} minWidth="min-content" display={["none", "block"]}>
                                     </GridItem>
                                 </Grid>
-
                                     <Stack spacing={4} width="100%">
                                         {basket.productItems.map((product, idx) => (
                                             <ProductItem
@@ -346,7 +345,6 @@ const Cart = () => {
                     </Stack>
                 </Stack>
             </Container>
-
             <Box
                 h="130px"
                 position="sticky"
