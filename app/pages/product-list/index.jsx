@@ -5,13 +5,12 @@
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 import { useHistory, useParams } from 'react-router-dom'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Helmet } from 'react-helmet'
-
 import Link from '../../components/link'
 
 // Components
@@ -59,6 +58,9 @@ import ProductViewModal from './partials/product-view-modal'
 
 // Icons
 import { FilterIcon, ChevronDownIcon } from '../../components/icons'
+import {
+    FaFilter
+} from 'react-icons/fa';
 
 // Hooks
 import useBasket from '../../commerce-api/hooks/useBasket'
@@ -89,6 +91,10 @@ const REFINEMENT_DISALLOW_LIST = ['c_isNew']
  * allowable filters and sort refinements.
  */
 const ProductList = (props) => {
+
+    //Use for mobile refinement scroll to refinement
+    const anchorRefinement = useRef();
+
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const basket = useBasket()
@@ -357,8 +363,8 @@ const ProductList = (props) => {
                                 width: "25px",
                                 textAlign: "center",
                                 textDecoration: "none",
-                                top:"1px",
-                                position:"relative"
+                                top: "1px",
+                                position: "relative"
                             }}
                         >{showByValue}</Link>
                         :
@@ -396,7 +402,7 @@ const ProductList = (props) => {
 
         return (
             <Text>
-                <span style={{color:"#868e96"}}>Showing</span> <b>{x1} - {x2}</b> <span style={{color:"#868e96"}}>of</span> <b>{total}</b> <span style={{color:"#868e96"}}>products</span>
+                <span style={{ color: "#868e96" }}>Showing</span> <b>{x1} - {x2}</b> <span style={{ color: "#868e96" }}>of</span> <b>{total}</b> <span style={{ color: "#868e96" }}>products</span>
             </Text>
         )
     }
@@ -450,8 +456,8 @@ const ProductList = (props) => {
 
             {/* PLP Page Center Title  */}
             <Flex
-                position={["relative"]} 
-                marginTop={["9vh","5%"]}
+                position={["relative"]}
+                marginTop={["9vh", "5%"]}
             >
                 <PageHeader
                     searchQuery={searchQuery}
@@ -461,14 +467,14 @@ const ProductList = (props) => {
                 />
             </Flex>
             <Spacer />
-            <Container maxWidth="1140px" paddingTop={["0","1rem"]} variant="plpContainer" maxW="container.lg">
+            <Container maxWidth="1140px" paddingTop={["0", "1rem"]} variant="plpContainer" maxW="container.lg">
 
                 <Box
                     className="sf-product-list-page"
                     data-testid="sf-product-list-page"
                     layerStyle="page"
                     /* paddingTop={{ base: 1, lg: 8 }} */
-                    paddingTop={["1rem",'0px !important']}
+                    paddingTop={["1rem", '0px !important']}
                     {...rest}
                 >
                     <Helmet>
@@ -567,6 +573,7 @@ const ProductList = (props) => {
                             <Grid templateColumns={{ base: '1fr', md: '280px 1fr' }} columnGap={6}>
                                 <Stack display={{ base: 'none', md: 'flex' }}>
                                     <Refinements
+
                                         isLoading={filtersLoading}
                                         toggleFilter={toggleFilter}
                                         filters={productSearchResult?.refinements}
@@ -614,8 +621,9 @@ const ProductList = (props) => {
                                             </Flex>
                                         </Box>
                                         <Box>
-                                            <Flex align="center" color="#868e96" justify={"center"} margintop="1rem" marginBottom="1rem">
+                                            <Flex align={"center"} color="#868e96" justify={"center"} margintop="1rem" marginBottom="1rem">
                                                 <Center>
+                                                    
                                                     <Box
                                                     >
                                                         <Text fontSize="0.9rem">Sort by</Text>
@@ -627,6 +635,29 @@ const ProductList = (props) => {
                                                             basePath={basePath}
                                                         />
                                                     </Box>
+                                                    <HideOnDesktop>
+                                                        <Spacer />
+                                                        <Box marginInlineStart={"1.5rem"}>
+                                                            <Button
+                                                                size={"sm"}
+                                                                color={'gray.800'}
+                                                                backgroundColor={"#e9ecef"}
+                                                                _hover={{
+                                                                    backgroundColor: "#e9ecef"
+                                                                }}
+                                                                _active={{
+                                                                    backgroundColor: "#e9ecef"
+                                                                }}
+                                                                onClick={() => {
+                                                                    anchorRefinement.current.scrollIntoView({ behavior: "smooth", block: "center" });
+                                                                }}
+                                                                rightIcon={<FaFilter boxSize={4} />}
+                                                            >
+                                                                Filter
+                                                            </Button>
+                                                        </Box>
+
+                                                    </HideOnDesktop>
                                                 </Center>
                                             </Flex>
                                         </Box>
@@ -703,7 +734,8 @@ const ProductList = (props) => {
                                         </Select>
                                     </Flex>
                                     <HideOnDesktop>
-                                        <VStack>
+                                        <VStack className="accordionwrap" ref={anchorRefinement}>
+
                                             <Refinements
                                                 isLoading={filtersLoading}
                                                 toggleFilter={toggleFilter}
