@@ -28,8 +28,8 @@ const ItemPrice = ({currency, ...props}) => {
 
     return (
         <Stack
-            textAlign="center"
-            alignItems="center"
+            textAlign={["right", "center"]}
+            alignItems={["right", "center"]}
         >
             <Text fontSize="0.9rem">
                 <FormattedNumber

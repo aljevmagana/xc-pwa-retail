@@ -60,13 +60,13 @@ const ItemAttributes = ({includeQuantity, currency, ...props}) => {
     return (
         <Stack spacing={1.5} flex={1} {...props}>
             {variationValues?.map((variationValue) => (
-                <Text lineHeight={1} color="gray.700" fontSize="sm" key={variationValue.id}>
+                <Text lineHeight={1} color="#868e96" fontSize="0.7875rem" key={variationValue.id}>
                     {variationValue.name}: {variationValue.value}
                 </Text>
             ))}
 
             {includeQuantity && (
-                <Text lineHeight={1} color="gray.700" fontSize="sm">
+                <Text lineHeight={1} color="#868e96" fontSize="0.7875rem">
                     <FormattedMessage
                         defaultMessage="Quantity: {quantity}"
                         values={{quantity: variant.quantity}}
@@ -76,8 +76,8 @@ const ItemAttributes = ({includeQuantity, currency, ...props}) => {
 
             {variant.priceAdjustments?.length > 0 && (
                 <Flex alignItems="center">
-                    <Text lineHeight={1} color="gray.700" fontSize="sm">
-                        <FormattedMessage defaultMessage="Promotions" />
+                    <Text lineHeight={1} color="#868e96" fontSize="0.7875rem">
+                        <FormattedMessage defaultMessage={"Promotions"} />
                         {': '}
                         <Text as="span" color="green.500">
                             <FormattedNumber
@@ -90,7 +90,7 @@ const ItemAttributes = ({includeQuantity, currency, ...props}) => {
                     <PromoPopover ml={2}>
                         <Stack>
                             {promos?.map((promo) => (
-                                <Text key={promo?.id} fontSize="sm">
+                                <Text key={promo?.id} fontSize="0.7875rem">
                                     {promo?.calloutMsg}
                                 </Text>
                             ))}

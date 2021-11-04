@@ -58,8 +58,8 @@ const CartSecondaryButtonGroup = ({
                 alignItems='center'
             >
                 <ButtonGroup spacing="6" alignItems="center">
-                    <Button variant="link" size="sm" onClick={showRemoveItemConfirmation} color="black">
-                        <Tooltip label="Remove from Cart" bg="gray.300" color="black">
+                    <Button variant="link" size="sm" onClick={showRemoveItemConfirmation} color={["#495057", "black"]}>
+                        <Tooltip label="Remove from Cart" bg="gray.300" color={["#495057", "black"]}>
                             <SmallCloseIcon w={4} h={4}/>
                         </Tooltip>
                     </Button>

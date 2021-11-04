@@ -244,7 +244,7 @@ const ProductDetail = ({category, product, isLoading}) => {
                 <meta name="description" content={product?.pageDescription} />
             </Helmet>
 
-            <Stack spacing={16}>
+            <Stack spacing={[2, 16]}>
                 <ProductView
                     product={product}
                     category={primaryCategory?.parentCategoryTree || []}
@@ -324,7 +324,6 @@ const ProductDetail = ({category, product, isLoading}) => {
                                   > 
                                 {temporaryReviews.map((r, i)  => {
                                     return(<>
-
                                         <Box maxW="lg" overflow="hidden" id={r.name + i}>
                                             <HStack>
                                                 <Box alignItems="center" textAlign="center">
