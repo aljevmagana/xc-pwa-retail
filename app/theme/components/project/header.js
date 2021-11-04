@@ -22,7 +22,7 @@ export default {
             paddingLeft: [4, 4, 6, 8],
             paddingRight: [4, 4, 6, 8],
             paddingTop: [1, 1, 2, 4],
-            paddingBottom: [3, 3, 2, 4]
+            paddingBottom: [1, 1, 2, 4]
         },
         searchContainer: {
             order: [2, 2, 2, 'inherit'],

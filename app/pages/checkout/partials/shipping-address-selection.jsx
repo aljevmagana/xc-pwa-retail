@@ -327,6 +327,7 @@ const ShippingAddressSelection = ({
                                 type="submit"
                                 width="full"
                                 disabled={!form.formState.isValid || form.formState.isSubmitting}
+                                _hover={{bgColor: 'gray.900'}}
                             >
                                 {formatMessage(
                                     {

@@ -457,7 +457,7 @@ const ProductList = (props) => {
             {/* PLP Page Center Title  */}
             <Flex
                 position={["relative"]}
-                marginTop={["9vh", "5%"]}
+                marginTop={["0", "0"]}
             >
                 <PageHeader
                     searchQuery={searchQuery}

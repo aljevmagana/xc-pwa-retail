@@ -17,10 +17,12 @@ export default {
             position: 'relative'
         },
         headerWrapper: {
-            position: 'absolute',
+            position: 'sticky',
             top: 0,
             zIndex: theme.zIndices.sticky,
+            backgroundColor: 'white',
             width: '100%'
+
         }
     },
     parts: ['container']

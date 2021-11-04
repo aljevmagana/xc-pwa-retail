@@ -46,7 +46,7 @@ const Checkout = () => {
             <Container
                 data-testid="sf-checkout-container"
                 maxWidth="container.xl"
-                py={{base: 7, lg: 24}}
+                py={{base: 2, lg: 0}}
                 px={{base: 0, lg: 8}}
             >
                 

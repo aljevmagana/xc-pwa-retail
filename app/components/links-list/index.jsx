@@ -43,7 +43,7 @@ const LinksList = ({
                     {variant === 'horizontal' ? (
                         <HStack>
                             {links.map((link, i) => (
-                                <ListItem key={i} {...styles.listItem} sx={styles.listItemSx}>
+                                <ListItem key={i} {...styles.listitem} sx={styles.listitemsx}>
                                     <Link
                                         as={RouteLink}
                                         to={link.href}
