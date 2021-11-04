@@ -170,7 +170,14 @@ const ProductTile = (props) => {
                             </WrapItem> */}
                             <WrapItem>
                                 <Center w="auto" h="40px">
-                                    <Button {...styles.productOverlayButton} colorScheme="gray">
+                                    <Button 
+                                        colorScheme="gray"
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            onQuickViewClick()
+                                        }}
+                                        {...styles.productOverlayButton} 
+                                    >
                                         <Icon as={FaSearch} /> <Text>View</Text>
                                     </Button>
                                 </Center>

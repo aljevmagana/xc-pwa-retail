@@ -79,6 +79,16 @@ export default {
                 lineHeight: 1.1,
                 textAlign: "left"
             },
+            heading2mobile: {
+                color:"#212529",
+                letterSpacing: "0.1em",
+                fontWeight: 700,
+                fontSize:"3.5rem",
+                textTransform: "uppercase !important",
+                marginBottom: "1rem !important",
+                lineHeight: 1.1,
+                textAlign: "left"
+            },
             heading3: {
                 color:"#343a40",
                 letterSpacing: "0.1em",
@@ -109,7 +119,7 @@ export default {
                 textAlign: "right"
             },
             heading4mobile: {
-                color:"#343a40",
+                color:"#212529",
                 letterSpacing: "0.1em",
                 fontWeight: 700,
                 textTransform: "uppercase !important",
