@@ -5,9 +5,6 @@
   "+O5yEM": {
     "defaultMessage": "Promotions Applied"
   },
-  "+s1hab": {
-    "defaultMessage": "ADD TO WISHLIST"
-  },
   "+y/wae": {
     "defaultMessage": "{errorMessage}"
   },
@@ -285,9 +282,6 @@
   },
   "NV26qx": {
     "defaultMessage": "Back to previous page"
-  },
-  "NX5HNL": {
-    "defaultMessage": "UPDATE"
   },
   "NymXNv": {
     "defaultMessage": "New Payment Method Saved"
@@ -589,9 +583,6 @@
   "footer.message.copyright": {
     "defaultMessage": "2021 Salesforce. All rights reserved."
   },
-  "footer.subscribe.button.sign_up": {
-    "defaultMessage": "Sign Up"
-  },
   "footer.subscribe.description.sign_up": {
     "defaultMessage": "Sign up to stay in the loop about the hottest deals"
   },
@@ -763,9 +754,6 @@
   },
   "p2EAP0": {
     "defaultMessage": "Promotion removed"
-  },
-  "pDRjx+": {
-    "defaultMessage": "ADD TO CART"
   },
   "pQ2F3h": {
     "defaultMessage": "Edit Shipping Address"

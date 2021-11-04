@@ -11,12 +11,6 @@
       "value": "Promotions Applied"
     }
   ],
-  "+s1hab": [
-    {
-      "type": 0,
-      "value": "ADD TO WISHLIST"
-    }
-  ],
   "+y/wae": [
     {
       "type": 1,
@@ -697,12 +691,6 @@
     {
       "type": 0,
       "value": "Back to previous page"
-    }
-  ],
-  "NX5HNL": [
-    {
-      "type": 0,
-      "value": "UPDATE"
     }
   ],
   "NymXNv": [
@@ -1397,12 +1385,6 @@
       "value": "2021 Salesforce. All rights reserved."
     }
   ],
-  "footer.subscribe.button.sign_up": [
-    {
-      "type": 0,
-      "value": "Sign Up"
-    }
-  ],
   "footer.subscribe.description.sign_up": [
     {
       "type": 0,
@@ -1759,12 +1741,6 @@
     {
       "type": 0,
       "value": "Promotion removed"
-    }
-  ],
-  "pDRjx+": [
-    {
-      "type": 0,
-      "value": "ADD TO CART"
     }
   ],
   "pQ2F3h": [

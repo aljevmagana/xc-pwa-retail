@@ -30,7 +30,7 @@ const CheckoutFooter = ({...otherProps}) => {
         <Box as="footer" {...styles.container} {...otherProps}>
             <Box {...styles.content}>
                 <StylesProvider value={styles}>
-                    <Box maxWidth={'1140px'} mx="auto" display="flex" py={8} justifyContent={"space-between"}>
+                    <Box maxWidth={'1140px'} mx="auto" alignItems={['center', 'stretch']} gridRowGap={[4, 0]} display="flex" py={[4, 8]} flexDirection={['column', 'row']} justifyContent={"space-between"}>
                         <LinksList
                             links={[
                                 {
@@ -51,16 +51,16 @@ const CheckoutFooter = ({...otherProps}) => {
                             variant="horizontal"
                             // {...styles.customerService}
                         />
-                        <LegalLinks variant="horizontal" />
+                        <LegalLinks variant="horizontal"/>
                     </Box>              
                     <HideOnDesktop>
-                        <CreditCardIcons marginTop={4} marginBottom={4} />
+                        <CreditCardIcons marginTop={4} marginBottom={4} justifyContent={['center', 'left']}/>
                     </HideOnDesktop>
 
                     {/* <Divider {...styles.horizontalRule} /> */}
 
                     <Box {...styles.bottomHalf}>
-                        <Box maxWidth={'1140px'} mx="auto" display="flex" py={4} justifyContent={"space-between"}>
+                        <Box maxWidth={'1140px'} mx="auto" display="flex" alignItems={['center', 'stretch']} gridRowGap={[4, 0]} py={4} justifyContent={"space-between"} flexDirection={['column', 'row']} >
                             <Text {...styles.copyright} m="0">
                                 &copy;{' '}
                                 {intl.formatMessage({
@@ -70,9 +70,9 @@ const CheckoutFooter = ({...otherProps}) => {
                                 })}
                             </Text>
 
-                            <HideOnDesktop>
+                            {/* <HideOnDesktop>
                                 <LegalLinks variant="vertical" />
-                            </HideOnDesktop>
+                            </HideOnDesktop> */}
                             <HideOnMobile>
                                 <Flex>
                                     <CreditCardIcons />

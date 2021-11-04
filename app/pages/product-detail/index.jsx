@@ -234,7 +234,7 @@ const ProductDetail = ({category, product, isLoading}) => {
             layerStyle="page"
             data-testid="product-details-page"
             justifyContent="center"
-            pt={["4rem", "7.5%"]}
+            pt={["1rem", "2.5%"]}
             pl="15px"
             pr="15px"
             maxWidth={["none","540px","720px", "960px", "1140px"]}

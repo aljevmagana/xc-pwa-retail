@@ -142,7 +142,7 @@ const AddToCartModal = ({product, variant, quantity, isOpen, onClose, ...props})
                                 </Text>
                             </Flex>
                             <Stack spacing="4">
-                                <Button as={Link} to="/cart" width="100%" variant="solid">
+                                <Button as={Link} to="/cart" width="100%" variant="solid" _hover={{bgColor: 'black'}}>
                                     {intl.formatMessage({
                                         defaultMessage: 'View Cart'
                                     })}
@@ -154,6 +154,7 @@ const AddToCartModal = ({product, variant, quantity, isOpen, onClose, ...props})
                                     width="100%"
                                     variant="outline"
                                     rightIcon={<LockIcon />}
+                                    _hover={{bgColor: 'gray', color: 'white'}}
                                 >
                                     {intl.formatMessage({
                                         defaultMessage: 'Proceed to Checkout'

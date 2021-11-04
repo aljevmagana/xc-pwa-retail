@@ -6,6 +6,6 @@
  */
 export default {
     fonts: {
-        body: "HK Grotesk, sans-serif"
+        body: '"HK Grotesk", sans-serif'
     }
 }

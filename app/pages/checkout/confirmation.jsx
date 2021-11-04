@@ -100,7 +100,7 @@ const CheckoutConfirmation = () => {
         <Box background="gray.50">
             <Container
                 maxWidth="container.md"
-                py={{base: 7, md: 16}}
+                py={{base: 16, md: 16}}
                 px={{base: 0, md: 4}}
                 data-testid="sf-checkout-confirmation-container"
             >

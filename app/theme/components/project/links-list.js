@@ -5,7 +5,7 @@
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 export default {
-    parts: ['container', 'list', 'listItem', 'listItemSx', 'heading'],
+    parts: ['container', 'list', 'listitem', 'listitemsx', 'heading'],
     baseStyle: {
         container: {
             color: 'black'
@@ -44,11 +44,11 @@ export default {
             }
         },
         horizontal: {
-            listItem: {
+            listitem: {
                 borderLeft: '1px solid',
                 paddingLeft: 2
             },
-            listItemSx: {
+            listitemsx: {
                 '&:first-of-type': {
                     borderLeft: 0,
                     paddingLeft: 0

@@ -97,7 +97,9 @@ const Account = () => {
         <Box
             data-testid={customer.isRegistered ? 'account-page' : 'account-page-skeleton'}
             layerStyle="page"
-            paddingTop={[4, 4, 12, 12, 16]}
+            paddingTop={20}
+            maxW={'1140px'}
+            px={{base: '10px'}}
         >
             <Seo title="My Account" description="Customer Account Page" />
             <Grid templateColumns={{base: '1fr', lg: '320px 1fr'}} gap={{base: 10, lg: 24}}>
