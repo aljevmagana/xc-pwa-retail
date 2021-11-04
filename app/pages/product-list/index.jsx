@@ -623,7 +623,7 @@ const ProductList = (props) => {
                                         <Box>
                                             <Flex align={"center"} color="#868e96" justify={"center"} margintop="1rem" marginBottom="1rem">
                                                 <Center>
-                                                    
+
                                                     <Box
                                                     >
                                                         <Text fontSize="0.9rem">Sort by</Text>
@@ -640,7 +640,6 @@ const ProductList = (props) => {
                                                         <Box marginInlineStart={"1.5rem"}>
                                                             <Button
                                                                 size={"sm"}
-                                                                color={'gray.800'}
                                                                 backgroundColor={"#e9ecef"}
                                                                 _hover={{
                                                                     backgroundColor: "#e9ecef"
@@ -651,9 +650,15 @@ const ProductList = (props) => {
                                                                 onClick={() => {
                                                                     anchorRefinement.current.scrollIntoView({ behavior: "smooth", block: "center" });
                                                                 }}
-                                                                rightIcon={<FaFilter boxSize={4} />}
+
                                                             >
-                                                                Filter
+                                                                <Text
+                                                                 fontSize={"0.9rem"}
+                                                                 fontWeight={"normal"}
+                                                                 color={'gray.700'}
+                                                                >
+                                                                    Filter
+                                                                </Text>
                                                             </Button>
                                                         </Box>
 

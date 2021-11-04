@@ -71,7 +71,10 @@ const SelectedRefinements = ({toggleFilter, selectedFilterValues, filters}) => {
                                     toggleFilter({value: filter.apiLabel}, filter.value, true)
                                 }
                             >
-                                {filter.uiLabel}
+                                {/* Below is the condition to display selected filter, for the price we need to handle the label  
+                                    since we made customization as price slider.
+                                */}
+                                {(filter.uiLabel) ? filter.uiLabel : (filter.value === 'price') ? '$'+filter.apiLabel.replace(".."," - ") : ""}  
                             </Button>
                         </Box>
                     </WrapItem>
