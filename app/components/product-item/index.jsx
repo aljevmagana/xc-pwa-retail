@@ -22,6 +22,7 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
+    useNumberInput
 } from '@chakra-ui/react'
 import CartItemVariant from '../cart-item-variant'
 import CartItemVariantImage from '../cart-item-variant/item-image'
@@ -52,6 +53,43 @@ const ProductItem = ({
     showLoading = false
 }) => {
     const {stepQuantity, stockLevel} = useProduct(product)
+
+    function HookUsage() {
+        const {
+          getInputProps,
+          getIncrementButtonProps,
+          getDecrementButtonProps,
+        } = useNumberInput({
+          step: stepQuantity,
+          defaultValue: product.quantity,
+          min: 1,
+          max: stockLevel,
+          precision: 0,
+          onChange: (value) => {
+            onItemQuantityChange(parseInt(value))
+        },
+        })
+      
+        const inc = getIncrementButtonProps()
+        const dec = getDecrementButtonProps()
+        const input = getInputProps()
+      
+        return (
+          <HStack marginLeft={["45%", "5%"]} marginRight={[0, "5%"]}>  
+            <Text fontSize="0.6875rem" color="#868e96" px=".2rem" {...dec}>-</Text>
+            <Input 
+                {...input} 
+                textAlign="center" 
+                width="50%"
+                minWidth="40px" 
+                height={["50%", "calc(1.5em + 1.2rem + 2px)"]} 
+                fontSize="0.9rem"
+                borderStyle={["none", "solid"]}
+            />
+            <Text fontSize="0.6875rem" color="#868e96" px=".2rem" {...inc}  >+</Text>
+          </HStack>
+        )
+      }
     
     return (
         <Box position="relative" data-testid={`sf-cart-item-${product.productId}`} borderBottom="1px solid" borderBottomColor="#e9ecef" width="100%">
@@ -81,26 +119,9 @@ const ProductItem = ({
                         </GridItem>
                         <GridItem colSpan={2} textAlign="left" display={["block", "none"]}>
                             <Text fontSize="0.9rem" color="#868e96">Quantity</Text>
-                        </GridItem>  
-                        <GridItem colSpan={[3, 2]} minWidth="min-content" textAlign="center">
-                            <NumberInput
-                                value={product.quantity}
-                                onChange={(value) => {
-                                    onItemQuantityChange(parseInt(value))
-                                }}
-                                min={1}
-                                step={stepQuantity}
-                                max={stockLevel}
-                                size="sm"
-                                width="50%"
-                                marginLeft="25%"
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper children="+"/>
-                                    <NumberDecrementStepper children="-"/>
-                                </NumberInputStepper>
-                            </NumberInput>
+                        </GridItem>
+                        <GridItem GridItem colSpan={[3, 2]} minWidth="min-content" alignContent="center" textAlign="center">
+                            <HookUsage />
                         </GridItem>
                         <GridItem colSpan={2} textAlign="left" display={["block", "none"]}>
                             <Text fontSize="0.9rem" color="#868e96">Total Price</Text>
