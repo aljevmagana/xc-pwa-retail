@@ -9,19 +9,12 @@ import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import {
     Box,
-    Button, 
     Stack, 
     Text, 
-    Select, 
     Grid, 
     GridItem, 
     HStack,
     Input,
-    NumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
     useNumberInput
 } from '@chakra-ui/react'
 import CartItemVariant from '../cart-item-variant'
@@ -54,7 +47,7 @@ const ProductItem = ({
 }) => {
     const {stepQuantity, stockLevel} = useProduct(product)
 
-    function HookUsage() {
+    function ItemQuantitySelector() {
         const {
           getInputProps,
           getIncrementButtonProps,
@@ -121,7 +114,7 @@ const ProductItem = ({
                             <Text fontSize="0.9rem" color="#868e96">Quantity</Text>
                         </GridItem>
                         <GridItem GridItem colSpan={[3, 2]} minWidth="min-content" alignContent="center" textAlign="center">
-                            <HookUsage />
+                            <ItemQuantitySelector />
                         </GridItem>
                         <GridItem colSpan={2} textAlign="left" display={["block", "none"]}>
                             <Text fontSize="0.9rem" color="#868e96">Total Price</Text>
