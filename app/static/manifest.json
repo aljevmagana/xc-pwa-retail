@@ -1,4 +1,5 @@
 {
+  "name": "xcpwaretail",
   "start_url": "/?homescreen=1",
   "background_color": "#fff",
   "theme_color": "#4e439b",
@@ -6,11 +7,23 @@
   "icons": [
     {
       "src": "./img/global/app-icon-192.png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
       "src": "./img/global/app-icon-512.png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "./img/global/app-icon-192.png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./img/global/app-icon-512.png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ]
 }
