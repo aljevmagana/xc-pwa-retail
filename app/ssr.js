@@ -43,6 +43,9 @@ app.get('/callback?*', (req, res) => {
     res.send()
 })
 app.get('/robots.txt', serveStaticFile('static/robots.txt'))
+app.get('/manifest.json', serveStaticFile('static/manifest.json'))
+/* app.use('/static', express.static(path.join(__dirname, '.well-known'))) */ //not working need to find other fix
+
 app.get('/*', render)
 
 // SSR requires that we export a single handler function called 'get', that
