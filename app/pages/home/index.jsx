@@ -43,30 +43,6 @@ const Home = () => {
                 keywords="Commerce Cloud, Retail React App, React Storefront"
             />
             {pageDesigner?.loaded && <PdPage pageType={page.typeId} regions={page.regions} />}
-            <Hero
-                title={intl.formatMessage({
-                    defaultMessage: 'Lighter layers for lighter days.'
-                })}
-                img={{
-                    src: getAssetUrl('static/img/hero.png'),
-                    alt: intl.formatMessage({
-                        defaultMessage: 'New Arrivals'
-                    })
-                }}
-                actions={
-                    <Button
-                        as={Link}
-                        to={`/${intl.locale}/category/newarrivals`}
-                        width={{base: 'full', md: 'inherit'}}
-                    >
-                        <FormattedMessage defaultMessage="Shop New Arrivals" />
-                    </Button>
-                }
-                label={intl.formatMessage({
-                    defaultMessage: 'New In'
-                })}
-                marginBottom="16"
-            />
            {/* <Section
                 title={intl.formatMessage({
                     defaultMessage: 'Shop by Category'
