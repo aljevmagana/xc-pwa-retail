@@ -1,0 +1,10 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "xcpwaretail.dev.selltheme",
+        "sha256_cert_fingerprints": ["8C:8F:7B:A2:59:5C:DD:AF:71:BC:80:D2:49:33:C9:18:22:38:9C:CC:D5:96:D2:01:E8:9E:AA:9D:A4:AC:8C:26"]
+      }
+    }
+  ]
