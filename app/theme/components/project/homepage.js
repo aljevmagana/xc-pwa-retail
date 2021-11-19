@@ -12,15 +12,13 @@ export default {
         
         parallaxsection: {
             container:{
-                textAlign: "center",
             },
             container2_1:{
-                position: "relative", textAlign: "left" 
+                position: "relative",  
             },
             container2: {
                 top: "20%",
                 position: "absolute",
-                textAlign: "left"
             },
             container3: {
                 top: "30%",
@@ -32,12 +30,11 @@ export default {
             container3mobile: {
                 top: "30%",
                 position: "absolute",
-                textAlign: "left",
                 left: "5%",
             },
             stretchtext: {
                 letterSpacing: "0.5em",
-                color: "#343a40",
+                color: "whitesmoke",
                 fontWeight: 400,
                 textTransform: "uppercase",
                 marginBottom: "1.5rem",
@@ -47,17 +44,13 @@ export default {
             },
             subtext: {
                 fontWeight: "400 !important",
-                marginBottom: "3rem !important",
                 fontSize: "1.8rem"
             },
             heading1: {
-                color:"#343a40",
+                color:"whitesmoke",
                 letterSpacing: "0.1em",
                 fontWeight: 700,
-                marginBottom: "3rem !important",
                 lineHeight: 1.1,
-                textAlign: "center",
-
                 textTransform: "uppercase !important",
             },
             heading1mobile: {
@@ -66,7 +59,7 @@ export default {
                 fontWeight: 700,
                 marginBottom: "3rem !important",
                 lineHeight: 1.1,
-                textAlign: "center",
+
                 textTransform: "uppercase !important",
                 whiteSpace:"normal"
             },
@@ -77,7 +70,7 @@ export default {
                 textTransform: "uppercase !important",
                 marginBottom: "1rem !important",
                 lineHeight: 1.1,
-                textAlign: "left"
+
             },
             heading2mobile: {
                 color:"#212529",
@@ -87,7 +80,7 @@ export default {
                 textTransform: "uppercase !important",
                 marginBottom: "1rem !important",
                 lineHeight: 1.1,
-                textAlign: "left"
+
             },
             heading3: {
                 color:"#343a40",
@@ -97,7 +90,7 @@ export default {
                 marginBottom: "1rem !important",
                 fontSize: "4.5rem",
                 lineHeight: 1.1,
-                textAlign: "right"
+
             },
             heading3mobile: {
                 color:"#343a40",
@@ -106,7 +99,6 @@ export default {
                 textTransform: "uppercase !important",
                 marginBottom: "1rem !important",
                 lineHeight: 1.1,
-                textAlign: "left"
             },
             heading4: {
                 color:"#343a40",
@@ -116,7 +108,6 @@ export default {
                 marginBottom: "1rem !important",
                 fontSize: "4.5rem",
                 lineHeight: 1.1,
-                textAlign: "right"
             },
             heading4mobile: {
                 color:"#212529",
@@ -126,7 +117,6 @@ export default {
                 marginBottom: "1rem !important",
                 fontSize: "2.5rem",
                 lineHeight: 1.1,
-                textAlign: "center"
             },
             buttonoutline: {
                 background: "transparent !importnat",
