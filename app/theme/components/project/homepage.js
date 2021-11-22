@@ -52,6 +52,7 @@ export default {
                 fontWeight: 700,
                 lineHeight: 1.1,
                 textTransform: "uppercase !important",
+                whiteSpace:"normal"
             },
             heading1mobile: {
                 color:"#343a40",
