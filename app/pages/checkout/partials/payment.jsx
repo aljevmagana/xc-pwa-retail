@@ -17,7 +17,8 @@ import ShippingAddressSelection from './shipping-address-selection'
 import AddressDisplay from '../../../components/address-display'
 import {PromoCode, usePromoCode} from '../../../components/promo-code'
 
-const Payment = () => {
+const Payment = (props) => {
+    const {paymentContainer} = props
     const {
         step,
         setCheckoutStep,
@@ -38,9 +39,17 @@ const Payment = () => {
 
     const {removePromoCode, ...promoCodeProps} = usePromoCode()
 
-    useEffect(() => {
-        getPaymentMethods()
-    }, [])
+    // const {createPaymentSession} = useAdyen()
+
+    // const paymentContainer = useRef(null)
+
+    // useEffect(() => {
+    //     const dropin = createPaymentSession('dropin', paymentContainer)
+    // }, [])
+
+    // useEffect(() => {
+    //     getPaymentMethods()
+    // }, [])
 
     return (
         // TODO: [l10n] localize this title
@@ -61,7 +70,8 @@ const Payment = () => {
                 </Box>
 
                 <Stack spacing={6}>
-                    {!selectedPayment?.paymentCard ? (
+                    <div ref={paymentContainer} className="payment" />
+                    {/* {!selectedPayment?.paymentCard ? (
                         <PaymentSelection form={paymentMethodForm} hideSubmitButton />
                     ) : (
                         <Stack spacing={3}>
@@ -80,7 +90,7 @@ const Payment = () => {
                                 </Button>
                             </Stack>
                         </Stack>
-                    )}
+                    )} */}
 
                     <Divider borderColor="gray.100" />
 
@@ -114,13 +124,13 @@ const Payment = () => {
                         />
                     )}
 
-                    <Box pt={3}>
+                    {/* <Box pt={3}>
                         <Container variant="form">
                             <Button w="full" onClick={reviewOrder} _hover={{bgColor: 'gray.900'}}>
                                 <FormattedMessage defaultMessage="Review Order" />
                             </Button>
                         </Container>
-                    </Box>
+                    </Box> */}
                 </Stack>
             </ToggleCardEdit>
 
@@ -131,7 +141,7 @@ const Payment = () => {
                             <Heading as="h3" fontSize="md">
                                 <FormattedMessage defaultMessage="Credit Card" />
                             </Heading>
-                            <PaymentCardSummary payment={selectedPayment} />
+                            {/* <PaymentCardSummary payment={selectedPayment} /> */}
                         </Stack>
                     )}
 
@@ -169,5 +179,14 @@ const PaymentCardSummary = ({payment}) => {
 }
 
 PaymentCardSummary.propTypes = {payment: PropTypes.object}
+
+Payment.displayName = 'Payment'
+
+Payment.propTypes = {
+    /**
+     * Payment Container
+     */
+    paymentContainer: PropTypes.object.isRequired
+}
 
 export default Payment

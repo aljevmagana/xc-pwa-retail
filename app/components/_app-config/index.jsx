@@ -22,11 +22,13 @@ import {
 } from '../../commerce-api/utils'
 import {commerceAPIConfig} from '../../commerce-api.config'
 import {einsteinAPIConfig} from '../../einstein-api.config'
+import {adyenAPIConfig} from '../../adyen-api.config'
 import {DEFAULT_LOCALE, SUPPORTED_LOCALES} from '../../constants'
 
 const apiConfig = {
     ...commerceAPIConfig,
-    einsteinConfig: einsteinAPIConfig
+    einsteinConfig: einsteinAPIConfig,
+    adyenConfig: adyenAPIConfig
 }
 
 /**

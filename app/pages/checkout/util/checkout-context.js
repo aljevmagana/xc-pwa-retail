@@ -245,23 +245,23 @@ export const CheckoutProvider = ({children}) => {
 
                 // The form gives us the expiration date as `MM/YY` - so we need to split it into
                 // month and year to submit them as individual fields.
-                const [expirationMonth, expirationYear] = expiry.split('/')
+                // const [expirationMonth, expirationYear] = expiry.split('/')
 
                 const paymentInstrument = {
-                    paymentMethodId: 'CREDIT_CARD',
+                    paymentMethodId: 'AdyenComponent',
                     paymentCard: {
-                        ...selectedPayment,
-                        number: selectedPayment.number.replace(/ /g, ''),
-                        cardType: getPaymentInstrumentCardType(selectedPayment.cardType),
-                        expirationMonth: parseInt(expirationMonth),
-                        expirationYear: parseInt(`20${expirationYear}`),
+                        ...selectedPayment
+                        // number: selectedPayment.number.replace(/ /g, ''),
+                        // cardType: getPaymentInstrumentCardType(selectedPayment.cardType),
+                        // expirationMonth: parseInt(expirationMonth),
+                        // expirationYear: parseInt(`20${expirationYear}`),
 
                         // TODO: These fields are required for saving the card to the customer's
                         // account. Im not sure what they are for or how to get them, so for now
                         // we're just passing some values to make it work. Need to investigate.
-                        issueNumber: '',
-                        validFromMonth: 1,
-                        validFromYear: 2020
+                        // issueNumber: '',
+                        // validFromMonth: 1,
+                        // validFromYear: 2020
                     }
                 }
 
@@ -314,6 +314,10 @@ export const CheckoutProvider = ({children}) => {
                     mergeState({globalError: error.message})
                     throw error
                 }
+            },
+
+            setGlobalError(msg) {
+                mergeState({globalError: msg})
             }
         }
     }, [state, customer, basket, mergeState])
