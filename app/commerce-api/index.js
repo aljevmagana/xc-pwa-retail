@@ -10,6 +10,7 @@ import * as sdk from 'commerce-sdk-isomorphic'
 import {getAppOrigin} from 'pwa-kit-react-sdk/utils/url'
 import OcapiShopperBaskets from './ocapi-shopper-baskets'
 import OcapiShopperOrders from './ocapi-shopper-orders'
+import OcapiPageDesigner from './ocapi-page-designer'
 import {getTenantId, isError, isTokenValid} from './utils'
 import Auth from './auth'
 import EinsteinAPI from './einstein'
@@ -73,7 +74,8 @@ class CommerceAPI {
             shopperOrders: OcapiShopperOrders,
             shopperProducts: sdk.ShopperProducts,
             shopperPromotions: sdk.ShopperPromotions,
-            shopperSearch: sdk.ShopperSearch
+            shopperSearch: sdk.ShopperSearch,
+            shopperPageDesigner: OcapiPageDesigner
         }
 
         const apiConfigs = {
@@ -84,7 +86,8 @@ class CommerceAPI {
             shopperOrders: {api: OcapiShopperOrders, canLocalize: true},
             shopperProducts: {api: sdk.ShopperProducts, canLocalize: true},
             shopperPromotions: {api: sdk.ShopperPromotions, canLocalize: true},
-            shopperSearch: {api: sdk.ShopperSearch, canLocalize: true}
+            shopperSearch: {api: sdk.ShopperSearch, canLocalize: true},
+            shopperPageDesigner: {api: OcapiPageDesigner, canLocalize: true}
         }
 
         // Instantiate the SDK class proxies and create getters from our api mapping.
