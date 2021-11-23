@@ -16,6 +16,7 @@ import PaymentSelection from './payment-selection'
 import ShippingAddressSelection from './shipping-address-selection'
 import AddressDisplay from '../../../components/address-display'
 import {PromoCode, usePromoCode} from '../../../components/promo-code'
+import '@adyen/adyen-web/dist/adyen.css'
 
 const Payment = (props) => {
     const {paymentContainer} = props
