@@ -5,14 +5,14 @@
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import React from 'react'
-import {Wrap} from '@chakra-ui/react'
+import {VStack} from '@chakra-ui/react'
 import PropTypes from 'prop-types'
 import MainRegion from './regions/main-region'
 
 const StorePage = (props) => {
     const {regions} = props
     return (
-        <Wrap direction="row" align="center" display="flex" flexWrap="wrap">
+        <VStack align="stretch" spacing={0}>
             {regions.map(function(region, index) {
                 if (region.id === 'main') {
                     return <MainRegion key={index} components={region.components} />
@@ -20,7 +20,7 @@ const StorePage = (props) => {
                     return ''
                 }
             })}
-        </Wrap>
+        </VStack> 
     )
 }
 
