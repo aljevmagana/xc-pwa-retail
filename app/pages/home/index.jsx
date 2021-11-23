@@ -5,7 +5,7 @@
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import React from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {useIntl, FormattedMessage} from 'react-intl'
 import {Box, Button, Grid, GridItem, Stack} from '@chakra-ui/react'
@@ -17,6 +17,8 @@ import Section from '../../components/section'
 import BasicTile from '../../components/basic-tile'
 import {categoriesThreeColumns, categoriesTwoColumns} from './data'
 import RecommendedProducts from '../../components/recommended-products'
+import usePageDesigner from '../../commerce-api/hooks/usePageDesigner'
+import PdPage from '../../components/pd'
 
 /**
  * This is the home page for Retail React App.
@@ -26,6 +28,12 @@ import RecommendedProducts from '../../components/recommended-products'
  */
 const Home = () => {
     const intl = useIntl()
+    const pageDesigner = usePageDesigner()
+
+    useEffect(() => {
+        pageDesigner.getPage('homepage')
+    }, [])
+    const page = pageDesigner.page
 
     return (
         <Box data-testid="home-page" layerStyle="page">
@@ -34,7 +42,7 @@ const Home = () => {
                 description="Commerce Cloud Retail React App"
                 keywords="Commerce Cloud, Retail React App, React Storefront"
             />
-
+            {pageDesigner?.loaded && <PdPage pageType={page.typeId} regions={page.regions} />}
             <Hero
                 title={intl.formatMessage({
                     defaultMessage: 'Lighter layers for lighter days.'

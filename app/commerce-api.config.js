@@ -1,8 +1,8 @@
 export const commerceAPIConfig = {
     proxyPath: `/mobify/proxy/api`,
     parameters: {
-        clientId: 'c9c45bfd-0ed3-4aa2-9971-40f88962b836',
-        organizationId: 'f_ecom_zzrf_001',
+        clientId: '71408db0-3500-4221-9870-55725b3a4d85',
+        organizationId: 'f_ecom_zzhc_003',
         shortCode: 'kv7kzm78',
         siteId: 'RefArch'
     }
