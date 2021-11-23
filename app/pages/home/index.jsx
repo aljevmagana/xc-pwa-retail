@@ -8,15 +8,8 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {useIntl, FormattedMessage} from 'react-intl'
-import {Box, Button, Grid, GridItem, Stack} from '@chakra-ui/react'
-import {getAssetUrl} from 'pwa-kit-react-sdk/ssr/universal/utils'
-import {Link} from 'react-router-dom'
-import Hero from '../../components/hero'
+import {Box} from '@chakra-ui/react'
 import Seo from '../../components/seo'
-import Section from '../../components/section'
-import BasicTile from '../../components/basic-tile'
-import {categoriesThreeColumns, categoriesTwoColumns} from './data'
-import RecommendedProducts from '../../components/recommended-products'
 import usePageDesigner from '../../commerce-api/hooks/usePageDesigner'
 import PdPage from '../../components/pd'
 
@@ -43,68 +36,6 @@ const Home = () => {
                 keywords="Commerce Cloud, Retail React App, React Storefront"
             />
             {pageDesigner?.loaded && <PdPage pageType={page.typeId} regions={page.regions} />}
-           {/* <Section
-                title={intl.formatMessage({
-                    defaultMessage: 'Shop by Category'
-                })}
-            >
-                <Grid
-                    templateRows={{base: 'repeat(1, 1fr)', md: 'repeat(auto, 1fr)'}}
-                    templateColumns={{base: 'repeat(1, 1fr)', md: 'repeat(6, 1fr)'}}
-                    columnGap={6}
-                    rowGap={8}
-                >
-                    {categoriesThreeColumns.map((item, index) => {
-                        const category = item.message
-                        return (
-                            <GridItem key={index} rowSpan={1} colSpan={{base: 1, md: 2}}>
-                                <BasicTile
-                                    title={intl.formatMessage(category.title)}
-                                    href={intl.formatMessage(category.href, {
-                                        activeLocale: intl.locale
-                                    })}
-                                    img={{
-                                        src: getAssetUrl(intl.formatMessage(category.imgSrc)),
-                                        alt: intl.formatMessage(category.imgAlt)
-                                    }}
-                                />
-                            </GridItem>
-                        )
-                    })}
-
-                    {categoriesTwoColumns.map((item, index) => {
-                        const category = item.message
-                        return (
-                            <GridItem key={index} rowSpan={1} colSpan={{base: 1, md: 3}}>
-                                <BasicTile
-                                    title={intl.formatMessage(category.title)}
-                                    href={intl.formatMessage(category.href, {
-                                        activeLocale: intl.locale
-                                    })}
-                                    img={{
-                                        src: getAssetUrl(intl.formatMessage(category.imgSrc)),
-                                        alt: intl.formatMessage(category.imgAlt)
-                                    }}
-                                />
-                            </GridItem>
-                        )
-                    })}
-                </Grid>
-            </Section>
-
-            <Stack spacing={16}>
-                <RecommendedProducts
-                    title={<FormattedMessage defaultMessage="Top Sellers" />}
-                    recommender={'home-top-revenue-for-category'}
-                    mx={{base: -4, md: -8, lg: 0}}
-                />
-
-                <RecommendedProducts
-                    title={<FormattedMessage defaultMessage="Most Viewed" />}
-                    recommender={'products-in-all-categories'}
-                    mx={{base: -4, md: -8, lg: 0}}
-                />
-            </Stack> */}
         </Box>
     )
 }

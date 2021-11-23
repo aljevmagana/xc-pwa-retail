@@ -23,7 +23,6 @@ const ParallaxBanner = (props) => {
         width: "100%",
         whiteSpace: "normal"
     };
-    
     const imageAlign = `${(+x * 100).toFixed(2)}% ${(+y * 100).toFixed(2)}%`
     let alignment = "center";
     let buttonStyle;
@@ -51,7 +50,7 @@ const ParallaxBanner = (props) => {
                 objectPosition: `${imageAlign}`,
                 height: "100%",
                 left: "50%"
-            }}
+                }}
             style={{ height: "100vh" }}>
                 <div style={{ height: '100vh' }}>
                     <Background>
