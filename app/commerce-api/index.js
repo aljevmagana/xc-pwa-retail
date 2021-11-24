@@ -14,6 +14,7 @@ import OcapiPageDesigner from './ocapi-page-designer'
 import {getTenantId, isError, isTokenValid} from './utils'
 import Auth from './auth'
 import EinsteinAPI from './einstein'
+import OcapiAdyen from './ocapi-adyen'
 
 /**
  * The configuration details for the connecting to the API.
@@ -75,7 +76,8 @@ class CommerceAPI {
             shopperProducts: sdk.ShopperProducts,
             shopperPromotions: sdk.ShopperPromotions,
             shopperSearch: sdk.ShopperSearch,
-            shopperPageDesigner: OcapiPageDesigner
+            shopperPageDesigner: OcapiPageDesigner,
+            adyen: OcapiAdyen
         }
 
         const apiConfigs = {
@@ -87,7 +89,8 @@ class CommerceAPI {
             shopperProducts: {api: sdk.ShopperProducts, canLocalize: true},
             shopperPromotions: {api: sdk.ShopperPromotions, canLocalize: true},
             shopperSearch: {api: sdk.ShopperSearch, canLocalize: true},
-            shopperPageDesigner: {api: OcapiPageDesigner, canLocalize: true}
+            shopperPageDesigner: {api: OcapiPageDesigner, canLocalize: true},
+            adyen: {api: OcapiAdyen, canLocalize: false}
         }
 
         // Instantiate the SDK class proxies and create getters from our api mapping.

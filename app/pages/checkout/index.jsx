@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Alert, AlertIcon, Box, Button, Container, Grid, GridItem, Stack} from '@chakra-ui/react'
 import useNavigation from '../../hooks/use-navigation'
@@ -18,24 +18,57 @@ import Payment from './partials/payment'
 import CheckoutSkeleton from './partials/checkout-skeleton'
 import OrderSummary from '../../components/order-summary'
 import CheckoutTitle from './partials/checkout-title'
+import usePaymentForms from './util/usePaymentForms'
+import useAdyen from '../../commerce-api/hooks/useAdyen'
 
 const Checkout = () => {
     const navigate = useNavigation()
-    const {globalError, step, placeOrder} = useCheckout()
+    const adyen = useAdyen()
+    const {globalError, step, placeOrder, setGlobalError} = useCheckout()
+    const {reviewOrder} = usePaymentForms()
     const [isLoading, setIsLoading] = useState(false)
+    const paymentContainer = useRef(null)
 
     // Scroll to the top when we get a global error
     useEffect(() => {
-        if (globalError || step === 4) {
+        if (globalError || step === 3) {
             window.scrollTo({top: 0})
+        }
+        if (step === 3) {
+            adyen.createPaymentSession('dropin', paymentContainer, {
+                onPaymentCompleted: async (result, component) => {
+                    console.info(result, component)
+                    if (result.resultCode === 'Refused' || result.resultCode === 'Error') {
+                        // Handle errors
+                        setGlobalError(
+                            'There is an error processing your payment, please try again.'
+                        )
+                        window.scrollTo({top: 0})
+                        component.setStatus('ready')
+                    } else {
+                        await reviewOrder()
+                        await placeOrder()
+                        navigate('/checkout/confirmation')
+                    }
+                },
+                beforeSubmit: async (data, component, actions) => {
+                    actions.resolve(data)
+                },
+                onError: (error, component) => {
+                    setGlobalError('There is an error processing your payment, please try again.')
+                    console.error(error.name, error.message, error.stack, component)
+                    setIsLoading(false)
+                }
+            })
         }
     }, [globalError, step])
 
     const submitOrder = async () => {
         setIsLoading(true)
         try {
-            await placeOrder()
-            navigate('/checkout/confirmation')
+            const checkout = adyen.adyen.checkout
+            checkout.submit()
+            setIsLoading(false)
         } catch (error) {
             setIsLoading(false)
         }
@@ -64,9 +97,9 @@ const Checkout = () => {
                             <ContactInfo />
                             <ShippingAddress />
                             <ShippingOptions />
-                            <Payment />
+                            <Payment paymentContainer={paymentContainer} />
 
-                            {step === 4 && (
+                            {step === 3 && (
                                 <Box pt={3} display={{base: 'none', lg: 'block'}}>
                                     <Container variant="form">
                                         <Button
@@ -87,7 +120,7 @@ const Checkout = () => {
                     <GridItem py={0} px={[4, 4, 4, 0]}>
                         <OrderSummary showTaxEstimationForm={false} showCartItems={true}/>
 
-                        {step === 4 && (
+                        {step === 3 && (
                             <Box display={{base: 'none', lg: 'block'}} pt={2}>
                                 <Button w="full" onClick={submitOrder} isLoading={isLoading} _hover={{bgColor: 'gray.900'}}>
                                     <FormattedMessage defaultMessage="Place Order" />
@@ -98,7 +131,7 @@ const Checkout = () => {
                 </Grid>
             </Container>
 
-            {step === 4 && (
+            {step === 3 && (
                 <Box
                     display={{lg: 'none'}}
                     position="sticky"

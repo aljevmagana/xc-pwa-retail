@@ -28,3 +28,5 @@ yarn.lock
 # Generated files
 app/cache-hash-manifest.json
 app/loader-cache-hash-manifest.json
+.vscode/launch.json
+.DS_Store
