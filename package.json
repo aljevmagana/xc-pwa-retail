@@ -51,6 +51,7 @@
     "commerce-sdk-isomorphic": "1.1.2",
     "core-js": "2.4.0",
     "cross-fetch": "^3.1.4",
+    "css-loader": "^6.5.1",
     "express": "^4.16.4",
     "focus-visible": "^5.2.0",
     "framer-motion": "^3.7.0",
@@ -72,6 +73,7 @@
     "react-responsive-pagination": "^1.2.0",
     "react-router-dom": "^5.1.2",
     "reactstrap": "^8.10.0",
+    "style-loader": "^3.3.1",
     "whatwg-fetch": "1.0.0"
   },
   "devDependencies": {
@@ -172,7 +174,8 @@
     "test:e2e-ci": "node ./scripts/run-e2e.js",
     "test:integration": "cross-env TEST_TYPE=integration npm run test",
     "test:lighthouse": "lhci autorun --config=tests/lighthouserc.js",
-    "test:max-file-size": "bundlesize"
+    "test:max-file-size": "bundlesize",
+    "postinstall": "npx patch-package"
   },
   "bundlesize": [
     {
