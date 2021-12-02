@@ -222,8 +222,6 @@ const ProductView = ({
         onClose: onAddToCartModalClose
     } = useDisclosure()
     const theme = useTheme()
-    console.log(product)
-    console.log(category)
 
     const {
         showLoading,

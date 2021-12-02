@@ -19,19 +19,22 @@ import OrderSummary from '../../components/order-summary'
 import RecommendedProducts from '../../components/recommended-products'
 import CartSecondaryButtonGroup from './partials/cart-secondary-button-group'
 import ProductViewModal from '../../components/product-view-modal'
+import DiscountCallout from '../../components/discount-callout'
 
 import {useToast} from '../../hooks/use-toast'
 import useCustomerProductLists from '../../commerce-api/hooks/useCustomerProductLists'
 import {API_ERROR_MESSAGE, customerProductListTypes} from '../../constants'
 import useNavigation from '../../hooks/use-navigation'
 import useCustomer from '../../commerce-api/hooks/useCustomer'
-import { HideOnMobile } from '../../components/responsive'
+
 
 const Cart = () => {
     const basket = useBasket()
     const customer = useCustomer()
     const [selectedItem, setSelectedItem] = useState(undefined)
     const [localQuantity, setLocalQuantity] = useState({})
+    const [approachingDiscounts, setApproachingDiscounts] = useState()
+    const [discountVisibile, setDiscountVisible] = useState("hidden")
     const {formatMessage} = useIntl()
     const showToast = useToast()
     const navigate = useNavigation()
@@ -70,6 +73,17 @@ const Cart = () => {
             })()
         }
     }, [basket.basketId])
+
+    useEffect(() => {
+        const getApproachingDiscounts = async () => {
+            let discounts = await basket.getApproachingDiscounts()
+            setApproachingDiscounts(discounts.approachingDiscounts)
+        }
+        getApproachingDiscounts()
+        if (!approachingDiscounts){
+            setDiscountVisible("visible")
+        }
+    }, [basket.orderTotal])
 
     if (!basket?.basketId) {
         return <CartSkeleton />
@@ -222,7 +236,6 @@ const Cart = () => {
             setSelectedItem(undefined)
         }
     }
-
     return (
         <Box flex="1" data-testid="sf-cart-container" pt={["7.5%", "5%"]}>
             <Container
@@ -234,7 +247,9 @@ const Cart = () => {
                 <Stack spacing={24}>
                     <Stack spacing={4}>
                         <CartTitle />
-
+                        <Box textAlign="center" color="red" visibility={discountVisibile} width="100%" height="2em">
+                                {approachingDiscounts?.map((discount, index) => <DiscountCallout key={`discount-${index}`} discount={discount}/>)}
+                        </Box>
                         <Grid
                             templateColumns={{base: '1fr', lg: '66% 1fr'}}
                             gap={{base: 10, xl: 20}}

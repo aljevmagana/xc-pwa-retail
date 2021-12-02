@@ -16,7 +16,7 @@ const CartTitle = () => {
             fontWeight="bold" 
             fontSize={['2.025rem', '2.025rem', '2.025rem', '4.05rem']} 
             textAlign="center" 
-            paddingBottom="3rem" 
+            paddingBottom="1rem" 
             letterSpacing="0.1em"
             textTransform="uppercase"
         >
