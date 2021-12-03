@@ -275,6 +275,15 @@ class OcapiShopperBaskets {
             'removeCouponFromBasket'
         )
     }
+    async getApproachingDiscounts(...args){
+        const required = ['basketId']
+        let requiredParametersError = checkRequiredParameters(args[0], required)
+        if (requiredParametersError) {
+            return requiredParametersError
+        }
+        const {basketId} = args[0].parameters
+        return await this.fetch(`baskets/${basketId}/approaching_discounts`, 'GET', args, 'getApproachingDiscounts')
+    }
 }
 
 export default OcapiShopperBaskets

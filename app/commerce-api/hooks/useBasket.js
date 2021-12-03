@@ -14,8 +14,8 @@ export default function useBasket() {
     const customer = useCustomer()
     const einstein = useEinstein()
     const {basket, setBasket: _setBasket} = useContext(BasketContext)
-
-    const setBasket = (basketData) => {
+    
+    const setBasket = (basketData) => {       
         const _productItemsDetail = basket?._productItemsDetail
         _setBasket({_productItemsDetail, ...basketData})
     }
@@ -353,6 +353,12 @@ export default function useBasket() {
                 return api.shopperBaskets.getShippingMethodsForShipment({
                     parameters: {basketId: basket.basketId, shipmentId: 'me'}
                 })
+            },
+            async getApproachingDiscounts() {
+                const response = await api.shopperBaskets.getApproachingDiscounts({
+                    parameters: {basketId: basket.basketId}
+                })
+                return response
             }
         }
     }, [customer, basket, setBasket])

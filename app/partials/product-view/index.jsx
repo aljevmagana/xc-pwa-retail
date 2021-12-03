@@ -47,7 +47,7 @@ import RecommendedProducts from '../../components/recommended-products'
 import {HideOnDesktop, HideOnMobile} from '../../components/responsive'
 import {BasketIcon} from '../../components/icons'
 
-const ProductViewHeader = ({name, price, currency, description}) => {
+const ProductViewHeader = ({name, price, currency, description, promotion}) => {
     const intl = useIntl()
     const tempReviews ={
         reviewCount: 25,
@@ -98,6 +98,15 @@ const ProductViewHeader = ({name, price, currency, description}) => {
                         <div>{description}</div>
                     </Box>
                 </Skeleton>
+                <Skeleton isLoaded={promotion}>
+                    <Box marginBottom="15px" textAlign="left" fontSize="0.9rem" maxWidth="450" color="red" fontWeight="bold">
+                    {promotion?.map((promo) => (
+                        <Text key={promo?.id} fontSize="0.7875rem">
+                        {promo?.calloutMsg}
+                        </Text>
+                    ))}
+                    </Box>
+                </Skeleton>  
             </Skeleton>            
         </VStack>
     )
@@ -368,6 +377,7 @@ const ProductView = ({
                                     currency={product?.currency}
                                     category={category}
                                     description={product?.shortDescription || product?.pageDescription}
+                                    promotion={product?.productPromotions}
                                 />
                             </Box>
                             <VStack align="stretch">

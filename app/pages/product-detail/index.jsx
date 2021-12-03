@@ -324,7 +324,7 @@ const ProductDetail = ({category, product, isLoading}) => {
                                   > 
                                 {temporaryReviews.map((r, i)  => {
                                     return(<>
-                                        <Box maxW="lg" overflow="hidden" id={r.name + i}>
+                                        <Box maxW="lg" overflow="hidden" key={r.name + i}>
                                             <HStack>
                                                 <Box alignItems="center" textAlign="center">
                                                 <Image
