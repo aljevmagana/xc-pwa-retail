@@ -7,7 +7,6 @@
 
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {useIntl, FormattedMessage} from 'react-intl'
 import {Box} from '@chakra-ui/react'
 import Seo from '../../components/seo'
 import usePageDesigner from '../../commerce-api/hooks/usePageDesigner'
@@ -20,7 +19,6 @@ import PdPage from '../../components/pd'
  * categories and products, data is from local file.
  */
 const Home = () => {
-    const intl = useIntl()
     const pageDesigner = usePageDesigner()
 
     useEffect(() => {
