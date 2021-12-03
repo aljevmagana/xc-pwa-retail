@@ -33,7 +33,7 @@ import SocialIcons from '../social-icons'
 import {HideOnDesktop, HideOnMobile} from '../responsive'
 import {defaultLocaleMessages} from '../_app'
 import {SUPPORTED_LOCALES} from '../../constants'
-import {buildUrlLocale} from '../../utils/url'
+import {getUrlWithLocale} from '../../utils/url'
 import {DeliveryTime} from '../../components/icons'
 import {SpriteMoney} from '../../components/icons'
 import {CustomerSupport} from '../../components/icons'
@@ -227,7 +227,9 @@ const Footer = ({...otherProps}) => {
                                 value={intl.locale}
                                 onChange={({target}) => {
                                     // Update the `locale` in the URL.
-                                    const newUrl = buildUrlLocale(intl.locale, target.value)
+                                    const newUrl = getUrlWithLocale(target.value, {
+                                        disallowParams: ['refine']
+                                    })
                                     window.location = newUrl
                                 }}
                                 variant="filled"

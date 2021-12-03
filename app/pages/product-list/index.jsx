@@ -47,7 +47,8 @@ import {
 } from '@chakra-ui/react'
 
 // Project Components
-import ResponsivePagination from './partials/responsive-pagination';
+import ResponsivePagination from './partials/responsive-pagination'
+import Pagination from './partials/pagination'
 import ProductTile, { Skeleton as ProductTileSkeleton } from '../../components/product-tile'
 import { HideOnDesktop, HideOnMobile } from '../../components/responsive'
 import Refinements from './partials/refinements'
@@ -718,7 +719,8 @@ const ProductList = (props) => {
                                         paddingTop={8}
                                     >
                                         <Center>
-                                            <ResponsivePagination Pagination currentURL={basePath} urls={pageUrls} currentTotal={productSearchResult?.total} />
+                                            {/* <ResponsivePagination Pagination currentURL={basePath} urls={pageUrls} currentTotal={productSearchResult?.total} d={'none'}/> */}
+                                            <Pagination currentURL={basePath} urls={pageUrls}/>
                                         </Center>
                                         {/*
                                             Our design doesn't call for a page size select. Show this element if you want
