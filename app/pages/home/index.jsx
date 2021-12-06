@@ -7,7 +7,7 @@
 
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {Box} from '@chakra-ui/react'
+import {Box, Skeleton} from '@chakra-ui/react'
 import Seo from '../../components/seo'
 import usePageDesigner from '../../commerce-api/hooks/usePageDesigner'
 import PdPage from '../../components/pd'
@@ -20,7 +20,6 @@ import PdPage from '../../components/pd'
  */
 const Home = () => {
     const pageDesigner = usePageDesigner()
-
     useEffect(() => {
         pageDesigner.getPage('homepage')
     }, [])
@@ -33,7 +32,7 @@ const Home = () => {
                 description="Commerce Cloud Retail React App"
                 keywords="Commerce Cloud, Retail React App, React Storefront"
             />
-            {pageDesigner?.loaded && <PdPage pageType={page.typeId} regions={page.regions} />}
+            {pageDesigner?.loaded ? <PdPage pageType={page.typeId} regions={page.regions} /> : <Skeleton height="100vh" />}
         </Box>
     )
 }
