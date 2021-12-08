@@ -328,7 +328,7 @@ const ProductList = (props) => {
             if (!selected) {
                 values.push(value.value)
             } else {
-                values = values.filter((v) => v !== value.value)
+                values = values?.filter((v) => v !== value.value)
             }
 
             // Update the attribute value in the new search params.
@@ -624,43 +624,74 @@ const ProductList = (props) => {
                                         <Box>
                                             <Flex align={"center"} color="#868e96" justify={"center"} margintop="1rem" marginBottom="1rem">
                                                 <Center>
-
-                                                    <Box
-                                                    >
-                                                        <Text fontSize="0.9rem">Sort by</Text>
-                                                    </Box>
-                                                    <Box width={"auto"}>
-                                                        <Sort
-                                                            sortUrls={sortUrls}
-                                                            productSearchResult={productSearchResult}
-                                                            basePath={basePath}
-                                                        />
-                                                    </Box>
+                                                    <HideOnMobile>
+                                                        <Flex>
+                                                            <Box>
+                                                                <Text fontSize="0.9rem">Sort by</Text>
+                                                            </Box>
+                                                            <Box width={"auto"}>
+                                                                <Sort
+                                                                    sortUrls={sortUrls}
+                                                                    productSearchResult={productSearchResult}
+                                                                    basePath={basePath}
+                                                                />
+                                                            </Box>
+                                                        </Flex>
+                                                    </HideOnMobile>
                                                     <HideOnDesktop>
                                                         <Spacer />
-                                                        <Box marginInlineStart={"1.5rem"}>
-                                                            <Button
-                                                                size={"sm"}
-                                                                backgroundColor={"#e9ecef"}
-                                                                _hover={{
-                                                                    backgroundColor: "#e9ecef"
-                                                                }}
-                                                                _active={{
-                                                                    backgroundColor: "#e9ecef"
-                                                                }}
-                                                                onClick={() => {
-                                                                    anchorRefinement.current.scrollIntoView({ behavior: "smooth", block: "center" });
-                                                                }}
-
+                                                        <Stack spacing={6}>
+                                                            <Stack
+                                                                display={{ base: 'flex', md: 'none' }}
+                                                                direction="row"
+                                                                justify="flex-start"
+                                                                align="center"
+                                                                spacing={1}
+                                                                height={12}
+                                                                borderColor="gray.100"
                                                             >
-                                                                <Text
-                                                                 fontSize={"0.9rem"}
-                                                                 fontWeight={"normal"}
-                                                                 color={'gray.700'}
-                                                                >
-                                                                    Filter
-                                                                </Text>
-                                                            </Button>
+                                                                <Flex align="center">
+                                                                    <Button
+                                                                        maxWidth="245px"
+                                                                        fontSize="sm"
+                                                                        marginRight={2}
+                                                                        colorScheme="black"
+                                                                        variant="outline"
+                                                                        display="inline-flex"
+                                                                        rightIcon={<ChevronDownIcon boxSize={5} />}
+                                                                        onClick={() => setSortOpen(true)}
+                                                                    >
+                                                                        {formatMessage(
+                                                                            {
+                                                                                defaultMessage: 'Sort By: {sortOption}'
+                                                                            },
+                                                                            {
+                                                                                sortOption: selectedSortingOptionLabel?.label
+                                                                            }
+                                                                        )}
+                                                                    </Button>
+                                                                </Flex>
+                                                                <Flex align="center">
+                                                                    <Button
+                                                                        fontSize="sm"
+                                                                        colorScheme="black"
+                                                                        variant="outline"
+                                                                        marginRight={2}
+                                                                        display="inline-flex"
+                                                                        leftIcon={<FilterIcon boxSize={5} />}
+                                                                        onClick={onOpen}
+                                                                    >
+                                                                        <FormattedMessage defaultMessage="Filter" />
+                                                                    </Button>
+                                                                </Flex>
+                                                            </Stack>
+                                                        </Stack>
+                                                        <Box marginBottom={4}>
+                                                            <SelectedRefinements
+                                                                filters={productSearchResult?.refinements}
+                                                                toggleFilter={toggleFilter}
+                                                                selectedFilterValues={productSearchResult?.selectedRefinements}
+                                                            />
                                                         </Box>
 
                                                     </HideOnDesktop>
@@ -720,7 +751,7 @@ const ProductList = (props) => {
                                     >
                                         <Center>
                                             {/* <ResponsivePagination Pagination currentURL={basePath} urls={pageUrls} currentTotal={productSearchResult?.total} d={'none'}/> */}
-                                            <Pagination currentURL={basePath} urls={pageUrls}/>
+                                            <Pagination currentURL={basePath} urls={pageUrls} maxWidth={{base: '300px', lg: '100%'}} overflow={{base: 'scroll', lg: 'visible'}}/>
                                         </Center>
                                         {/*
                                             Our design doesn't call for a page size select. Show this element if you want
@@ -740,7 +771,7 @@ const ProductList = (props) => {
                                             ))}
                                         </Select>
                                     </Flex>
-                                    <HideOnDesktop>
+                                    {/* <HideOnDesktop>
                                         <VStack className="accordionwrap" ref={anchorRefinement}>
 
                                             <Refinements
@@ -750,7 +781,7 @@ const ProductList = (props) => {
                                                 selectedFilters={searchParams.refine}
                                             />
                                         </VStack>
-                                    </HideOnDesktop>
+                                    </HideOnDesktop> */}
                                 </Box>
                             </Grid>
                         </>
