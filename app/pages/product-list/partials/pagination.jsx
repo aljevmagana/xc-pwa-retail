@@ -26,6 +26,7 @@ import {
 
 // Icons
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../components/icons'
+import { HideOnDesktop, HideOnMobile } from '../../../components/responsive'
 
 // Constants
 const SELECT_ID = 'pagination'
@@ -40,9 +41,9 @@ const isServer = typeof window === 'undefined'
  */
 const Pagination = (props) => {
     const intl = useIntl()
-    const styles = useStyleConfig('PlpPagination')
+    const styles = useStyleConfig('Pagination')
     const history = useHistory()
-    const { urls, currentURL, ...rest } = props
+    const {urls, currentURL, ...rest} = props
 
     const currentIndex = urls.indexOf(currentURL) > 0 ? urls.indexOf(currentURL) : 0
     const prev = urls[currentIndex - 1]
@@ -53,26 +54,28 @@ const Pagination = (props) => {
         <Flex data-testid="sf-pagination" className="sf-pagination" {...styles.container} {...rest}>
             {/* Previous Button */}
             <Button
-
+                {...styles.button}
                 as={isServer ? Link : RouteLink}
                 // Because we are using a button component as a link, the isDisabled flag isn't working
                 // as intended, the workaround is to use the current url when its disabled.
                 href={prev || currentURL}
                 to={prev || currentURL}
                 aria-label="Previous Page"
-                /* isDisabled={!prev} */
-                {...styles.prevbutton}
+                isDisabled={!prev}
+                variant="link"
             >
-                <Text {...styles.text} >
+                <ChevronLeftIcon />
+                <Text>
                     {intl.formatMessage({
-                        id: 'pagination.actions.prev',
+                        id: 'pagination.link.prev',
                         defaultMessage: 'Prev'
                     })}
                 </Text>
             </Button>
 
+            <HideOnDesktop>
             {/* Direct Page Selection */}
-            {/* <Flex paddingLeft={4} paddingRight={4}>
+            <Flex paddingLeft={4} paddingRight={4}>
                 <Select
                     id={SELECT_ID}
                     onChange={(e) => {
@@ -89,15 +92,18 @@ const Pagination = (props) => {
                 </Select>
 
                 <Text {...styles.text}>
-                    {intl.formatMessage({
-                        id: 'pagination.actions.current_page_verb',
-                        defaultMessage: 'of'
-                    })}{' '}
-                    {urls.length}
+                    {intl.formatMessage(
+                        {
+                            id: 'pagination.field.num_of_pages',
+                            defaultMessage: 'of {numOfPages}'
+                        },
+                        {numOfPages: urls.length}
+                    )}
                 </Text>
-            </Flex> */}
-
-            <Flex>
+            </Flex>
+            </HideOnDesktop>
+            <HideOnMobile>
+            <Flex marginLeft="1rem" marginRight="1rem">
                 <Stack direction="row" spacing={0} >
                     {urls.map((href, index) => (
 
@@ -130,24 +136,27 @@ const Pagination = (props) => {
                     ))}
                 </Stack>
             </Flex>
+            </HideOnMobile>
 
             {/* Next Button */}
             <Button
+                {...styles.button}
                 as={isServer ? Link : RouteLink}
                 // Because we are using a button component as a link, the isDisabled flag isn't working
                 // as intended, the workaround is to use the current url when its disabled.
                 href={next || currentURL}
                 to={next || currentURL}
                 aria-label="Next Page"
-                /* isDisabled={!next} */
-                {...styles.nextbutton}
+                isDisabled={!next}
+                variant="link"
             >
-                <Text {...styles.text}>
+                <Text>
                     {intl.formatMessage({
-                        id: 'pagination.actions.next',
+                        id: 'pagination.link.next',
                         defaultMessage: 'Next'
                     })}
                 </Text>
+                <ChevronRightIcon />
             </Button>
         </Flex>
     )
