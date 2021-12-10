@@ -67,6 +67,7 @@ import {
 import useBasket from '../../commerce-api/hooks/useBasket'
 import { useLimitUrls, usePageUrls, useSortUrls, useSearchParams, useVariationAttributes } from '../../hooks'
 import useCustomerProductLists from '../../commerce-api/hooks/useCustomerProductLists'
+import { useCommerceAPI } from '../../commerce-api/utils';
 import { useToast } from '../../hooks/use-toast'
 import { parse as parseSearchParams } from '../../hooks/use-search-params'
 import { useVariant as useVariant } from '../../hooks/use-variant'
@@ -99,6 +100,7 @@ const ProductList = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const basket = useBasket()
+    const api = useCommerceAPI()
 
 
     const [sortOpen, setSortOpen] = useState(false)
@@ -110,6 +112,7 @@ const ProductList = (props) => {
     const [searchParams, { stringify: stringifySearchParams }] = useSearchParams()
     const { categories } = useContext(CategoriesContext)
     const [filtersLoading, setFiltersLoading] = useState(false)
+    const [products, setProducts] = useState()
     const productListEventHandler = (event) => {
         if (event.action === 'add') {
             showWishlistItemAdded(event.item?.quantity)
@@ -200,7 +203,27 @@ const ProductList = (props) => {
         }
     }, [productSearchResult])
 
-
+    useEffect(() => {
+        const productSearchIds0 = []
+        for (let i = 0; i <= productSearchResult?.hits.length; i++){
+            if(productSearchIds0.length < 24){
+                productSearchIds0.push(productSearchResult?.hits[i]?.productId)
+            }
+        }
+        const getProductDetails = async (productIds) => {
+            let productDetails = await api.shopperProducts.getProducts({
+                parameters: {
+                    ids: productIds.join(','),
+                    allImages: true,
+                    perPricebook: true
+                }
+               
+            })
+             setProducts(productDetails.data)
+        }
+        getProductDetails(productSearchIds0)
+        
+    }, [productSearchResult?.hits])
     // function to get the minimum and maximum price base on the original price range
     const minMaxPriceProcess = (priceValue) => {
         let priceRangeList = [];
@@ -914,19 +937,20 @@ ProductList.getProps = async ({ res, params, location, api }) => {
     }
 
     const searchParams = parseSearchParams(location.search, false)
-
+    
     if (!searchParams.refine.includes(`cgid=${categoryId}`) && categoryId) {
         searchParams.refine.push(`cgid=${categoryId}`)
     }
 
     // only search master products
     searchParams.refine.push('htype=master')
-
+     if(!searchParams.limit){
+         searchParams.limit = 24
+    }
     // Set the `cache-control` header values to align with the Commerce API settings.
     if (res) {
         res.set('Cache-Control', 'public, must-revalidate, max-age=900')
     }
-
     const [category, productSearchResult] = await Promise.all([
         isSearch
             ? Promise.resolve()
