@@ -142,9 +142,9 @@ export default function useBasket() {
                 }
 
                 const response = await api.shopperProducts.getProducts({
-                    parameters: {ids: ids, ...options}
+                    parameters: {ids: ids, ...options},
+                    perPricebook: true
                 })
-
                 const itemDetail = response.data.reduce((result, item) => {
                     const key = item.id
                     result[key] = item

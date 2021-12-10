@@ -330,7 +330,8 @@ export default function useCustomer() {
 
             async getCustomerOrderProductsDetail(ids) {
                 const response = await api.shopperProducts.getProducts({
-                    parameters: {ids: ids.join(',')}
+                    parameters: {ids: ids.join(',')},
+                    perPricebook: true
                 })
 
                 const productMap = response.data.reduce((result, item) => {
