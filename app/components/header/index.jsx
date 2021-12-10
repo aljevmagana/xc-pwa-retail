@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {useIntl} from 'react-intl'
 import {
@@ -44,7 +44,7 @@ import {
     SignoutIcon
 } from '../icons'
 
-import {noop} from '../../utils/utils'
+import {noop, setSessionJSONItem} from '../../utils/utils'
 import {navLinks, messages} from '../../pages/account/constant'
 import useNavigation from '../../hooks/use-navigation'
 import LoadingSpinner from '../loading-spinner'
@@ -115,6 +115,10 @@ const Header = ({
         }, 100)
     }
 
+    useEffect(() => {
+        window.localStorage.setItem("basket-count", basket.itemAccumulatedCount)
+    });
+    
     return (
         <Box {...styles.container} {...props}>
             <Box {...styles.content}>
