@@ -35,7 +35,7 @@ const Checkout = () => {
             window.scrollTo({top: 0})
         }
         if (step === 3) {
-            adyen.createPaymentSession('dropin', paymentContainer, {
+            adyen.createPaymentComponent('dropin', paymentContainer, {
                 onPaymentCompleted: async (result, component) => {
                     console.info(result, component)
                     if (result.resultCode === 'Refused' || result.resultCode === 'Error') {

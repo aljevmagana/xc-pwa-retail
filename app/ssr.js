@@ -44,6 +44,10 @@ app.get('/callback?*', (req, res) => {
 })
 app.get('/robots.txt', serveStaticFile('static/robots.txt'))
 app.get('/manifest.json', serveStaticFile('static/manifest.json'))
+app.get(
+    '/.well-known/apple-developer-merchantid-domain-association',
+    serveStaticFile('static/.well-known/apple-developer-merchantid-domain-association')
+)
 app.get('/*', render)
 
 // SSR requires that we export a single handler function called 'get', that
