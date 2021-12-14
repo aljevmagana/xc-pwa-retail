@@ -5,8 +5,6 @@
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 export const adyenAPIConfig = {
-    merchantAccount: 'XCentiumECOM',
     environment: 'TEST',
-    clientKey: 'test_XFBUOUYYLFDA7A4ZCLSWKYATYQPS3CHV',
-    apiVersion: 'v68'
+    clientKey: 'test_XFBUOUYYLFDA7A4ZCLSWKYATYQPS3CHV'
 }
