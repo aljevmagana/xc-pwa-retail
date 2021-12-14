@@ -219,7 +219,12 @@ const ProductTile = (props) => {
 
                 {/* Price */}
                 <Text {...styles.price} aria-label="price">
-                    <ProductPrice pricebook={priceRanges} price={price} currency={currency} />
+                    <ProductPrice 
+                        pricebook={priceRanges} 
+                        price={price} 
+                        currency={currency} 
+                        fontSize={["0.9rem", "0.75rem"]}
+                    />
                 </Text>
             </Box>
 

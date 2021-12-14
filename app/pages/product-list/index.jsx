@@ -969,30 +969,11 @@ ProductList.getProps = async ({ res, params, location, api }) => {
             }})
         return response.data; 
     }
-        let products = await getProductDetails(productSearchResult)
+    let products = await getProductDetails(productSearchResult)
+
     return { searchQuery: searchQuery, productSearchResult, products }
 }
 
-// useEffect(() => {
-//     const productSearchIds = []
-//     for (let i = 0; i <= productSearchResult?.hits.length; i++){
-//         if(productSearchIds.length < 24){
-//             productSearchIds.push(productSearchResult?.hits[i]?.productId)
-//         }
-//     }
-//     const getProductDetails = async (productIds) => {
-//         let response = await api.shopperProducts.getProducts({
-//             parameters: {
-//                 ids: productIds.join(','),
-//                 allImages: true,
-//                 perPricebook: true
-//             }               
-//         })
-//          setProducts(productDetails.data)
-//     }
-//     getProductDetails(productSearchIds)
-    
-// })
 
 const Sort = ({ sortUrls, productSearchResult, basePath, ...otherProps }) => {
     const intl = useIntl()

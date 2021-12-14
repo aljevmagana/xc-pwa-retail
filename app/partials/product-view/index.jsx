@@ -63,7 +63,7 @@ const ProductViewHeader = ({name, price, pricebook, currency, description, promo
             <Skeleton isLoaded={price} >
                 <Box marginBottom="20px">
                     <Stack direction={["column", "row"]} spacing={["0%","25%"]}>
-                        {!!price && !!pricebook && <ProductPrice price={price} pricebook={pricebook} currency={currency} />}
+                        {!!price && !!pricebook && <ProductPrice price={price} pricebook={pricebook} currency={currency} fontSize={["1.35rem", "0.9rem"]}/>}
                         <Box display="flex" mt="2" alignItems="center">
                             {Array(5)
                                 .fill("")
