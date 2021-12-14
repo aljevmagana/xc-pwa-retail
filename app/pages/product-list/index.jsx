@@ -112,7 +112,6 @@ const ProductList = (props) => {
     const [searchParams, { stringify: stringifySearchParams }] = useSearchParams()
     const { categories } = useContext(CategoriesContext)
     const [filtersLoading, setFiltersLoading] = useState(false)
-    const [products, setProducts] = useState()
     const productListEventHandler = (event) => {
         if (event.action === 'add') {
             showWishlistItemAdded(event.item?.quantity)
@@ -138,6 +137,7 @@ const ProductList = (props) => {
     const {
         searchQuery,
         productSearchResult,
+        products,
         // eslint-disable-next-line react/prop-types
         staticContext,
         location,
@@ -203,27 +203,6 @@ const ProductList = (props) => {
         }
     }, [productSearchResult])
 
-    useEffect(() => {
-        const productSearchIds0 = []
-        for (let i = 0; i <= productSearchResult?.hits.length; i++){
-            if(productSearchIds0.length < 24){
-                productSearchIds0.push(productSearchResult?.hits[i]?.productId)
-            }
-        }
-        const getProductDetails = async (productIds) => {
-            let productDetails = await api.shopperProducts.getProducts({
-                parameters: {
-                    ids: productIds.join(','),
-                    allImages: true,
-                    perPricebook: true
-                }
-               
-            })
-             setProducts(productDetails.data)
-        }
-        getProductDetails(productSearchIds0)
-        
-    }, [productSearchResult?.hits])
     // function to get the minimum and maximum price base on the original price range
     const minMaxPriceProcess = (priceValue) => {
         let priceRangeList = [];
@@ -730,36 +709,36 @@ const ProductList = (props) => {
                                         spacingX={6}
                                         spacingY={{ base: 12, lg: 16 }}
                                     >
-                                        {isLoading || !productSearchResult
+                                        {isLoading || !products
                                             ? new Array(searchParams.limit)
                                                 .fill(0)
                                                 .map((value, index) => (
                                                     <ProductTileSkeleton key={index} />
                                                 ))
-                                            : productSearchResult.hits.map((productSearchItem) => {
+                                            : products.map((product) => {
                                                 const isInWishlist = wishlist?.customerProductListItems
                                                     ?.map(({ productId }) => productId)
-                                                    .includes(productSearchItem.productId)
+                                                    .includes(product.id)
                                                 return (
                                                     <ProductTile
                                                         category={category?.name}
                                                         isWishlistLoading={wishlistLoading.includes(
-                                                            productSearchItem.productId
+                                                            product.id
                                                         )}
-                                                        data-testid={`sf-product-tile-${productSearchItem.productId}`}
-                                                        key={productSearchItem.productId}
-                                                        productSearchItem={productSearchItem}
+                                                        data-testid={`sf-product-tile-${product.id}`}
+                                                        key={product.id}
+                                                        product={product}
                                                         onAddToWishlistClick={() =>
-                                                            addItemToWishlist(productSearchItem)
+                                                            addItemToWishlist(product)
                                                         }
                                                         onRemoveWishlistClick={() => {
-                                                            removeItemFromWishlist(productSearchItem)
+                                                            removeItemFromWishlist(product)
                                                         }}
                                                         onQuickViewClick={() => {
-                                                            getProductDetails(productSearchItem)
+                                                            getProductDetails(product)
                                                         }}
                                                         handleAddToCart={() => {
-                                                            handleAddToCart(productSearchItem);
+                                                            handleAddToCart(product);
                                                         }}
 
                                                         isInWishlist={isInWishlist}
@@ -960,21 +939,60 @@ ProductList.getProps = async ({ res, params, location, api }) => {
         api.shopperSearch.productSearch({
             parameters: searchParams
         })
-    ])
+    ])    
 
     // Apply disallow list to refinements.
     productSearchResult.refinements = productSearchResult.refinements.filter(
         ({ attributeId }) => !REFINEMENT_DISALLOW_LIST.includes(attributeId)
     )
-
+    
     // The `isomorphic-sdk` returns error objects when they occur, so we
     // need to check the category type and throw if required.
     if (category?.type?.endsWith('category-not-found')) {
         throw new HTTPNotFound(category.detail)
     }
-
-    return { searchQuery: searchQuery, productSearchResult }
+    //Retrieves products from Salesforce Commerce API with keys from productSearchResult.
+    const getProductDetails = async (productSearchResult) => {
+        if (!productSearchResult?.hits){
+            return;
+        }
+        const productSearchIds = []
+        for (let i = 0; i <= productSearchResult?.hits.length; i++){
+            if(productSearchIds.length < 24){
+                productSearchIds.push(productSearchResult?.hits[i]?.productId)
+            }
+        }
+        let response = await api.shopperProducts.getProducts({
+            parameters: {
+                ids: productSearchIds.join(','),
+                perPricebook: true
+            }})
+        return response.data; 
+    }
+        let products = await getProductDetails(productSearchResult)
+    return { searchQuery: searchQuery, productSearchResult, products }
 }
+
+// useEffect(() => {
+//     const productSearchIds = []
+//     for (let i = 0; i <= productSearchResult?.hits.length; i++){
+//         if(productSearchIds.length < 24){
+//             productSearchIds.push(productSearchResult?.hits[i]?.productId)
+//         }
+//     }
+//     const getProductDetails = async (productIds) => {
+//         let response = await api.shopperProducts.getProducts({
+//             parameters: {
+//                 ids: productIds.join(','),
+//                 allImages: true,
+//                 perPricebook: true
+//             }               
+//         })
+//          setProducts(productDetails.data)
+//     }
+//     getProductDetails(productSearchIds)
+    
+// })
 
 const Sort = ({ sortUrls, productSearchResult, basePath, ...otherProps }) => {
     const intl = useIntl()

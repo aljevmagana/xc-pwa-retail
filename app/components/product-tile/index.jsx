@@ -45,6 +45,7 @@ import { useIntl } from 'react-intl'
 import { productUrlBuilder } from '../../utils/url'
 import Link from '../link'
 import withRegistration from '../../hoc/with-registration'
+import ProductPrice from '../product-price'
 import { useVariant, useVariationAttributes } from '../../hooks';
 
 const IconButtonWithRegistration = withRegistration(IconButton)
@@ -80,7 +81,7 @@ const ProductTile = (props) => {
     // eslint-disable-next-line react/prop-types
     const {
         category,
-        productSearchItem,
+        product,
         // eslint-disable-next-line react/prop-types
         staticContext,
         onAddToWishlistClick,
@@ -92,15 +93,15 @@ const ProductTile = (props) => {
         ...rest
 
     } = props
-    const { currency, image, price, productName } = productSearchItem
+    const { currency, imageGroups, price, name, priceRanges } = product
     const styles = useMultiStyleConfig('ProductTile', { isLoading: isWishlistLoading })
-
+    const image = imageGroups[0].images[0]
     return (
 
         <Grid>
             <Link
                 data-testid="product-tile"
-                to={productUrlBuilder({ id: productSearchItem?.productId }, intl.local)}
+                to={productUrlBuilder({ id: product?.id }, intl.local)}
                 {...styles.container}
                 {...rest}
             >
@@ -108,7 +109,7 @@ const ProductTile = (props) => {
                     <Box className={'plp-sub-product-tile-container'} {...styles.imageWrapper}>
                         {
                             /* For Update Once the Actual Field is available this needs to be dynamic */
-                            (productSearchItem?.price < 70) ? <Badge variant="plpBadge">Fresh</Badge> : ""
+                            (product?.price < 70) ? <Badge variant="plpBadge">Fresh</Badge> : ""
 
                         }
                         <AspectRatio {...styles.image} ratio={9 / 14}>
@@ -204,7 +205,7 @@ const ProductTile = (props) => {
             </Link>
 
             <Box {...styles.producttext}>
-                {/* Price */}
+                {/* Category */}
                 <Text {...styles.categoryname} aria-label="cateogry name">
                     {category}
                 </Text>
@@ -212,13 +213,13 @@ const ProductTile = (props) => {
                 <Link>
                     {/* Title */}
                     <Text {...styles.title} aria-label="product name">
-                        {productName}
+                        {name}
                     </Text>
                 </Link>
 
                 {/* Price */}
                 <Text {...styles.price} aria-label="price">
-                    {intl.formatNumber(price, { style: 'currency', currency })}
+                    <ProductPrice pricebook={priceRanges} price={price} currency={currency} />
                 </Text>
             </Box>
 
@@ -235,7 +236,7 @@ ProductTile.propTypes = {
      * The product search hit that will be represented in this
      * component.
      */
-    productSearchItem: PropTypes.object.isRequired,
+    product: PropTypes.object.isRequired,
     /**
      * Types of lists the product/variant is added to. (eg: wishlist)
      */
