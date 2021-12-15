@@ -956,22 +956,30 @@ ProductList.getProps = async ({ res, params, location, api }) => {
         if (!productSearchResult?.hits){
             return;
         }
-        const productSearchIds = []
-        for (let i = 0; i <= productSearchResult?.hits.length; i++){
-            if(productSearchIds.length < 24){
-                productSearchIds.push(productSearchResult?.hits[i]?.productId)
-            }
-        }
-        let response = await api.shopperProducts.getProducts({
-            parameters: {
-                ids: productSearchIds.join(','),
-                perPricebook: true
-            }})
-        return response.data; 
-    }
-    let products = await getProductDetails(productSearchResult)
+        const count = productSearchResult.hits.length;
+        const maxPerRequest = 24;
+        const requestRequired = Math.ceil(count / maxPerRequest);
+        const itemsPerRequest = Math.floor(count / requestRequired);
+        const addOne = count % requestRequired > 0 && count > maxPerRequest;
+        const requests = [];
 
-    return { searchQuery: searchQuery, productSearchResult, products }
+        for (let i = 0; i < requestRequired; i++){
+            const index = i * itemsPerRequest + (i !== 0 && addOne ? 1 : 0);
+            const count = itemsPerRequest + (i === 0 && addOne ? 1 : 0);
+            const ids = productSearchResult?.hits.slice(index, index + count).map(h => h.productId);
+            requests.push(api.shopperProducts.getProducts({
+                parameters: {
+                    ids: ids.join(','),
+                    perPricebook: true
+                }}));
+        }
+
+        const results = await Promise.all(requests);
+        return results.map(r => r.data).flat();
+    }
+    let products = await getProductDetails(productSearchResult);
+
+    return { searchQuery: searchQuery, productSearchResult, products};
 }
 
 
