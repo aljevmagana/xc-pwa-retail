@@ -236,20 +236,20 @@ const ProductList = (props) => {
      */
     const removeItemFromWishlist = async (product) => {
         try {
-            setWishlistLoading([...wishlistLoading, product.productId])
+            setWishlistLoading([...wishlistLoading, product.id])
             // Extract productListItem corresponding to product from wishlist
             const productListItem = wishlist.customerProductListItems?.find(
-                (item) => item.productId === product.productId
+                (item) => item.productId === product.id
             )
             await customerProductLists.deleteCustomerProductListItem(wishlist, productListItem)
 
             showToast({
                 title: formatMessage({ defaultMessage: 'Item removed from wishlist' }),
                 status: 'success',
-                id: product.productId
+                id: product.id
             })
             // remove the loading id
-            setWishlistLoading(wishlistLoading.filter((id) => id !== product.productId))
+            setWishlistLoading(wishlistLoading.filter((id) => id !== product.id))
         } catch (err) {
             showError()
         }
@@ -276,12 +276,12 @@ const ProductList = (props) => {
 
     const addItemToWishlist = async (product) => {
         try {
-            setWishlistLoading([...wishlistLoading, product.productId])
+            setWishlistLoading([...wishlistLoading, product.id])
             // If product-lists have not loaded we push "Add to wishlist" event to eventQueue to be
             // processed once the product-lists have loaded.
             if (!customerProductLists?.loaded) {
                 const event = {
-                    item: { ...product, id: product.productId, quantity: 1 },
+                    item: { ...product, id: product.id, quantity: 1 },
                     action: 'add',
                     listType: customerProductListTypes.WISHLIST
                 }
@@ -293,14 +293,14 @@ const ProductList = (props) => {
                     customerProductListTypes.WISHLIST
                 )
                 await customerProductLists.createCustomerProductListItem(wishlist, {
-                    productId: product.productId,
+                    productId: product.id,
                     priority: 1,
                     quantity,
                     public: false,
                     type: 'product'
                 })
                 showWishlistItemAdded(quantity)
-                setWishlistLoading(wishlistLoading.filter((id) => id !== product.productId))
+                setWishlistLoading(wishlistLoading.filter((id) => id !== product.id))
             }
         } catch (err) {
             showError()
@@ -452,7 +452,7 @@ const ProductList = (props) => {
         selectedSortingOptionLabel = productSearchResult?.sortingOptions[0]
     }
 
-
+    console.log(products)
     return (
         <>
 
