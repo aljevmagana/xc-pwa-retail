@@ -452,7 +452,6 @@ const ProductList = (props) => {
         selectedSortingOptionLabel = productSearchResult?.sortingOptions[0]
     }
 
-    console.log(products)
     return (
         <>
 
@@ -587,7 +586,6 @@ const ProductList = (props) => {
                                     {/* Sort By Filter */}
                                     <SimpleGrid columns={{ sm: 2, md: 2, lg: 3 }} className="plp-main-sortby-container" margintop="1rem" marginBottom="1rem" gap={6}>
                                         <Box>
-
                                             <Flex align="center" justify="center" marginBottom="1rem">
                                                 <Center>
                                                     <Box>

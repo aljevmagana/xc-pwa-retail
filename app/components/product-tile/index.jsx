@@ -93,7 +93,7 @@ const ProductTile = (props) => {
         ...rest
 
     } = props
-    const { currency, imageGroups, price, name, priceRanges } = product
+    const { currency, imageGroups, price, name, priceRanges, productPromotions } = product
     const styles = useMultiStyleConfig('ProductTile', { isLoading: isWishlistLoading })
     const image = imageGroups[0].images[0]
     return (
@@ -226,6 +226,13 @@ const ProductTile = (props) => {
                         fontSize={["0.9rem", "0.75rem"]}
                     />
                 </Text>
+                {/* <Box textAlign="left" maxWidth="450" fontWeight="bold">
+                    {productPromotions?.map((promo) => (
+                        <Text key={promo?.id} fontSize="0.7875rem" color="red" >
+                            {promo?.calloutMsg}
+                        </Text>
+                    ))}
+                </Box> */}
             </Box>
 
         </Grid>

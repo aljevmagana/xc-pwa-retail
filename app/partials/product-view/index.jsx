@@ -87,11 +87,11 @@ const ProductViewHeader = ({name, price, pricebook, currency, description, promo
                 </Skeleton>
                 <Skeleton isLoaded={promotion}>
                     <Box marginBottom="15px" textAlign="left" fontSize="0.9rem" maxWidth="450" color="red" fontWeight="bold">
-                    {promotion?.map((promo) => (
-                        <Text key={promo?.id} fontSize="0.7875rem">
-                        {promo?.calloutMsg}
-                        </Text>
-                    ))}
+                        {promotion?.map((promo) => (
+                            <Text key={promo?.id} fontSize="0.7875rem">
+                            {promo?.calloutMsg}
+                            </Text>
+                        ))}
                     </Box>
                 </Skeleton>  
             </Skeleton>            
