@@ -226,13 +226,13 @@ const ProductTile = (props) => {
                         fontSize={["0.9rem", "0.75rem"]}
                     />
                 </Text>
-                {/* <Box textAlign="left" maxWidth="450" fontWeight="bold">
+                <Box textAlign="left" maxWidth="450" >
                     {productPromotions?.map((promo) => (
-                        <Text key={promo?.id} fontSize="0.7875rem" color="red" >
+                        <Text key={promo?.id} fontSize="0.7875rem" color="red" fontWeight="bold">
                             {promo?.calloutMsg}
                         </Text>
                     ))}
-                </Box> */}
+                </Box>
             </Box>
 
         </Grid>
