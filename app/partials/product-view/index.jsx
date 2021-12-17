@@ -40,14 +40,14 @@ import ImageGallery from '../../components/image-gallery'
 import Breadcrumb from '../../components/breadcrumb'
 import Link from '../../components/link'
 import withRegistration from '../../hoc/with-registration'
-import {DEFAULT_CURRENCY} from '../../constants'
 import {Skeleton as ImageGallerySkeleton} from '../../components/image-gallery'
 import AddToCartModal from '../../components/add-to-cart-modal'
 import RecommendedProducts from '../../components/recommended-products'
 import {HideOnDesktop, HideOnMobile} from '../../components/responsive'
 import {BasketIcon} from '../../components/icons'
+import ProductPrice from '../../components/product-price'
 
-const ProductViewHeader = ({name, price, currency, description, promotion}) => {
+const ProductViewHeader = ({name, price, pricebook, currency, description, promotion}) => {
     const intl = useIntl()
     const tempReviews ={
         reviewCount: 25,
@@ -63,20 +63,7 @@ const ProductViewHeader = ({name, price, currency, description, promotion}) => {
             <Skeleton isLoaded={price} >
                 <Box marginBottom="20px">
                     <Stack direction={["column", "row"]} spacing={["0%","25%"]}>
-                        <HStack>
-                            <Text fontWeight="300" fontSize="1.35rem" aria-label="price" align="left">
-                                {intl.formatNumber(price, {
-                                    style: 'currency',
-                                    currency: currency || DEFAULT_CURRENCY
-                                })} 
-                            </Text>
-                            <Text as="s" fontSize="0.9rem" align="left" color="gray">
-                                {intl.formatNumber((price + 1), {
-                                    style: 'currency',
-                                    currency: currency || DEFAULT_CURRENCY
-                                })}
-                            </Text>
-                        </HStack>
+                        {!!price && !!pricebook && <ProductPrice price={price} pricebook={pricebook} currency={currency} fontSize={["1.35rem", "0.9rem"]}/>}
                         <Box display="flex" mt="2" alignItems="center">
                             {Array(5)
                                 .fill("")
@@ -100,11 +87,11 @@ const ProductViewHeader = ({name, price, currency, description, promotion}) => {
                 </Skeleton>
                 <Skeleton isLoaded={promotion}>
                     <Box marginBottom="15px" textAlign="left" fontSize="0.9rem" maxWidth="450" color="red" fontWeight="bold">
-                    {promotion?.map((promo) => (
-                        <Text key={promo?.id} fontSize="0.7875rem">
-                        {promo?.calloutMsg}
-                        </Text>
-                    ))}
+                        {promotion?.map((promo) => (
+                            <Text key={promo?.id} fontSize="0.7875rem">
+                            {promo?.calloutMsg}
+                            </Text>
+                        ))}
                     </Box>
                 </Skeleton>  
             </Skeleton>            
@@ -323,7 +310,6 @@ const ProductView = ({
             onAddToCartModalClose()
         }
     }, [location.pathname])
-
     return (
         <Flex direction={'column'} data-testid="product-view">
             <HideOnDesktop>
@@ -374,6 +360,7 @@ const ProductView = ({
                                 <ProductViewHeader
                                     name={product?.name}
                                     price={product?.price}
+                                    pricebook={product?.priceRanges || product?.tieredPrices}
                                     currency={product?.currency}
                                     category={category}
                                     description={product?.shortDescription || product?.pageDescription}

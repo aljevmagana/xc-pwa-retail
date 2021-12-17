@@ -67,6 +67,7 @@ import {
 import useBasket from '../../commerce-api/hooks/useBasket'
 import { useLimitUrls, usePageUrls, useSortUrls, useSearchParams, useVariationAttributes } from '../../hooks'
 import useCustomerProductLists from '../../commerce-api/hooks/useCustomerProductLists'
+import { useCommerceAPI } from '../../commerce-api/utils';
 import { useToast } from '../../hooks/use-toast'
 import { parse as parseSearchParams } from '../../hooks/use-search-params'
 import { useVariant as useVariant } from '../../hooks/use-variant'
@@ -99,6 +100,7 @@ const ProductList = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const basket = useBasket()
+    const api = useCommerceAPI()
 
 
     const [sortOpen, setSortOpen] = useState(false)
@@ -135,6 +137,7 @@ const ProductList = (props) => {
     const {
         searchQuery,
         productSearchResult,
+        products,
         // eslint-disable-next-line react/prop-types
         staticContext,
         location,
@@ -200,7 +203,6 @@ const ProductList = (props) => {
         }
     }, [productSearchResult])
 
-
     // function to get the minimum and maximum price base on the original price range
     const minMaxPriceProcess = (priceValue) => {
         let priceRangeList = [];
@@ -234,20 +236,20 @@ const ProductList = (props) => {
      */
     const removeItemFromWishlist = async (product) => {
         try {
-            setWishlistLoading([...wishlistLoading, product.productId])
+            setWishlistLoading([...wishlistLoading, product.id])
             // Extract productListItem corresponding to product from wishlist
             const productListItem = wishlist.customerProductListItems?.find(
-                (item) => item.productId === product.productId
+                (item) => item.productId === product.id
             )
             await customerProductLists.deleteCustomerProductListItem(wishlist, productListItem)
 
             showToast({
                 title: formatMessage({ defaultMessage: 'Item removed from wishlist' }),
                 status: 'success',
-                id: product.productId
+                id: product.id
             })
             // remove the loading id
-            setWishlistLoading(wishlistLoading.filter((id) => id !== product.productId))
+            setWishlistLoading(wishlistLoading.filter((id) => id !== product.id))
         } catch (err) {
             showError()
         }
@@ -274,12 +276,12 @@ const ProductList = (props) => {
 
     const addItemToWishlist = async (product) => {
         try {
-            setWishlistLoading([...wishlistLoading, product.productId])
+            setWishlistLoading([...wishlistLoading, product.id])
             // If product-lists have not loaded we push "Add to wishlist" event to eventQueue to be
             // processed once the product-lists have loaded.
             if (!customerProductLists?.loaded) {
                 const event = {
-                    item: { ...product, id: product.productId, quantity: 1 },
+                    item: { ...product, id: product.id, quantity: 1 },
                     action: 'add',
                     listType: customerProductListTypes.WISHLIST
                 }
@@ -291,14 +293,14 @@ const ProductList = (props) => {
                     customerProductListTypes.WISHLIST
                 )
                 await customerProductLists.createCustomerProductListItem(wishlist, {
-                    productId: product.productId,
+                    productId: product.id,
                     priority: 1,
                     quantity,
                     public: false,
                     type: 'product'
                 })
                 showWishlistItemAdded(quantity)
-                setWishlistLoading(wishlistLoading.filter((id) => id !== product.productId))
+                setWishlistLoading(wishlistLoading.filter((id) => id !== product.id))
             }
         } catch (err) {
             showError()
@@ -450,7 +452,6 @@ const ProductList = (props) => {
         selectedSortingOptionLabel = productSearchResult?.sortingOptions[0]
     }
 
-
     return (
         <>
 
@@ -585,7 +586,6 @@ const ProductList = (props) => {
                                     {/* Sort By Filter */}
                                     <SimpleGrid columns={{ sm: 2, md: 2, lg: 3 }} className="plp-main-sortby-container" margintop="1rem" marginBottom="1rem" gap={6}>
                                         <Box>
-
                                             <Flex align="center" justify="center" marginBottom="1rem">
                                                 <Center>
                                                     <Box>
@@ -707,36 +707,36 @@ const ProductList = (props) => {
                                         spacingX={6}
                                         spacingY={{ base: 12, lg: 16 }}
                                     >
-                                        {isLoading || !productSearchResult
+                                        {isLoading || !products
                                             ? new Array(searchParams.limit)
                                                 .fill(0)
                                                 .map((value, index) => (
                                                     <ProductTileSkeleton key={index} />
                                                 ))
-                                            : productSearchResult.hits.map((productSearchItem) => {
+                                            : products.map((product) => {
                                                 const isInWishlist = wishlist?.customerProductListItems
                                                     ?.map(({ productId }) => productId)
-                                                    .includes(productSearchItem.productId)
+                                                    .includes(product.id)
                                                 return (
                                                     <ProductTile
                                                         category={category?.name}
                                                         isWishlistLoading={wishlistLoading.includes(
-                                                            productSearchItem.productId
+                                                            product.id
                                                         )}
-                                                        data-testid={`sf-product-tile-${productSearchItem.productId}`}
-                                                        key={productSearchItem.productId}
-                                                        productSearchItem={productSearchItem}
+                                                        data-testid={`sf-product-tile-${product.id}`}
+                                                        key={product.id}
+                                                        product={product}
                                                         onAddToWishlistClick={() =>
-                                                            addItemToWishlist(productSearchItem)
+                                                            addItemToWishlist(product)
                                                         }
                                                         onRemoveWishlistClick={() => {
-                                                            removeItemFromWishlist(productSearchItem)
+                                                            removeItemFromWishlist(product)
                                                         }}
                                                         onQuickViewClick={() => {
-                                                            getProductDetails(productSearchItem)
+                                                            getProductDetails(product)
                                                         }}
                                                         handleAddToCart={() => {
-                                                            handleAddToCart(productSearchItem);
+                                                            handleAddToCart(product);
                                                         }}
 
                                                         isInWishlist={isInWishlist}
@@ -914,19 +914,20 @@ ProductList.getProps = async ({ res, params, location, api }) => {
     }
 
     const searchParams = parseSearchParams(location.search, false)
-
+    
     if (!searchParams.refine.includes(`cgid=${categoryId}`) && categoryId) {
         searchParams.refine.push(`cgid=${categoryId}`)
     }
 
     // only search master products
     searchParams.refine.push('htype=master')
-
+     if(!searchParams.limit){
+         searchParams.limit = 24
+    }
     // Set the `cache-control` header values to align with the Commerce API settings.
     if (res) {
         res.set('Cache-Control', 'public, must-revalidate, max-age=900')
     }
-
     const [category, productSearchResult] = await Promise.all([
         isSearch
             ? Promise.resolve()
@@ -936,21 +937,49 @@ ProductList.getProps = async ({ res, params, location, api }) => {
         api.shopperSearch.productSearch({
             parameters: searchParams
         })
-    ])
+    ])    
 
     // Apply disallow list to refinements.
     productSearchResult.refinements = productSearchResult.refinements.filter(
         ({ attributeId }) => !REFINEMENT_DISALLOW_LIST.includes(attributeId)
     )
-
+    
     // The `isomorphic-sdk` returns error objects when they occur, so we
     // need to check the category type and throw if required.
     if (category?.type?.endsWith('category-not-found')) {
         throw new HTTPNotFound(category.detail)
     }
+    //Retrieves products from Salesforce Commerce API with keys from productSearchResult.
+    const getProductDetails = async (productSearchResult) => {
+        if (!productSearchResult?.hits){
+            return;
+        }
+        const count = productSearchResult.hits.length;
+        const maxPerRequest = 24;
+        const requestRequired = Math.ceil(count / maxPerRequest);
+        const itemsPerRequest = Math.floor(count / requestRequired);
+        const addOne = count % requestRequired > 0 && count > maxPerRequest;
+        const requests = [];
 
-    return { searchQuery: searchQuery, productSearchResult }
+        for (let i = 0; i < requestRequired; i++){
+            const index = i * itemsPerRequest + (i !== 0 && addOne ? 1 : 0);
+            const count = itemsPerRequest + (i === 0 && addOne ? 1 : 0);
+            const ids = productSearchResult?.hits.slice(index, index + count).map(h => h.productId);
+            requests.push(api.shopperProducts.getProducts({
+                parameters: {
+                    ids: ids.join(','),
+                    perPricebook: true
+                }}));
+        }
+
+        const results = await Promise.all(requests);
+        return results.map(r => r.data).flat();
+    }
+    let products = await getProductDetails(productSearchResult);
+
+    return { searchQuery: searchQuery, productSearchResult, products};
 }
+
 
 const Sort = ({ sortUrls, productSearchResult, basePath, ...otherProps }) => {
     const intl = useIntl()

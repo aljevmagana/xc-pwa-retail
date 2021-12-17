@@ -227,7 +227,6 @@ const ProductDetail = ({category, product, isLoading}) => {
         releaseDate:"2021",
         materials:"Cotton"
     }
-
     return (
         <Box
             className="sf-product-detail-page"
@@ -480,10 +479,11 @@ ProductDetail.getProps = async ({params, location, api}) => {
     product = await api.shopperProducts.getProduct({
         parameters: {
             id: urlParams.get('pid') || productId,
-            allImages: true
+            allImages: true,
+            perPricebook: true
         }
+        
     })
-
     if (product?.primaryCategoryId) {
         category = await api.shopperProducts.getCategory({
             parameters: {id: product?.primaryCategoryId, levels: 1}
