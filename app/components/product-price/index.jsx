@@ -9,8 +9,8 @@ import {
 
 const productPrice = ({pricebook, price, currency, fontSize}) => {
     const intl = useIntl()
-    let minOriginalPrice = pricebook[0]?.minPrice || pricebook[0]?.price;
-    let minDiscountPrice = pricebook[1]?.minPrice || pricebook[1]?.price;
+    let minOriginalPrice = pricebook[0]?.minPrice || pricebook[0]?.price || pricebook.maxPrice;
+    let minDiscountPrice = pricebook[1]?.minPrice || pricebook[1]?.price || price;
     let noSale = false;
     if (minOriginalPrice === minDiscountPrice){
         noSale = true;
