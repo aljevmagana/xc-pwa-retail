@@ -1,26 +1,13 @@
 import React from 'react'
 import {
-    Box,
-    Button,
-    ButtonGroup,
-    FormControl,
-    FormLabel,
-    Image,
-    Input,
-    Textarea,
-    Text,
-    Select,
-    SimpleGrid,
     Stack,
-    StackDivider,
-    VStack,
-    HStack
+    Table,
+    Td,
+    Tr,  
 } from '@chakra-ui/react'
-import {StarIcon} from '@chakra-ui/icons'
 
 const AdditionalInfo = ({product}) => {
     const temporaryAddInfo={
-        productNum:"1234567890",
         packaging:"N/A",
         weight:"2 Pounds",
         dimensions:"1x1x1",
@@ -29,12 +16,13 @@ const AdditionalInfo = ({product}) => {
         releaseDate:"2021",
         materials:"Cotton"
     }
+    console.log(product)
     return(
         <Stack direction={["column", "row"]} fontSize="0.7875rem">
         <Table>
             <Tr>
                 <Td>PRODUCT #</Td>
-                <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.productNum}</Td>
+                <Td color="#868e96" textAlign={["right", "left"]}>{product.master.masterId}</Td>
             </Tr>
             <Tr>
                 <Td >AVAILABLE PACKAGING</Td>
@@ -42,7 +30,7 @@ const AdditionalInfo = ({product}) => {
             </Tr>
             <Tr>
                 <Td>WEIGHT</Td>
-                <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.weight}</Td>
+                <Td color="#868e96" textAlign={["right", "left"]}>{product.c_unitWeight || temporaryAddInfo.weight}</Td>
             </Tr>
             <Tr>
                 <Td >DIMENSIONS</Td>
@@ -56,7 +44,7 @@ const AdditionalInfo = ({product}) => {
             </Tr>
             <Tr>
                 <Td >MANUFACTURER</Td>
-                <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.manufacturer}</Td>
+                <Td color="#868e96" textAlign={["right", "left"]}>{product.manufacturerName || temporaryAddInfo.manufacturer}</Td>
             </Tr>
             <Tr>
                 <Td >RELEASE DATE</Td>

@@ -21,9 +21,6 @@ import {
     TabPanels,
     Tab,
     TabPanel,
-    Table,
-    Td,
-    Tr,
     Text,
     Stack,
 } from '@chakra-ui/react'
@@ -242,10 +239,10 @@ const ProductDetail = ({category, product, isLoading}) => {
                                 <Text color="#868e96" fontSize="0.9rem">{product?.longDescription}</Text>
                             </TabPanel>
                             <TabPanel mb={6} mt={4}>
-                                <AdditionalInfo />
+                                <AdditionalInfo product={product}/>
                             </TabPanel>
                             <TabPanel mb={6} mt={4} maxWidth={["100%", "83.33%"]}>
-                                <Reviews product={product} />
+                                <Reviews />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
