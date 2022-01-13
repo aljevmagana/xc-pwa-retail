@@ -15,6 +15,7 @@ import {
     Skeleton,
     Box,
     Text,
+    Badge,
     Stack,
     VStack,
     HStack,
@@ -46,6 +47,7 @@ import RecommendedProducts from '../../components/recommended-products'
 import {HideOnDesktop, HideOnMobile} from '../../components/responsive'
 import {BasketIcon} from '../../components/icons'
 import ProductPrice from '../../components/product-price'
+import CustomBadge from '../../components/custom-badge'
 
 const ProductViewHeader = ({name, price, pricebook, currency, description, promotion}) => {
     const intl = useIntl()
@@ -320,9 +322,12 @@ const ProductView = ({
                 )}
             </HideOnDesktop>
             <Flex direction={['column', 'column', 'column', 'row']}>
-                <Box flex={1} mr={[0, 0, 0, 8, 8]}>
+                <Box flex={1} mr={[0, 0, 0, 8, 8]} position={'relative'}>
                     {product ? (
                         <>
+                            {
+                               (product?.c_isNew) ? <Badge variant="plpBadge">Fresh</Badge> : (product?.c_badge) ? (<CustomBadge product={product}/>) : ''
+                            }
                             <ImageGallery
                                 size={imageSize}
                                 imageGroups={product.imageGroups}

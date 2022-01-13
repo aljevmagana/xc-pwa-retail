@@ -100,7 +100,7 @@ const Checkout = () => {
                             <Payment paymentContainer={paymentContainer} />
 
                             {step === 3 && (
-                                <Box pt={3} display={{base: 'none', lg: 'block'}}>
+                                <Box p={3} display={{base: 'none', lg: 'block'}}>
                                     <Container variant="form">
                                         <Button
                                             w="full"

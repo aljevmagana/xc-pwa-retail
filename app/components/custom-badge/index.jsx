@@ -13,22 +13,19 @@ import {Link} from 'react-router-dom'
 import {ChevronRightIcon} from '../icons'
 
 /**
- * BasicTile component is used on content pages like home page.
+ * CustomBadge component is used on content pages like home page.
  * This component is used to promote categories, it consistents
  * of an image and a category title link.
  */
-const CustomBadge = () => {
+const CustomBadge = ({product}) => {
     const styles = useStyleConfig('CustomBadge')
     return (
-        <Box>
-        <div class="ribbon ribbon-info">{...styles.ribbon} Fresh</div>
+        <Box {...styles.ribbon} className="ribbon ribbon-info">
+            {product?.c_badge}
         </Box>
     )
 }
 
 CustomBadge.displayName = 'CustomBadge'
-
-BasicTile.propTypes = {
-}
 
 export default CustomBadge

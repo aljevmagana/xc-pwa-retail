@@ -46,6 +46,7 @@ import { productUrlBuilder } from '../../utils/url'
 import Link from '../link'
 import withRegistration from '../../hoc/with-registration'
 import ProductPrice from '../product-price'
+import CustomBadge from '../custom-badge'
 import { useVariant, useVariationAttributes } from '../../hooks';
 
 const IconButtonWithRegistration = withRegistration(IconButton)
@@ -108,8 +109,8 @@ const ProductTile = (props) => {
                 <Box>
                     <Box className={'plp-sub-product-tile-container'} {...styles.imageWrapper}>
                         {
-                            /* For Update Once the Actual Field is available this needs to be dynamic */
-                            (product?.price < 70) ? <Badge variant="plpBadge">Fresh</Badge> : ""
+
+                            (product?.c_isNew) ? <Badge variant="plpBadge">Fresh</Badge> : (product?.c_badge) ? (<CustomBadge product={product}/>) : ''
 
                         }
                         <AspectRatio {...styles.image} ratio={9 / 14}>
