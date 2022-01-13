@@ -98,6 +98,7 @@ const Account = () => {
             data-testid={customer.isRegistered ? 'account-page' : 'account-page-skeleton'}
             layerStyle="page"
             paddingTop={20}
+            paddingBottom={20}
             maxW={'1140px'}
             px={{base: '10px'}}
         >
