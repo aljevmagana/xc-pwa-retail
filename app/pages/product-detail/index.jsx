@@ -22,7 +22,7 @@ import {
     Tab,
     TabPanel,
     Text,
-    Stack,
+    Stack
 } from '@chakra-ui/react'
 
 // Hooks
@@ -196,10 +196,10 @@ const ProductDetail = ({category, product, isLoading}) => {
             layerStyle="page"
             data-testid="product-details-page"
             justifyContent="center"
-            pt={["1rem", "2.5%"]}
+            pt={['1rem', '2.5%']}
             pl="15px"
             pr="15px"
-            maxWidth={["none","540px","720px", "960px", "1140px"]}
+            maxWidth={['none', '540px', '720px', '960px', '1140px']}
         >
             <Helmet>
                 <title>{product?.pageTitle}</title>
@@ -218,38 +218,54 @@ const ProductDetail = ({category, product, isLoading}) => {
 
                 {/* Information Tabs */}
                 <Center>
-                <Stack direction="row" w="100%" align="center">
-                    <Tabs w="100%" color="#868e96">
-                        <TabList borderBottom="1px">
-                            {/* Details */}
-                            <Tab textTransform="uppercase" letterSpacing={[0, ".1em"]} fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
-                                Description
-                            </Tab>
-                            {/* Size & Fit */}
-                            <Tab textTransform="uppercase" letterSpacing={[0, ".1em"]} fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
-                                Additional Information
-                            </Tab>
-                            {/* Reviews */}
-                            <Tab textTransform="uppercase" letterSpacing={[0, ".1em"]} fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
-                                Reviews
-                            </Tab>
-                        </TabList>
-                        <TabPanels>
-                            <TabPanel mb={6} mt={4}>
-                                <Text color="#868e96" fontSize="0.9rem">{product?.longDescription}</Text>
-                            </TabPanel>
-                            <TabPanel mb={6} mt={4}>
-                                <AdditionalInfo product={product}/>
-                            </TabPanel>
-                            <TabPanel mb={6} mt={4} maxWidth={["100%", "83.33%"]}>
-                                <Reviews />
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
-                    <Box display={['none', 'none', 'none', 'block']} flex={4}></Box>
-                </Stack>
+                    <Stack direction="row" w="100%" align="center">
+                        <Tabs w="100%" color="#868e96">
+                            <TabList borderBottom="1px">
+                                {/* Details */}
+                                <Tab
+                                    textTransform="uppercase"
+                                    letterSpacing={[0, '.1em']}
+                                    fontSize=".8rem"
+                                    _selected={{color: 'black', borderColor: 'currentColor'}}
+                                >
+                                    Description
+                                </Tab>
+                                {/* Size & Fit */}
+                                <Tab
+                                    textTransform="uppercase"
+                                    letterSpacing={[0, '.1em']}
+                                    fontSize=".8rem"
+                                    _selected={{color: 'black', borderColor: 'currentColor'}}
+                                >
+                                    Additional Information
+                                </Tab>
+                                {/* Reviews */}
+                                <Tab
+                                    textTransform="uppercase"
+                                    letterSpacing={[0, '.1em']}
+                                    fontSize=".8rem"
+                                    _selected={{color: 'black', borderColor: 'currentColor'}}
+                                >
+                                    Reviews
+                                </Tab>
+                            </TabList>
+                            <TabPanels>
+                                <TabPanel mb={6} mt={4}>
+                                    <Text color="#868e96" fontSize="0.9rem">
+                                        {product?.longDescription}
+                                    </Text>
+                                </TabPanel>
+                                <TabPanel mb={6} mt={4}>
+                                    {!!product && <AdditionalInfo product={product} />}
+                                </TabPanel>
+                                <TabPanel mb={6} mt={4} maxWidth={['100%', '83.33%']}>
+                                    <Reviews />
+                                </TabPanel>
+                            </TabPanels>
+                        </Tabs>
+                        <Box display={['none', 'none', 'none', 'block']} flex={4}></Box>
+                    </Stack>
                 </Center>
-                
 
                 {/* Product Recommendations */}
                 <Stack spacing={16}>
@@ -305,7 +321,6 @@ ProductDetail.getProps = async ({params, location, api}) => {
             allImages: true,
             perPricebook: true
         }
-        
     })
     if (product?.primaryCategoryId) {
         category = await api.shopperProducts.getCategory({

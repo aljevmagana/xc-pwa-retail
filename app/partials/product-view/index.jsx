@@ -29,10 +29,7 @@ import {
     NumberDecrementStepper,
 } from '@chakra-ui/react'
 import {StarIcon} from '@chakra-ui/icons'
-import {
-    FaHeart,
-    FaRegHeart
-} from 'react-icons/fa';
+import {FaHeart, FaRegHeart} from 'react-icons/fa'
 import {useProduct} from '../../hooks'
 // project components
 import SwatchGroup from '../../components/swatch-group'
@@ -51,30 +48,47 @@ import CustomBadge from '../../components/custom-badge'
 
 const ProductViewHeader = ({name, price, pricebook, currency, description, promotion}) => {
     const intl = useIntl()
-    const tempReviews ={
+    const tempReviews = {
         reviewCount: 25,
-        rating: 4,
+        rating: 4
     }
     return (
-        <VStack spacing={[2,6]} align="flex-start" marginBottom={[4, 4, 4, 0, 0]} marginTop={["5%", "0%"]}>
+        <VStack
+            spacing={[2, 6]}
+            align="flex-start"
+            marginBottom={[4, 4, 4, 0, 0]}
+            marginTop={['5%', '0%']}
+        >
             {/* Title */}
-                <Skeleton isLoaded={name}>
-                    <Text fontSize={["2.5rem","2.7rem"]} lineHeight="1.1" color="#212529" fontWeight="700">{`${name}`}</Text>
-                </Skeleton>
+            <Skeleton isLoaded={name}>
+                <Text
+                    fontSize={['2.5rem', '2.7rem']}
+                    lineHeight="1.1"
+                    color="#212529"
+                    fontWeight="700"
+                >{`${name}`}</Text>
+            </Skeleton>
             {/* Price */}
             <Skeleton isLoaded={price} >
                 <Box marginBottom="20px">
-                    <Stack direction={["column", "row"]} spacing={["0%","25%"]}>
-                        {!!price && !!pricebook && <ProductPrice price={price} pricebook={pricebook} currency={currency} fontSize={["1.35rem", "0.9rem"]}/>}
+                    <Stack direction={['column', 'row']} spacing={['0%', '25%']}>
+                        {!!price && !!pricebook && (
+                            <ProductPrice
+                                price={price}
+                                pricebook={pricebook}
+                                currency={currency}
+                                fontSize={['1.35rem', '0.9rem']}
+                            />
+                        )}
                         <Box display="flex" mt="2" alignItems="center">
                             {Array(5)
-                                .fill("")
+                                .fill('')
                                 .map((_, i) => (
-                                <StarIcon
-                                    key={i}
-                                    color={i < tempReviews.rating ? "purple.500" : "gray.300"}
-                                    m="0.9"
-                                />
+                                    <StarIcon
+                                        key={i}
+                                        color={i < tempReviews.rating ? 'purple.500' : 'gray.300'}
+                                        m="0.9"
+                                    />
                                 ))}
                             <Box color="gray.600" fontSize="sm" w="100px" pl="5px">
                                 {tempReviews.reviewCount} REVIEWS
@@ -88,20 +102,27 @@ const ProductViewHeader = ({name, price, pricebook, currency, description, promo
                     </Box>
                 </Skeleton>
                 <Skeleton isLoaded={promotion}>
-                    <Box marginBottom="15px" textAlign="left" fontSize="0.9rem" maxWidth="450" color="red" fontWeight="bold">
+                    <Box
+                        marginBottom="15px"
+                        textAlign="left"
+                        fontSize="0.9rem"
+                        maxWidth="450"
+                        color="red"
+                        fontWeight="bold"
+                    >
                         {promotion?.map((promo) => (
                             <Text key={promo?.id} fontSize="0.7875rem">
-                            {promo?.calloutMsg}
+                                {promo?.calloutMsg}
                             </Text>
                         ))}
                     </Box>
-                </Skeleton>  
-            </Skeleton>            
+                </Skeleton>
+            </Skeleton>
         </VStack>
     )
 }
 const SwatchItems = ({variationAttributes, showLoading, history}) => {
-    return(
+    return (
         <>
             {/*
                 Customize the skeletons shown for attributes to suit your needs. At the point
@@ -120,16 +141,11 @@ const SwatchItems = ({variationAttributes, showLoading, history}) => {
                 </>
             ) : (
                 <>
-                    {/* Attribute Swatches */}
-                    {variationAttributes.map((variationAttribute) => {
-                        const {
-                            id,
-                            name,
-                            selectedValue,
-                            values = []
-                        } = variationAttribute
-                        {/*Data passed through for Swatches is Color, Size then Width 
+                    {/* Attribute Swatches
+                        Data passed through for Swatches is Color, Size then Width 
                         causes unsavory loading when reversed or altered on frontend */}
+                    {variationAttributes.map((variationAttribute) => {
+                        const {id, name, selectedValue, values = []} = variationAttribute
                         return (
                             <SwatchGroup
                                 key={id}
@@ -159,9 +175,7 @@ const SwatchItems = ({variationAttributes, showLoading, history}) => {
                                                 backgroundSize="cover"
                                                 backgroundColor={name.toLowerCase()}
                                                 backgroundImage={
-                                                    image
-                                                        ? `url(${image.disBaseLink})`
-                                                        : ''
+                                                    image ? `url(${image.disBaseLink})` : ''
                                                 }
                                             />
                                         ) : (
@@ -256,20 +270,18 @@ const ProductView = ({
                     marginBottom={[0, 4]}
                     background="#343a40"
                     color="white"
-                    padding={"2rem 1.5rem 2rem 1.5rem"}
+                    padding={'2rem 1.5rem 2rem 1.5rem'}
                     marginTop={4}
                     fontSize="0.7875rem"
                     letterSpacing=".3em"
                     border="1px"
                     _hover={{
-                        background: "black",
-                        color: "white",
-                      }}
+                        background: 'black',
+                        color: 'white'
+                    }}
                 >
-                    <BasketIcon pr="5px"/>
-                    {updateCart
-                        ? <Text>UPDATE</Text>
-                        : <Text  >ADD TO CART</Text>}
+                    <BasketIcon pr="5px" />
+                    {updateCart ? <Text>UPDATE</Text> : <Text>ADD TO CART</Text>}
                 </Button>
             )
         }
@@ -282,25 +294,24 @@ const ProductView = ({
                     disabled={isCustomerProductListLoading || !canAddToWishlist}
                     isLoading={isCustomerProductListLoading}
                     variant="outline"
-                    ml={["0px", "10px"]}
-                    marginTop={["5px", "0px"]}
+                    ml={['0px', '10px']}
+                    marginTop={['5px', '0px']}
                     fontSize="0.6875rem"
                     color="gray"
-                    padding="0.6rem" 
+                    padding="0.6rem"
                     type="submit"
                     letterSpacing=".3em"
                     _hover={{
-                        background: "gray",
-                        color: "white",
-                      }}
+                        background: 'gray',
+                        color: 'white'
+                    }}
                 >
-                    {updateWishlist
-                    ? <FaHeart /> :
-                    <FaRegHeart />
-                }
-                    {updateWishlist
-                        ? <Text paddingLeft="5px">UPDATE</Text>
-                        : <Text paddingLeft="5px">ADD TO WISHLIST</Text>}
+                    {updateWishlist ? <FaHeart /> : <FaRegHeart />}
+                    {updateWishlist ? (
+                        <Text paddingLeft="5px">UPDATE</Text>
+                    ) : (
+                        <Text paddingLeft="5px">ADD TO WISHLIST</Text>
+                    )}
                 </ButtonWithRegistration>
             )
         }
@@ -315,7 +326,7 @@ const ProductView = ({
     return (
         <Flex direction={'column'} data-testid="product-view">
             <HideOnDesktop>
-            {category && (
+                {category && (
                     <Skeleton isLoaded={category}>
                         <Breadcrumb categories={category} />
                     </Skeleton>
@@ -349,38 +360,50 @@ const ProductView = ({
                         <ImageGallerySkeleton />
                     )}
                 </Box>
-             
+
                 {/* Variations & Quantity Selector */}
-                <VStack align="stretch" flex={1} marginBottom={[8, 8, 8, 0, 0]} w={["100%","25%"]}>
+                <VStack align="stretch" flex={1} marginBottom={[8, 8, 8, 0, 0]} w={['100%', '25%']}>
                     <HideOnMobile>
                         {category && (
-                        <Skeleton isLoaded={category}>
-                            <Breadcrumb categories={category} />
-                        </Skeleton>
+                            <Skeleton isLoaded={category}>
+                                <Breadcrumb categories={category} />
+                            </Skeleton>
                         )}
                     </HideOnMobile>
-                        <Box position="sticky" top="20px" zIndex={2} display={'block'}>
-                            <Box display={'block'}>
-                            {/* Basic information etc. title, price, breadcrumb*/}     
-                                <ProductViewHeader
-                                    name={product?.name}
-                                    price={product?.price}
-                                    pricebook={product?.priceRanges || product?.tieredPrices}
-                                    currency={product?.currency}
-                                    category={category}
-                                    description={product?.shortDescription || product?.pageDescription}
-                                    promotion={product?.productPromotions}
-                                />
-                            </Box>
-                            <VStack align="stretch">
-                                <SwatchItems variationAttributes={variationAttributes} showLoading={showLoading} history={history}/>
-                                {/* Quantity Selector */}
-                            <Box marginBottom={["1rem", "3rem"]}>
+                    <Box position="sticky" top="20px" zIndex={2} display={'block'}>
+                        <Box display={'block'}>
+                            {/* Basic information etc. title, price, breadcrumb*/}
+                            <ProductViewHeader
+                                name={product?.name}
+                                price={product?.price}
+                                pricebook={product?.priceRanges || product?.tieredPrices}
+                                currency={product?.currency}
+                                category={category}
+                                description={product?.shortDescription || product?.pageDescription}
+                                promotion={product?.productPromotions}
+                            />
+                        </Box>
+                        <VStack align="stretch">
+                            <SwatchItems
+                                variationAttributes={variationAttributes}
+                                showLoading={showLoading}
+                                history={history}
+                            />
+                            {/* Quantity Selector */}
+                            <Box marginBottom={['1rem', '3rem']}>
                                 <VStack align="stretch" maxWidth={'125px'}>
                                     <Box fontWeight="600">
                                         <HStack spacing="4px">
-                                            <Text fontSize=".9rem" letterSpacing="0.1em" textTransform="uppercase">Items</Text>
-                                            <Text fontSize=".8rem" color="gray.600">(required)</Text>
+                                            <Text
+                                                fontSize=".9rem"
+                                                letterSpacing="0.1em"
+                                                textTransform="uppercase"
+                                            >
+                                                Items
+                                            </Text>
+                                            <Text fontSize=".8rem" color="gray.600">
+                                                (required)
+                                            </Text>
                                         </HStack>
                                     </Box>
                                     <NumberInput
@@ -401,32 +424,31 @@ const ProductView = ({
                                         </NumberInputStepper>
                                     </NumberInput>
                                 </VStack>
-                             </Box>
-                                <HideOnDesktop>
-                                    {showFullLink && product && (
-                                        <Link to={`/product/${product.master.masterId}`}>
-                                            <Text color="gray.600">
-                                                {intl.formatMessage({
-                                                    defaultMessage: 'See full details'
-                                                })}
-                                            </Text>
-                                        </Link>
-                                    )}
-                                </HideOnDesktop>
-                            </VStack>
-
-                            <Box display='block' alignItems="center">
-                                {!showLoading && showInventoryMessage && (
-                                    <Fade in={true}>
-                                        <Text color="orange.600" fontWeight={600} marginBottom={8}>
-                                            {inventoryMessage}
-                                        </Text>
-                                    </Fade>
-                                )}
-                                {renderActionButtons()}
                             </Box>
+                            <HideOnDesktop>
+                                {showFullLink && product && (
+                                    <Link to={`/product/${product.master.masterId}`}>
+                                        <Text color="gray.600">
+                                            {intl.formatMessage({
+                                                defaultMessage: 'See full details'
+                                            })}
+                                        </Text>
+                                    </Link>
+                                )}
+                            </HideOnDesktop>
+                        </VStack>
+
+                        <Box display="block" alignItems="center">
+                            {!showLoading && showInventoryMessage && (
+                                <Fade in={true}>
+                                    <Text color="orange.600" fontWeight={600} marginBottom={8}>
+                                        {inventoryMessage}
+                                    </Text>
+                                </Fade>
+                            )}
+                            {renderActionButtons()}
                         </Box>
-                    
+                    </Box>
                 </VStack>
             </Flex>
 
