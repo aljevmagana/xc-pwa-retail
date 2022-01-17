@@ -10,34 +10,19 @@ import PropTypes from 'prop-types'
 import {Helmet} from 'react-helmet'
 import {FormattedMessage, useIntl} from 'react-intl'
 import useNavigation from '../../hooks/use-navigation'
-import {StarIcon} from '@chakra-ui/icons'
 
 // Components
 import {
     Box,
     Button,
-    ButtonGroup,
     Center,
-    FormControl,
-    FormLabel,
-    Image,
-    Input,
     Tabs,
     TabList,
     TabPanels,
     Tab,
     TabPanel,
-    Table,
-    Td,
-    Tr,
-    Textarea,
     Text,
-    Select,
-    SimpleGrid,
-    Stack,
-    StackDivider,
-    VStack,
-    HStack
+    Stack
 } from '@chakra-ui/react'
 
 // Hooks
@@ -49,6 +34,8 @@ import useEinstein from '../../commerce-api/hooks/useEinstein'
 // Project Components
 import RecommendedProducts from '../../components/recommended-products'
 import ProductView from '../../partials/product-view'
+import Reviews from '../../components/pdp-tabs/reviews'
+import AdditionalInfo from '../../components/pdp-tabs/additional-info'
 
 // Others/Utils
 import {HTTPNotFound} from 'pwa-kit-react-sdk/ssr/universal/errors'
@@ -203,40 +190,16 @@ const ProductDetail = ({category, product, isLoading}) => {
         history.replace(updatedUrl)
     }, [variant])
 
-    const temporaryReviews= [{
-        name:"Han Solo",
-        rating:"4",
-        reviewText:"a falcon every thousand years",
-        image:"",
-        date:"OCT 2021"
-    },{
-        name:"Luke Skywalker",
-        rating:"5",
-        reviewText:"Not your son",
-        image:"",
-        date:"OCT 2021"
-    }]
-
-    const temporaryAddInfo={
-        productNum:"1234567890",
-        packaging:"N/A",
-        weight:"2 Pounds",
-        dimensions:"1x1x1",
-        origin:"Taiwan",
-        manufacturer:"Enigma Industries",
-        releaseDate:"2021",
-        materials:"Cotton"
-    }
     return (
         <Box
             className="sf-product-detail-page"
             layerStyle="page"
             data-testid="product-details-page"
             justifyContent="center"
-            pt={["1rem", "2.5%"]}
+            pt={['1rem', '2.5%']}
             pl="15px"
             pr="15px"
-            maxWidth={["none","540px","720px", "960px", "1140px"]}
+            maxWidth={['none', '540px', '720px', '960px', '1140px']}
         >
             <Helmet>
                 <title>{product?.pageTitle}</title>
@@ -255,178 +218,54 @@ const ProductDetail = ({category, product, isLoading}) => {
 
                 {/* Information Tabs */}
                 <Center>
-                <Stack direction="row" w="100%" align="center">
-                    <Tabs w="100%" color="#868e96">
-                        <TabList borderBottom="1px">
-                            {/* Details */}
-                            <Tab textTransform="uppercase" letterSpacing={[0, ".1em"]} fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
-                                Description
-                            </Tab>
-                            {/* Size & Fit */}
-                            <Tab textTransform="uppercase" letterSpacing={[0, ".1em"]} fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
-                                Additional Information
-                            </Tab>
-                            {/* Reviews */}
-                            <Tab textTransform="uppercase" letterSpacing={[0, ".1em"]} fontSize=".8rem" _selected={{ color: "black", borderColor:"currentColor"}}>
-                                Reviews
-                            </Tab>
-                        </TabList>
-                        <TabPanels>
-                            <TabPanel mb={6} mt={4}>
-                                <Text color="#868e96" fontSize="0.9rem">{product?.longDescription}</Text>
-                            </TabPanel>
-                            <TabPanel mb={6} mt={4}>
-                                <Stack direction={["column", "row"]} fontSize="0.7875rem">
-                                    <Table>
-                                        <Tr>
-                                            <Td>PRODUCT #</Td>
-                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.productNum}</Td>
-                                        </Tr>
-                                        <Tr>
-                                            <Td >AVAILABLE PACKAGING</Td>
-                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.packaging}</Td>
-                                        </Tr>
-                                        <Tr>
-                                            <Td>WEIGHT</Td>
-                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.weight}</Td>
-                                        </Tr>
-                                        <Tr>
-                                            <Td >DIMENSIONS</Td>
-                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.dimensions}</Td>
-                                        </Tr>
-                                    </Table>
-                                    <Table>
-                                        <Tr>
-                                            <Td>ORIGIN</Td>
-                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.origin}</Td>
-                                        </Tr>
-                                        <Tr>
-                                            <Td >MANUFACTURER</Td>
-                                            <Td color="#868e96" textAlign={["right", "left"]}>{temporaryAddInfo.manufacturer}</Td>
-                                        </Tr>
-                                        <Tr>
-                                            <Td >RELEASE DATE</Td>
-                                            <Td color="#868e96"  textAlign={["right", "left"]}>{temporaryAddInfo.releaseDate}</Td>
-                                        </Tr>
-                                        <Tr>
-                                            <Td >MATERIALS</Td>
-                                            <Td color="#868e96" textAlign={["right", "left"]} >{temporaryAddInfo.materials}</Td>
-                                        </Tr>
-                                    </Table>
-                                </Stack>
-                            </TabPanel>
-                            <TabPanel mb={6} mt={4} maxWidth={["100%", "83.33%"]}>
-                                <VStack
-                                  divider={<StackDivider borderColor="gray.200" />}
-                                  spacing={4}
-                                  align="stretch"
-                                  > 
-                                {temporaryReviews.map((r, i)  => {
-                                    return(<>
-                                        <Box maxW="lg" overflow="hidden" key={r.name + i}>
-                                            <HStack>
-                                                <Box alignItems="center" textAlign="center">
-                                                <Image
-                                                    borderRadius="full"
-                                                    boxSize="115px"
-                                                    src="https://bit.ly/sage-adebayo"
-                                                    alt="Segun Adebayo"
-                                                    p="7px"
-                                                    border="solid 1px rgba(0, 0, 0, 0.125)"
-                                                />
-                                                    <Text fontSize="14" mt="1">{r.date}</Text>
-                                                </Box>
-                                                <Box m="5" >
-                                                    <Text m="5" mb="0" as="h4" size="md" fontSize="1.125rem">{r.name}</Text>
-                                                    <Box display="flex" ml="5" mt="1">
-                                                                {Array(5)
-                                                                    .fill("")
-                                                                    .map((_, i) => (
-                                                                    <StarIcon
-                                                                        boxSize="3"
-                                                                        key={i}
-                                                                        color={i < r.rating ? "#ffd65a" : "gray.300"}
-                                                                        m="0.9"
-                                                                        
-                                                                    />
-                                                                    ))}
-                                                            </Box>
-                                                    <Text m="5" mt="2" fontSize="0.9rem">{r.reviewText}</Text>
-                                                </Box>
-                                            </HStack>
-                                        </Box>
-                                    </>
-                                )})}
-                                    <Stack spacing={4}>
-                                            <h1>
-                                                <b>Leave a Review</b>
-                                            </h1>
-                                            <Box
-                                                color="#868e96"
-                                                fontWeight="normal"
-                                                letterSpacing="wide"
-                                                fontSize="0.9rem"
-                                                textTransform="uppercase"
-                                                ml="2"
-                                            >
-                                                <form>
-                                                <Stack spacing={4}>
-                                                    <SimpleGrid columns={2} spacing={10}>
-                                                        <Box>
-                                                            <FormControl isRequired>
-                                                                <FormLabel fontWeight="normal">Your Name</FormLabel>
-                                                                <Input fontSize="0.9rem" placeholder="Enter your name" />
-                                                            </FormControl>
-                                                        </Box>
-                                                        <Box textAlign="left">
-                                                            <VStack alignItems="left">
-                                                                <Text fontWeight="normal">Your Rating * </Text>
-                                                                <Select color="#495057" fontSize="0.9rem">
-                                                                    <option value="star5">★★★★★(5/5)</option>
-                                                                    <option value="star4">★★★★☆(4/5)</option>
-                                                                    <option value="star3">★★★☆☆(3/5)</option>
-                                                                    <option value="star2">★★☆☆☆(2/5)</option>
-                                                                    <option value="star1">★☆☆☆☆(1/5)</option>
-                                                                </Select>
-                                                            </VStack>
-                                                        </Box>
-                                                    </SimpleGrid>
-                                                    <FormControl isRequired>
-                                                        <FormLabel fontWeight="normal">Your Email</FormLabel>
-                                                        <Input fontSize="0.9rem" placeholder="Enter your email" />
-                                                    </FormControl>
-                                                    <FormControl isRequired>
-                                                        <FormLabel fontWeight="normal">Review Text</FormLabel>
-                                                        <Textarea fontSize="0.9rem" placeholder="Enter your review" />
-                                                    </FormControl>
-                                                    <ButtonGroup variant="outline">
-                                                        <Button 
-                                                            color="#343a40" 
-                                                            width="125px"  
-                                                            type="submit"
-                                                            fontSize="0.6875rem"
-                                                            letterSpacing=".3em"
-                                                            textTransform="uppercase"
-                                                            _hover={{
-                                                                background: "black",
-                                                                color: "white",
-                                                            }}
-                                                        >
-                                                            Post Review
-                                                        </Button>
-                                                    </ButtonGroup>
-                                                </Stack>
-                                                </form>
-                                            </Box>
-                                    </Stack>
-                                </VStack>
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
-                    <Box display={['none', 'none', 'none', 'block']} flex={4}></Box>
-                </Stack>
+                    <Stack direction="row" w="100%" align="center">
+                        <Tabs w="100%" color="#868e96">
+                            <TabList borderBottom="1px">
+                                {/* Details */}
+                                <Tab
+                                    textTransform="uppercase"
+                                    letterSpacing={[0, '.1em']}
+                                    fontSize=".8rem"
+                                    _selected={{color: 'black', borderColor: 'currentColor'}}
+                                >
+                                    Description
+                                </Tab>
+                                {/* Size & Fit */}
+                                <Tab
+                                    textTransform="uppercase"
+                                    letterSpacing={[0, '.1em']}
+                                    fontSize=".8rem"
+                                    _selected={{color: 'black', borderColor: 'currentColor'}}
+                                >
+                                    Additional Information
+                                </Tab>
+                                {/* Reviews */}
+                                <Tab
+                                    textTransform="uppercase"
+                                    letterSpacing={[0, '.1em']}
+                                    fontSize=".8rem"
+                                    _selected={{color: 'black', borderColor: 'currentColor'}}
+                                >
+                                    Reviews
+                                </Tab>
+                            </TabList>
+                            <TabPanels>
+                                <TabPanel mb={6} mt={4}>
+                                    <Text color="#868e96" fontSize="0.9rem">
+                                        {product?.longDescription}
+                                    </Text>
+                                </TabPanel>
+                                <TabPanel mb={6} mt={4}>
+                                    {!!product && <AdditionalInfo product={product} />}
+                                </TabPanel>
+                                <TabPanel mb={6} mt={4} maxWidth={['100%', '83.33%']}>
+                                    <Reviews />
+                                </TabPanel>
+                            </TabPanels>
+                        </Tabs>
+                        <Box display={['none', 'none', 'none', 'block']} flex={4}></Box>
+                    </Stack>
                 </Center>
-                
 
                 {/* Product Recommendations */}
                 <Stack spacing={16}>
@@ -482,7 +321,6 @@ ProductDetail.getProps = async ({params, location, api}) => {
             allImages: true,
             perPricebook: true
         }
-        
     })
     if (product?.primaryCategoryId) {
         category = await api.shopperProducts.getCategory({
